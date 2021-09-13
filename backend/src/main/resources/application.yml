@@ -10,3 +10,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+api:
+  security:
+    jwt:
+      key:"eyJhdXRob3JpdGllcyI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiJ9"
