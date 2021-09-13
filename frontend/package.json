@@ -8,6 +8,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "emailjs-com": "^2.6.4",
+    "eslint": "^7.32.0",
+    "eslint-config-react-app": "^6.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "^4.0.2",
