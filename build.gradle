@@ -1,0 +1,29 @@
+apply plugin: 'idea'
+
+idea {
+    module {
+        downloadSources = true
+    }
+}
+
+task clean(dependsOn: [':frontend:clean', ':backend:clean'], type: Delete) {
+    delete project.buildDir
+}
+
+// We need to build the front end first in order to copy resources to the project dir. DependsOn itself doesn't ensure order. See more: https://stackoverflow.com/a/19682130
+task buildForProduction(dependsOn: [ clean, ':frontend:build', ':backend:build']) {
+    mustRunAfter(clean, ':frontend:build')
+}
+
+task copyProductionArtifact(type: Copy) {
+    from "${project(':backend').buildDir}"
+
+    into project.buildDir
+}
+
+task stage(
+    dependsOn: [
+        buildForProduction,
+        copyProductionArtifact
+    ]
+)

@@ -1,0 +1,6 @@
+rootProject.name = 'agenda-quiro'
+
+include(
+        "frontend",
+        "backend"
+)

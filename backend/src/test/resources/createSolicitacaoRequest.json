@@ -1,0 +1,13 @@
+{
+  "requester": {
+    "nameCompleted": "",
+    "cellphone": "",
+    "email":""
+
+  },
+  "residueAddress": {
+    "cep": "",
+    "locationInfo":""
+
+  }
+}
