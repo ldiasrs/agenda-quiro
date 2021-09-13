@@ -16,8 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -41,61 +39,22 @@ import static java.util.Collections.singletonList;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String[] allowedTokensMode = {"JWT", "XSRF-TOKEN", "API_KEY", "SESSION_ID"};
-
-    private String securityMode;
-    private String apiKeyHeaderName;
-    private String apiKeyValue;
     private String jwtKey;
 
-    public SecurityConfig(@Value("${api.security.mode}") String securityMode,
-                          @Value("${api.security.apikey.headername}") String apiKeyHeaderName,
-                          @Value("${api.security.apikey.secretvalue}") String apiKeyValue,
-                          @Value("${api.security.jwt.key}") String jwtKey) {
+    public SecurityConfig(@Value("${api.security.jwt.key}") String jwtKey) {
         this.jwtKey = jwtKey;
-        validateConfig(apiKeyHeaderName, apiKeyValue, securityMode);
-        this.securityMode = securityMode;
-        this.apiKeyHeaderName = apiKeyHeaderName;
-        this.apiKeyValue = apiKeyValue;
-    }
-
-    private void validateConfig(String securityMode, String httpAuthTokenHeaderName, String principalRequestValue) {
-        if (StringUtils.isEmpty(httpAuthTokenHeaderName) || StringUtils.isEmpty(principalRequestValue)) {
-            throw new RuntimeException("ENV variables should be defined: API_KEY_HEADER_NAME, API_KEY");
-        }
-        Arrays.stream(allowedTokensMode).sequential()
-                .filter(allowedTokensMode -> allowedTokensMode.equals(securityMode))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Allowed token mode should be " + Arrays.toString(allowedTokensMode)));
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         defineCorsConfig(http);
         defineAthorizationConfig(http);
-        switch (securityMode) {
-            case "JWT":
-                addLogFilters(http);
-                disableCorsSessionIdToken(http);
-                disableCsrf(http);
-                defineJWTAccessTokenConfiguration(http);
-                break;
-            case "API_KEY":
-                disableCorsSessionIdToken(http);
-                disableCsrf(http);
-                defineApiKeyAccessConfiguration(http);
-                break;
-            case "SESSION_ID":
-                disableCsrf(http);
-                enableCorsSessionIdToken(http);
-        }
+        addLogFilters(http);
+        disableCorsSessionIdToken(http);
+        disableCsrf(http);
+        defineJWTAccessTokenConfiguration(http);
     }
 
-
-
-    private void enableCorsSessionIdToken(HttpSecurity http) throws Exception {
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
-    }
 
     private void disableCorsSessionIdToken(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -157,11 +116,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().httpBasic();
         //o restante de todos os acesso sao negados
         http.authorizeRequests().antMatchers("/**").denyAll();
-    }
-
-    private void defineApiKeyAccessConfiguration(HttpSecurity http) {
-        APIKeyAuthValidatorFilter apiKeyValidatorFilter = new APIKeyAuthValidatorFilter(this.apiKeyHeaderName, this.apiKeyValue);
-        http.addFilterBefore(apiKeyValidatorFilter, BasicAuthenticationFilter.class);
     }
 
     private void addLogFilters(HttpSecurity http) {
@@ -226,16 +180,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 configuration.setMaxAge(3600L);
                 //Aceita credinciais de segurança
                 configuration.setAllowCredentials(true);
-                if (isJWTSecurityMode()) {
-                    configuration.setExposedHeaders(Arrays.asList("Authorization"));
-                }
+                configuration.setExposedHeaders(Arrays.asList("Authorization"));
                 return configuration;
             }
         });
         return http;
-    }
-
-    private boolean isJWTSecurityMode() {
-        return "JWT".equalsIgnoreCase(this.securityMode);
     }
 }
