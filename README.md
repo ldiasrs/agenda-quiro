@@ -29,6 +29,9 @@ cd frontend
 yarn install
 yarn start
 ```
+
+Abrir http://localhost:3000/
+
 ### Pipeline
 
 * [CircleCI - Agenda Quiro](https://app.circleci.com/pipelines/github/)
