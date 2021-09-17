@@ -48,11 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         defineCorsConfig(http);
-        defineAthorizationConfig(http);
-        addLogFilters(http);
-        disableCorsSessionIdToken(http);
         disableCsrf(http);
-        defineJWTAccessTokenConfiguration(http);
+//        defineAthorizationConfig(http);
+//        addLogFilters(http);
+//        disableCorsSessionIdToken(http);
+//        defineJWTAccessTokenConfiguration(http);
     }
 
 

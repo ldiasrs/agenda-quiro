@@ -5,6 +5,14 @@
 * [CircleCI - Agenda Quiro](https://app.circleci.com/pipelines/github/)
 * [Heroku - Agenda Quiro](https://dashboard.heroku.com/apps/agenda-quiro:)
 
+## Deploy Heroku
+
+```shell script
+git remote add heroku  https://git.heroku.com/agenda-quiro.git
+```
+```shell script
+git push heroku
+```
 
 ## Setup do projeto
 
