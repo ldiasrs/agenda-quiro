@@ -6,10 +6,12 @@
 * [Heroku - Agenda Quiro](https://dashboard.heroku.com/apps/agenda-quiro:)
 
 ## Deploy Heroku
-
+1) Instalar o heroku CLI https://devcenter.heroku.com/articles/heroku-command-line
+2) Adicionar o remote do heroku
 ```shell script
 git remote add heroku  https://git.heroku.com/agenda-quiro.git
 ```
+2) Fazer o push
 ```shell script
 git push heroku
 ```
