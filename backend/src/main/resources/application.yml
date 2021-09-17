@@ -13,4 +13,4 @@ spring:
 api:
   security:
     jwt:
-      key:"eyJhdXRob3JpdGllcyI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiJ9"
+      key: "eyJhdXRob3JpdGllcyI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiJ9"

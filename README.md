@@ -6,6 +6,7 @@
 - https://jdk.java.net/archive/
 
 ### Configure o banco de dados volatil
+Primeiro você precisa ter o docker server instalado na maquina local e rodando
 Em um terminal, execute o comando:
 
 ```shell script
