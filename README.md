@@ -19,7 +19,7 @@ Em um terminal, execute o comando:
 Em um terminal, execute o comando:
 
 ```shell script
-./gradlew bootrun
+./gradlew bootrun --args='--spring.profiles.active=dev'
 ```
 
 ### Inicie o frontend
