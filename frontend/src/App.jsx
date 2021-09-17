@@ -8,34 +8,52 @@ import { Gallery } from "./components/gallery";
 import { Testimonials } from "./components/testimonials";
 import { Team } from "./components/Team";
 import { Contact } from "./components/contact";
+import {Login} from "./components/login";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
 import "./App.css";
+import {NavigationApp} from "./components/navigation-app";
+
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
-  speed: 1000,
-  speedAsDuration: true,
+    speed: 1000,
+    speedAsDuration: true,
 });
 
 const App = () => {
-  const [landingPageData, setLandingPageData] = useState({});
-  useEffect(() => {
-    setLandingPageData(JsonData);
-  }, []);
+    const [landingPageData, setLandingPageData] = useState({});
+    useEffect(() => {
+        setLandingPageData(JsonData);
+    }, []);
 
-  return (
-    <div>
-      <Navigation />
-      <Header data={landingPageData.Header} />
-      <Features data={landingPageData.Features} />
-      <About data={landingPageData.About} />
-      <Services data={landingPageData.Services} />
-      <Gallery />
-      <Testimonials data={landingPageData.Testimonials} />
-      <Team data={landingPageData.Team} />
-      <Contact data={landingPageData.Contact} />
-    </div>
-  );
+    return (
+        <Router>
+            <Switch>
+                <Route path="/login">
+                    <NavigationApp />
+                    <Login />
+                </Route>
+                <Route path="/">
+                    <div>
+                        <Navigation />
+                        <Header data={landingPageData.Header} />
+                        <Features data={landingPageData.Features} />
+                        <About data={landingPageData.About} />
+                        <Services data={landingPageData.Services} />
+                        <Gallery />
+                        <Testimonials data={landingPageData.Testimonials} />
+                        <Team data={landingPageData.Team} />
+                        <Contact data={landingPageData.Contact} />
+                    </div>
+                </Route>
+            </Switch>
+        </Router>
+    );
 };
 
 export default App;
