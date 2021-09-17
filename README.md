@@ -1,11 +1,17 @@
 # Agenda Quiro
 
-## Executando o projeto
+### Pipeline
 
-### Instalar o Java SDK 11
+* [CircleCI - Agenda Quiro](https://app.circleci.com/pipelines/github/)
+* [Heroku - Agenda Quiro](https://dashboard.heroku.com/apps/agenda-quiro:)
+
+
+## Setup do projeto
+
+### 1) Instalar JDK 11
 - https://jdk.java.net/archive/
 
-### Configure o banco de dados volatil
+### 2) Configure o banco de dados volatil
 Primeiro você precisa ter o docker server instalado na maquina local e rodando
 Em um terminal, execute o comando:
 
@@ -14,7 +20,7 @@ Em um terminal, execute o comando:
 ./docker-db.sh  create
 ```
 
-### Inicie o backend
+## Iniciar backend
 
 Em um terminal, execute o comando:
 
@@ -22,7 +28,7 @@ Em um terminal, execute o comando:
 ./gradlew bootrun --args='--spring.profiles.active=dev'
 ```
 
-### Inicie o frontend
+## Iniciar frontend
 
 ```shell
 cd frontend
@@ -30,12 +36,8 @@ yarn install
 yarn start
 ```
 
-Abrir http://localhost:3000/
+- Abrir no browser http://localhost:3000/
 
-### Pipeline
-
-* [CircleCI - Agenda Quiro](https://app.circleci.com/pipelines/github/)
-* [Heroku - Agenda Quiro](https://dashboard.heroku.com/apps/agendaquiro)
 
 ### Como ver os logs da aplicação
 - Precisa primeiro instalar o client no terminal https://devcenter.heroku.com/articles/heroku-cli

@@ -6,6 +6,7 @@ buildDir = "$projectDir/build"
 
 node {
     download = true
+    version = '12.18.3'
 }
 
 task clean(type: Delete) {
