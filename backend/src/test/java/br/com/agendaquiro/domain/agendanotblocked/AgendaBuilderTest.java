@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.calendar;
+package br.com.agendaquiro.domain.agendanotblocked;
 
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ public class AgendaBuilderTest {
         int durationInMinutes = 60;
 
         //WHEN ASKED TO CREATE AGENDA
-        AgendaOfPeriod agendaOfPeriod = new AgendaOfPeriodBuilder()
+        AgendaOfPeriodNotBlocked agendaOfPeriod = new AgendaOfPeriodNotBlockedBuilder()
                 .period(durationInMinutes, sunday, tuesday)
                 .daysOfWeekBlocked(daysOfTheWeeksBlocked)
                 .build();
@@ -70,7 +70,7 @@ public class AgendaBuilderTest {
         int durationInMinutes = 60;
 
         //WHEN ASKED TO CREATE AGENDA
-        AgendaOfPeriod agendaOfPeriod = new AgendaOfPeriodBuilder()
+        AgendaOfPeriodNotBlocked agendaOfPeriod = new AgendaOfPeriodNotBlockedBuilder()
                 .period(durationInMinutes, mondayStart, tuesdayStart)
                 .daysOfWeekBlocked(daysOfTheWeeksBlocked)
                 .build();

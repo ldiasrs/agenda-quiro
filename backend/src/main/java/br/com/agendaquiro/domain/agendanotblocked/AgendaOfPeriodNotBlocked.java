@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.calendar;
+package br.com.agendaquiro.domain.agendanotblocked;
 
 import lombok.Getter;
 
@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class AgendaOfPeriod {
+public class AgendaOfPeriodNotBlocked {
 
     private List<PeriodSlot> periodSlots;
 
-    public AgendaOfPeriod() {
+    public AgendaOfPeriodNotBlocked() {
         periodSlots = new ArrayList<>();
     }
 

@@ -1,13 +1,11 @@
-package br.com.agendaquiro.domain.calendar;
+package br.com.agendaquiro.domain.agendanotblocked;
 
 import org.junit.Test;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 public class DayOfWeekTimeBlockedTest {
 

@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.calendar;
+package br.com.agendaquiro.domain.agendanotblocked;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -6,27 +6,27 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 
-public class AgendaOfPeriodBuilder {
+public class AgendaOfPeriodNotBlockedBuilder {
 
-    private AgendaOfPeriod agendaOfPeriod = new AgendaOfPeriod();
+    private AgendaOfPeriodNotBlocked agendaOfPeriod = new AgendaOfPeriodNotBlocked();
     private int durationInMinutes;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private DaysOfTheWeeksBlocked daysOfTheWeeksBlocked;
 
-    public AgendaOfPeriodBuilder period(int durationInMinutes, LocalDateTime monday, LocalDateTime saturday) {
+    public AgendaOfPeriodNotBlockedBuilder period(int durationInMinutes, LocalDateTime monday, LocalDateTime saturday) {
         this.durationInMinutes = durationInMinutes;
         this.startDateTime = monday;
         this.endDateTime = saturday;
         return this;
     }
 
-    public AgendaOfPeriodBuilder daysOfWeekBlocked(DaysOfTheWeeksBlocked daysOfTheWeeksBlocked) {
+    public AgendaOfPeriodNotBlockedBuilder daysOfWeekBlocked(DaysOfTheWeeksBlocked daysOfTheWeeksBlocked) {
         this.daysOfTheWeeksBlocked = daysOfTheWeeksBlocked;
         return this;
     }
 
-    public AgendaOfPeriod build() {
+    public AgendaOfPeriodNotBlocked build() {
         LocalDateTime currentTime = startDateTime;
 
         while (!currentTime.equals(endDateTime)) {

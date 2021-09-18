@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.calendar;
+package br.com.agendaquiro.domain.agendanotblocked;
 
 import org.junit.Test;
 
