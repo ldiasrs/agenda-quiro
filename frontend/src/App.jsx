@@ -19,6 +19,7 @@ import {
 import "./App.css";
 import {NavigationApp} from "./components/navigation-app";
 import {isAuthenticated} from "./services/auth";
+import {Calendar} from "./components/calendar";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -47,7 +48,7 @@ const App = () => {
         <Router>
             <Switch>
                 <Route exact path="/login" component={Login} />
-                <PrivateRoute path="/app" component={() => <h1>App</h1>}/>
+                <PrivateRoute path="/agenda" component={Calendar}/>
                 <Route path="/">
                     <div>
                         <Navigation />

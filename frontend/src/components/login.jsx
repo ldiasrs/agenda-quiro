@@ -15,8 +15,7 @@ export const Login = (props) => {
             //const token = api.post("/sessions", { username, password });
             const token = "token-fake"
             login(token)
-            console.log(`Loging User name: ${username} Pass: ${password} token: ${token}`)
-            props.history.push("/app");
+            props.history.push("/agenda");
         } catch (err) {
             console.log(err)
             state.error =
