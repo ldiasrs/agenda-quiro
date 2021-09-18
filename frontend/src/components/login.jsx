@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import {login} from "../services/auth";
 import {NavigationApp} from "./navigation-app";
+import api from "../services/api";
+import axios from "axios";
 
 export const Login = (props) => {
     const state = {
@@ -9,11 +11,10 @@ export const Login = (props) => {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            //const token = api.post("/sessions", { username, password });
-            const token = "token-fake"
+            const token = await api.post("/login", { email:username, password:password });
             login(token)
             props.history.push("/agenda");
         } catch (err) {
@@ -22,13 +23,14 @@ export const Login = (props) => {
                 "Houve um problema com o login, verifique suas credenciais. T.T"
         }
     }
+
     return (
         <>
             <NavigationApp/>
             <div className="container">
                 <form className="form-signin" onSubmit={handleSubmit}>
                     <h1 className="h3 mb-3 font-weight-normal">Realize o Login</h1>
-                    {state.error && <p>{state.error}</p>}
+                    {<p>{state.error}</p>}
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>
                     <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required
                            autoFocus onChange={e => setUserName(e.target.value)}/>

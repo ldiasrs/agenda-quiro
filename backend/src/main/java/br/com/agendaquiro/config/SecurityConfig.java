@@ -166,24 +166,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * CORS headers.
      */
     private HttpSecurity defineCorsConfig(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                var configuration = new CorsConfiguration();
-                //Apenas requisicoes vinda dessa URL serao aceitas
-                configuration.setAllowedOrigins(singletonList("http://localhost:8080"));
-                //Todos os metodos http POST, GET, DELETE etc serao aceitos
-                configuration.setAllowedMethods((singletonList("*")));
-                //Todos os cabecalhos do http serao aceitos
-                configuration.setAllowedHeaders((singletonList("*")));
-                //O cliente vai cachear essa config de cors por 3600 segundos = 1h até verificar novamente
-                configuration.setMaxAge(3600L);
-                //Aceita credinciais de segurança
-                configuration.setAllowCredentials(true);
-                configuration.setExposedHeaders(Arrays.asList("Authorization"));
-                return configuration;
-            }
-        });
+        http.cors().disable();
+//        http.cors().configurationSource(new CorsConfigurationSource() {
+//            @Override
+//            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+//                var configuration = new CorsConfiguration();
+//                //Apenas requisicoes vinda dessa URL serao aceitas
+//                configuration.setAllowedOrigins(singletonList("http://localhost:8080"));
+//                //Todos os metodos http POST, GET, DELETE etc serao aceitos
+//                configuration.setAllowedMethods((singletonList("*")));
+//                //Todos os cabecalhos do http serao aceitos
+//                configuration.setAllowedHeaders((singletonList("*")));
+//                //O cliente vai cachear essa config de cors por 3600 segundos = 1h até verificar novamente
+//                configuration.setMaxAge(3600L);
+//                //Aceita credinciais de segurança
+//                configuration.setAllowCredentials(true);
+//                configuration.setExposedHeaders(Arrays.asList("Authorization"));
+//                return configuration;
+//            }
+//        });
         return http;
     }
 }
