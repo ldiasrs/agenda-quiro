@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigation } from "./components/navigation";
 import { Header } from "./components/header";
 import { Features } from "./components/features";
@@ -14,12 +14,24 @@ import SmoothScroll from "smooth-scroll";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
+    Route, Redirect,
 } from "react-router-dom";
 import "./App.css";
 import {NavigationApp} from "./components/navigation-app";
+import {isAuthenticated} from "./services/auth";
 
-
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={props =>
+            isAuthenticated() ? (
+                <Component {...props} />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+            )
+        }
+    />
+);
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
     speedAsDuration: true,
@@ -34,10 +46,8 @@ const App = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/login">
-                    <NavigationApp />
-                    <Login />
-                </Route>
+                <Route exact path="/login" component={Login} />
+                <PrivateRoute path="/app" component={() => <h1>App</h1>}/>
                 <Route path="/">
                     <div>
                         <Navigation />

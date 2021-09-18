@@ -68,5 +68,7 @@ heroku logs --tail
 - [Postman](https://www.postman.com/downloads/)
 - [Visual Studio Code](https://code.visualstudio.com/download)
 - [Tmux](https://github.com/tmux/tmux/wiki)
+- [react router](https://reactrouter.com/web/guides/quick-start)
+- [react login session](https://github.com/rocketseat-content/blog-adonis-reactjs-react-native-airbnb-web/tree/parte-8)
 
 
