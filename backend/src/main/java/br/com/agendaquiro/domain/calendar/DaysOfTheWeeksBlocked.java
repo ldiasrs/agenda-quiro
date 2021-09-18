@@ -23,6 +23,9 @@ public class DaysOfTheWeeksBlocked {
     }
 
     public boolean block(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
+        if (startTime.isAfter(endTime)) {
+            throw new InvalidBlockTimeException("Invalid range - Start time should not be after end time");
+        }
         return periodOfTimeDayWeekBlocked.add(
                 DayOfWeekTimeBlocked.builder()
                 .dayOfWeek(dayOfWeek)

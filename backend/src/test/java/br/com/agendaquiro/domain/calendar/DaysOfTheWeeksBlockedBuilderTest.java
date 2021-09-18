@@ -1,6 +1,5 @@
 package br.com.agendaquiro.domain.calendar;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
@@ -52,7 +51,7 @@ public class DaysOfTheWeeksBlockedBuilderTest {
     public void shouldAllDaysPeriod() {
         //Gievn a start and end time
         LocalTime startTime = LocalTime.parse("18:00");
-        LocalTime endTime = LocalTime.parse("09:00");
+        LocalTime endTime = LocalTime.parse("23:59");
         //WHEN build for all days
         DaysOfTheWeeksBlocked daysOfTheWeeksBlocked = new DaysOfTheWeeksBlockedBuilder()
                 .blockAllDays(startTime, endTime)
