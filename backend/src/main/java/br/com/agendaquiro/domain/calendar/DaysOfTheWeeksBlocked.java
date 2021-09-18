@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-public class CalendarSlots {
+public class DaysOfTheWeeksBlocked {
 
     private Set<DayOfWeek> wholeDaysOfWeekBlocked;
     private Set<DayOfWeekTimeBlocked> periodOfTimeDayWeekBlocked;
 
-    public CalendarSlots() {
+    public DaysOfTheWeeksBlocked() {
         wholeDaysOfWeekBlocked = new HashSet<>();
         periodOfTimeDayWeekBlocked = new HashSet<>();
     }
