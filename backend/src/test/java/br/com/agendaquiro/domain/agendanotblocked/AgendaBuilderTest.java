@@ -1,5 +1,7 @@
 package br.com.agendaquiro.domain.agendanotblocked;
 
+import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
+import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlockedBuilder;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -16,7 +18,7 @@ public class AgendaBuilderTest {
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
         LocalTime blockAllDaysStartTime = LocalTime.of(18,0);
         LocalTime blockAllDaysEndTime = LocalTime.of(10,0);
-        DaysOfTheWeeksBlocked daysOfTheWeeksBlocked = new DaysOfTheWeeksBlockedBuilder()
+        DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
                 .blockAllDays(blockAllDaysStartTime, LocalTime.of(23,59))
                 .blockAllDays(LocalTime.of(00,00), blockAllDaysEndTime)
                 .blockSunday()
@@ -31,7 +33,7 @@ public class AgendaBuilderTest {
         //WHEN ASKED TO CREATE AGENDA
         AgendaOfPeriodNotBlocked agendaOfPeriod = new AgendaOfPeriodNotBlockedBuilder()
                 .period(durationInMinutes, sunday, tuesday)
-                .daysOfWeekBlocked(daysOfTheWeeksBlocked)
+                .daysOfWeekBlocked(daysOfWeekBlocked)
                 .build();
 
         //THEN the agenda should be fine
@@ -56,7 +58,7 @@ public class AgendaBuilderTest {
     @Test
     public void shouldBuildAgendaWithLunchBlocked() {
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
-        DaysOfTheWeeksBlocked daysOfTheWeeksBlocked = new DaysOfTheWeeksBlockedBuilder()
+        DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
                 .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
                 .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
                 .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
@@ -72,7 +74,7 @@ public class AgendaBuilderTest {
         //WHEN ASKED TO CREATE AGENDA
         AgendaOfPeriodNotBlocked agendaOfPeriod = new AgendaOfPeriodNotBlockedBuilder()
                 .period(durationInMinutes, mondayStart, tuesdayStart)
-                .daysOfWeekBlocked(daysOfTheWeeksBlocked)
+                .daysOfWeekBlocked(daysOfWeekBlocked)
                 .build();
 
         //THEN the agenda should be fine

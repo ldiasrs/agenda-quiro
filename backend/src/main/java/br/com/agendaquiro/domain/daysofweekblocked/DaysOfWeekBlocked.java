@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.agendanotblocked;
+package br.com.agendaquiro.domain.daysofweekblocked;
 
 import lombok.Getter;
 
@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-public class DaysOfTheWeeksBlocked {
+public class DaysOfWeekBlocked {
 
     private Set<DayOfWeek> wholeDaysOfWeekBlocked;
     private Set<DayOfWeekTimeBlocked> periodOfTimeDayWeekBlocked;
 
-    public DaysOfTheWeeksBlocked() {
+    public DaysOfWeekBlocked() {
         wholeDaysOfWeekBlocked = new HashSet<>();
         periodOfTimeDayWeekBlocked = new HashSet<>();
     }

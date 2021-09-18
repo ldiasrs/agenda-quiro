@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.agendanotblocked;
+package br.com.agendaquiro.domain.daysofweekblocked;
 
 import lombok.Builder;
 import lombok.Getter;

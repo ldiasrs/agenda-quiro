@@ -1,5 +1,8 @@
 package br.com.agendaquiro.domain.agendanotblocked;
 
+import br.com.agendaquiro.domain.daysofweekblocked.DayOfWeekTimeBlocked;
+import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +15,7 @@ public class AgendaOfPeriodNotBlockedBuilder {
     private int durationInMinutes;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private DaysOfTheWeeksBlocked daysOfTheWeeksBlocked;
+    private DaysOfWeekBlocked daysOfWeekBlocked;
 
     public AgendaOfPeriodNotBlockedBuilder period(int durationInMinutes, LocalDateTime monday, LocalDateTime saturday) {
         this.durationInMinutes = durationInMinutes;
@@ -21,8 +24,8 @@ public class AgendaOfPeriodNotBlockedBuilder {
         return this;
     }
 
-    public AgendaOfPeriodNotBlockedBuilder daysOfWeekBlocked(DaysOfTheWeeksBlocked daysOfTheWeeksBlocked) {
-        this.daysOfTheWeeksBlocked = daysOfTheWeeksBlocked;
+    public AgendaOfPeriodNotBlockedBuilder daysOfWeekBlocked(DaysOfWeekBlocked daysOfWeekBlocked) {
+        this.daysOfWeekBlocked = daysOfWeekBlocked;
         return this;
     }
 
@@ -52,25 +55,13 @@ public class AgendaOfPeriodNotBlockedBuilder {
         return agendaOfPeriod;
     }
 
-    private LocalDateTime setCurrentTimeToEndOfTimeBlocked(LocalDateTime currentTime) {
-        Set<DayOfWeekTimeBlocked> periodOfTimeBlocked = daysOfTheWeeksBlocked.getPeriodOfTimeDayWeekBlocked();
-        for (DayOfWeekTimeBlocked dayOfWeekTimeBlocked : periodOfTimeBlocked) {
-            boolean isABlockedDay = dayOfWeekTimeBlocked.getDayOfWeek().equals(currentTime.getDayOfWeek());
-            return currentTime
-                    .withHour(dayOfWeekTimeBlocked.getEndTime().getHour())
-                    .withMinute(dayOfWeekTimeBlocked.getEndTime().getMinute());
-        }
-        throw new RuntimeException("Could not find the day");
-    }
-
-
     private boolean isNotWholeDayBlocked(DayOfWeek dayOfWeek) {
-        Set<DayOfWeek> wholeDaysBlocked = daysOfTheWeeksBlocked.getWholeDaysOfWeekBlocked();
+        Set<DayOfWeek> wholeDaysBlocked = daysOfWeekBlocked.getWholeDaysOfWeekBlocked();
         return !wholeDaysBlocked.contains(dayOfWeek);
     }
 
     private boolean isNotOnPeriodOfTimeBlocked(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        Set<DayOfWeekTimeBlocked> periodOfTimeBlocked = daysOfTheWeeksBlocked.getPeriodOfTimeDayWeekBlocked();
+        Set<DayOfWeekTimeBlocked> periodOfTimeBlocked = daysOfWeekBlocked.getPeriodOfTimeDayWeekBlocked();
         for (DayOfWeekTimeBlocked dayOfWeekTimeBlocked : periodOfTimeBlocked) {
             if (dayOfWeekTimeBlocked.isOnPeriodOfTime(dayOfWeek, startTime, endTime)) {
                 return false;

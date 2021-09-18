@@ -1,5 +1,6 @@
 package br.com.agendaquiro.domain.agendanotblocked;
 
+import br.com.agendaquiro.domain.daysofweekblocked.DayOfWeekTimeBlocked;
 import org.junit.Test;
 
 import java.time.DayOfWeek;

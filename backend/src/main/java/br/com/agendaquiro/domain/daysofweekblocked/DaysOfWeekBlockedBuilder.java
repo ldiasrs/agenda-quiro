@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.agendanotblocked;
+package br.com.agendaquiro.domain.daysofweekblocked;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class DaysOfTheWeeksBlockedBuilder {
+public class DaysOfWeekBlockedBuilder {
 
     private class BlockedTime {
         public BlockedTime(LocalTime startTime, LocalTime endTime) {
@@ -17,33 +17,33 @@ public class DaysOfTheWeeksBlockedBuilder {
         LocalTime endTime;
     }
 
-    private DaysOfTheWeeksBlocked daysOfTheWeeksBlocked = new DaysOfTheWeeksBlocked();
+    private DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlocked();
     private List<BlockedTime> blockedTimes = new ArrayList<>();
 
-    public DaysOfTheWeeksBlockedBuilder blockSunday() {
+    public DaysOfWeekBlockedBuilder blockSunday() {
         return block(DayOfWeek.SUNDAY);
     }
 
-    public DaysOfTheWeeksBlockedBuilder blockSaturday() {
+    public DaysOfWeekBlockedBuilder blockSaturday() {
         return block(DayOfWeek.SATURDAY);
     }
 
-    public DaysOfTheWeeksBlockedBuilder block(DayOfWeek dayOfWeek) {
-        daysOfTheWeeksBlocked.block(dayOfWeek);
+    public DaysOfWeekBlockedBuilder block(DayOfWeek dayOfWeek) {
+        daysOfWeekBlocked.block(dayOfWeek);
         return this;
     }
 
-    public DaysOfTheWeeksBlocked build() {
+    public DaysOfWeekBlocked build() {
         processAllBlockedTimes();
-        return daysOfTheWeeksBlocked;
+        return daysOfWeekBlocked;
     }
 
-    public DaysOfTheWeeksBlockedBuilder block(DayOfWeek monday, LocalTime startTime, LocalTime endTime) {
-        daysOfTheWeeksBlocked.block(monday, startTime, endTime);
+    public DaysOfWeekBlockedBuilder block(DayOfWeek monday, LocalTime startTime, LocalTime endTime) {
+        daysOfWeekBlocked.block(monday, startTime, endTime);
         return this;
     }
 
-    public DaysOfTheWeeksBlockedBuilder blockAllDays(LocalTime startTime, LocalTime endTime) {
+    public DaysOfWeekBlockedBuilder blockAllDays(LocalTime startTime, LocalTime endTime) {
         blockedTimes.add(new BlockedTime(startTime, endTime));
         return this;
     }
@@ -51,7 +51,7 @@ public class DaysOfTheWeeksBlockedBuilder {
     public void processAllBlockedTimes() {
         for (BlockedTime blockedTime : blockedTimes) {
             ArrayList<DayOfWeek> daysOfWeek = createDaysOfWeekList();
-            Set<DayOfWeek> blockedDays = daysOfTheWeeksBlocked.getWholeDaysOfWeekBlocked();
+            Set<DayOfWeek> blockedDays = daysOfWeekBlocked.getWholeDaysOfWeekBlocked();
             for (DayOfWeek blockedDay : blockedDays) {
                 daysOfWeek.remove(blockedDay);
             }
