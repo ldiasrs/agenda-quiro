@@ -2,7 +2,6 @@ import { useState } from 'react'
 import {login} from "../services/auth";
 import {NavigationApp} from "./navigation-app";
 import api from "../services/api";
-import axios from "axios";
 
 export const Login = (props) => {
     const state = {
