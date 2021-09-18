@@ -151,7 +151,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
      *
      * Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server
-     * to indicate any origins (domain, scheme, or port) other than its own from which a browser should
+     * to indicate any origins (br.com.agendaquiro.domain, scheme, or port) other than its own from which a browser should
      * permit loading of resources. CORS also relies on a mechanism by which browsers make a "preflight"
      * request to the server hosting the cross-origin resource, in order to check that the server will
      * permit the actual request. In that preflight, the browser sends headers that indicate the HTTP
