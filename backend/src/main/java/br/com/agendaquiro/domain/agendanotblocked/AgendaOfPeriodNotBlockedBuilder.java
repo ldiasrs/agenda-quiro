@@ -7,6 +7,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 public class AgendaOfPeriodNotBlockedBuilder {
@@ -56,12 +57,12 @@ public class AgendaOfPeriodNotBlockedBuilder {
     }
 
     private boolean isNotWholeDayBlocked(DayOfWeek dayOfWeek) {
-        Set<DayOfWeek> wholeDaysBlocked = daysOfWeekBlocked.getWholeDaysOfWeekBlocked();
+        List<DayOfWeek> wholeDaysBlocked = daysOfWeekBlocked.getWholeDaysOfWeekBlocked();
         return !wholeDaysBlocked.contains(dayOfWeek);
     }
 
     private boolean isNotOnPeriodOfTimeBlocked(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        Set<DayOfWeekTimeBlocked> periodOfTimeBlocked = daysOfWeekBlocked.getPeriodOfTimeDayWeekBlocked();
+        List<DayOfWeekTimeBlocked> periodOfTimeBlocked = daysOfWeekBlocked.getPeriodOfTimeDayWeekBlocked();
         for (DayOfWeekTimeBlocked dayOfWeekTimeBlocked : periodOfTimeBlocked) {
             if (dayOfWeekTimeBlocked.isOnPeriodOfTime(dayOfWeek, startTime, endTime)) {
                 return false;

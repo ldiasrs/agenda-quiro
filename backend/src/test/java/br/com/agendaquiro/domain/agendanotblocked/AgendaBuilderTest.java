@@ -16,11 +16,9 @@ public class AgendaBuilderTest {
     @Test
     public void shouldBuildAgenda() {
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
-        LocalTime blockAllDaysStartTime = LocalTime.of(18,0);
-        LocalTime blockAllDaysEndTime = LocalTime.of(10,0);
         DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
-                .blockAllDays(blockAllDaysStartTime, LocalTime.of(23,59))
-                .blockAllDays(LocalTime.of(00,00), blockAllDaysEndTime)
+                .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
+                .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
                 .blockSunday()
                 .build();
 

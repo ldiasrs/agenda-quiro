@@ -53,33 +53,39 @@ public class DaysOfWeekBlockedBuilderTest {
     @Test
     public void shouldAllDaysPeriod() {
         //Gievn a start and end time
-        LocalTime startTime = LocalTime.parse("18:00");
-        LocalTime endTime = LocalTime.parse("23:59");
         //WHEN build for all days
+        LocalTime firstStartBlockTime = LocalTime.of(18, 00);
+        LocalTime firstEndBlockTime = LocalTime.of(23, 59);
+        LocalTime secondStartBlockTime = LocalTime.of(00, 00);
+        LocalTime secondEndBlockTime = LocalTime.of(10, 00);
+
         DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
-                .blockAllDays(startTime, endTime)
+                .blockAllDays(firstStartBlockTime, firstEndBlockTime)
+                .blockAllDays(secondStartBlockTime, secondEndBlockTime)
                 .build();
+
         //THAN should block for all days
-        Set<DayOfWeekTimeBlocked> blockedTimes = daysOfWeekBlocked.getPeriodOfTimeDayWeekBlocked();
-        List<DayOfWeek> expectedDaysToBeBlocked = Arrays.asList(
-                DayOfWeek.SUNDAY,
-                DayOfWeek.MONDAY,
-                DayOfWeek.TUESDAY,
-                DayOfWeek.WEDNESDAY,
-                DayOfWeek.THURSDAY,
-                DayOfWeek.FRIDAY
-        );
-        List<DayOfWeek> verifiedDays = new ArrayList<>();
-        for (DayOfWeek dayOfWeek : expectedDaysToBeBlocked) {
-            for (DayOfWeekTimeBlocked blockedTime : blockedTimes) {
-                if (blockedTime.getDayOfWeek().equals(dayOfWeek)) {
-                    assertThat(blockedTime.getStartTime()).isEqualTo(startTime);
-                    assertThat(blockedTime.getEndTime()).isEqualTo(endTime);
-                    verifiedDays.add(dayOfWeek);
-                    break;
-                }
-            }
+        List<DayOfWeekTimeBlocked> blockedTimes = daysOfWeekBlocked.getPeriodOfTimeDayWeekBlocked();
+
+        StringBuilder sb = new StringBuilder();
+        for (DayOfWeekTimeBlocked blockedTime : blockedTimes) {
+            sb.append(" #DayOfWeek: " + blockedTime.getDayOfWeek() + " start: " + blockedTime.getStartTime() + " end: " + blockedTime.getEndTime());
         }
-        assertThat(verifiedDays).containsAll(expectedDaysToBeBlocked);
+
+        assertThat(sb.toString()).isEqualTo(
+                " #DayOfWeek: MONDAY start: 18:00 end: 23:59" +
+                " #DayOfWeek: MONDAY start: 00:00 end: 10:00" +
+                " #DayOfWeek: TUESDAY start: 18:00 end: 23:59" +
+                " #DayOfWeek: TUESDAY start: 00:00 end: 10:00" +
+                " #DayOfWeek: WEDNESDAY start: 18:00 end: 23:59" +
+                " #DayOfWeek: WEDNESDAY start: 00:00 end: 10:00" +
+                " #DayOfWeek: THURSDAY start: 18:00 end: 23:59" +
+                " #DayOfWeek: THURSDAY start: 00:00 end: 10:00" +
+                " #DayOfWeek: FRIDAY start: 18:00 end: 23:59" +
+                " #DayOfWeek: FRIDAY start: 00:00 end: 10:00" +
+                " #DayOfWeek: SATURDAY start: 18:00 end: 23:59" +
+                " #DayOfWeek: SATURDAY start: 00:00 end: 10:00" +
+                " #DayOfWeek: SUNDAY start: 18:00 end: 23:59" +
+                " #DayOfWeek: SUNDAY start: 00:00 end: 10:00");
     }
 }

@@ -4,22 +4,27 @@ import lombok.Getter;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 public class DaysOfWeekBlocked {
 
-    private Set<DayOfWeek> wholeDaysOfWeekBlocked;
-    private Set<DayOfWeekTimeBlocked> periodOfTimeDayWeekBlocked;
+    private List<DayOfWeek> wholeDaysOfWeekBlocked;
+    private List<DayOfWeekTimeBlocked> periodOfTimeDayWeekBlocked;
 
     public DaysOfWeekBlocked() {
-        wholeDaysOfWeekBlocked = new HashSet<>();
-        periodOfTimeDayWeekBlocked = new HashSet<>();
+        wholeDaysOfWeekBlocked = new ArrayList<>();
+        periodOfTimeDayWeekBlocked = new ArrayList<>();
     }
 
     public boolean block(DayOfWeek dayOfWeek){
-        return wholeDaysOfWeekBlocked.add(dayOfWeek);
+        if (!wholeDaysOfWeekBlocked.contains(dayOfWeek)){
+            return wholeDaysOfWeekBlocked.add(dayOfWeek);
+        }
+       return false;
     }
 
     public boolean block(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {

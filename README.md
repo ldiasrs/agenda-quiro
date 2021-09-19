@@ -56,7 +56,7 @@ git push heroku
 heroku logs --tail
 ```
 
-## Tecnologias:
+## Links:
 - [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 - [Node 12.16.2 LTS](https://nodejs.org/en/download/)
 - [React](https://reactjs.org/docs/getting-started.html)
@@ -71,5 +71,6 @@ heroku logs --tail
 - [react router](https://reactrouter.com/web/guides/quick-start)
 - [react login session](https://github.com/rocketseat-content/blog-adonis-reactjs-react-native-airbnb-web/tree/parte-8)
 - [datetime-jpa-converters](https://github.com/perceptron8/datetime-jpa/tree/master/src/main/java/com/github/perceptron8/datetime/jpa)
+- [yarn network error](https://stackoverflow.com/questions/52135815/yarn-is-having-troubles-with-the-network-connection)
 
 

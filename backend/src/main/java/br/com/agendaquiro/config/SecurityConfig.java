@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         defineCorsConfig(http);
         disableCsrf(http);
-        //defineAthorizationConfig(http);
+        defineAthorizationConfig(http);
 //        addLogFilters(http);
 //        disableCorsSessionIdToken(http);
 //        defineJWTAccessTokenConfiguration(http);
@@ -107,7 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private void defineAthorizationConfig(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //permite acesso ao /info sem autenticacao
-//                .antMatchers(getFullPath(PathMappings.INFO_MAPPING)).permitAll()
+                .antMatchers(PathMappings.HOME).permitAll()
 //                .antMatchers(getFullPath(PathMappings.ADMIN_MAPPING)).hasAnyRole( "ADMIN")
                 //o resto do acesso dos pedidosentrega precisam de autenticacao
                 .antMatchers("/**").authenticated()

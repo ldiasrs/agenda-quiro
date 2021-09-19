@@ -49,13 +49,13 @@ public class DaysOfWeekBlockedBuilder {
     }
 
     public void processAllBlockedTimes() {
-        for (BlockedTime blockedTime : blockedTimes) {
-            ArrayList<DayOfWeek> daysOfWeek = createDaysOfWeekList();
-            Set<DayOfWeek> blockedDays = daysOfWeekBlocked.getWholeDaysOfWeekBlocked();
-            for (DayOfWeek blockedDay : blockedDays) {
-                daysOfWeek.remove(blockedDay);
-            }
-            for (DayOfWeek dayOfWeek : daysOfWeek) {
+        ArrayList<DayOfWeek> daysOfWeek = createDaysOfWeekList();
+        List<DayOfWeek> blockedDays = daysOfWeekBlocked.getWholeDaysOfWeekBlocked();
+        for (DayOfWeek blockedDay : blockedDays) {
+            daysOfWeek.remove(blockedDay);
+        }
+        for (DayOfWeek dayOfWeek : daysOfWeek) {
+            for (BlockedTime blockedTime : blockedTimes) {
                 block(dayOfWeek, blockedTime.startTime, blockedTime.endTime);
             }
         }

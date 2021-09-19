@@ -49,7 +49,7 @@ const App = () => {
             <Switch>
                 <Route exact path="/login" component={Login} />
                 <PrivateRoute path="/agenda" component={Calendar}/>
-                <Route path="/">
+                <Route path="/home">
                     <div>
                         <Navigation />
                         <Header data={landingPageData.Header} />
