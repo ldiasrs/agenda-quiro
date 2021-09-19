@@ -50,9 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         defineCorsConfig(http);
         disableCsrf(http);
         defineAthorizationConfig(http);
-//        addLogFilters(http);
-//        disableCorsSessionIdToken(http);
-//        defineJWTAccessTokenConfiguration(http);
+        addLogFilters(http);
+        disableCorsSessionIdToken(http);
+        defineJWTAccessTokenConfiguration(http);
     }
 
 
@@ -87,9 +87,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //apos autenticacao Spring gera um token para a sessao do usuário myuser
         UserDetails user =
                 User.builder()
-                        .username("myuser")
+                        .username("user")
                         //senhalocal usando https://bcrypt-generator.com/ 12
-                        .password("$2y$12$XiDW0q0NYMuyw2on9SuEOONIhKMTu9osQbG2YEKXPxR7QghqNNBI6")
+                        .password("$2a$12$Bg/R1K50H5KbemU1JdunluXKt9/Bo.uyG2g0xhtwOV5yZjjNHwXUK")
                         .roles("USER")
                         .build();
         //apos autenticacao Spring gera um token para a sessao do usuário admin
@@ -110,12 +110,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PathMappings.HOME).permitAll()
 //                .antMatchers(getFullPath(PathMappings.ADMIN_MAPPING)).hasAnyRole( "ADMIN")
                 //o resto do acesso dos pedidosentrega precisam de autenticacao
-                .antMatchers("/**").authenticated()
+                .antMatchers("/app").authenticated()
+                .antMatchers(PathMappings.AUTH_MAPPING).authenticated()
+                .antMatchers("/agenda").authenticated()
                 //Habilita o form login do spring
                 //.and().formLogin()
                 .and().httpBasic();
-        //o restante de todos os acesso sao negados
-        http.authorizeRequests().antMatchers("/**").denyAll();
     }
 
     private void addLogFilters(HttpSecurity http) {
@@ -128,7 +128,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private void defineJWTAccessTokenConfiguration(HttpSecurity http) {
         http
                 .addFilterBefore(new JWTTokenValidatorFilter(jwtKey), BasicAuthenticationFilter.class)
-                .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class);
+                .addFilterAfter(new JWTTokenGeneratorFilter(jwtKey), BasicAuthenticationFilter.class);
     }
 
     private HttpSecurity disableCsrf(HttpSecurity http) throws Exception {

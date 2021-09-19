@@ -23,17 +23,20 @@ import java.util.Set;
 
 public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
 
-    public static String JWT_KEY_THAT_SHOULD_BE_ON_ENV =
-            "eyJhdXRob3JpdGllcyI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiJ9";
     public static String JWT_HEADER = "Authorization";
+    private String jwtKey;
+
+    public JWTTokenGeneratorFilter(String jwtKey) {
+        this.jwtKey = jwtKey;
+    }
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (null != authentication) {
-            SecretKey key = Keys.hmacShaKeyFor(JWT_KEY_THAT_SHOULD_BE_ON_ENV.getBytes(StandardCharsets.UTF_8));
-            String jwt = Jwts.builder().setIssuer("pedidos-entregas-api").setSubject("JWT-Token")
+            SecretKey key = Keys.hmacShaKeyFor(jwtKey.getBytes(StandardCharsets.UTF_8));
+            String jwt = Jwts.builder().setIssuer("agenda-quiro-backend").setSubject("JWT-Token")
                     .claim("username", authentication.getName())
                     .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .setIssuedAt(new Date())
