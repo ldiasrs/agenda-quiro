@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @Builder
 @Getter
 @NoArgsConstructor
+@ToString
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity

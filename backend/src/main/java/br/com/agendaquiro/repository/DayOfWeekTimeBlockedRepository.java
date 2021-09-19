@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DayOfWeekTimeBlockedRepository extends JpaRepository<DayOfWeekTimeBlocked, Integer> {
+public interface DayOfWeekTimeBlockedRepository extends JpaRepository<DayOfWeekTimeBlocked, Long> {
 
 }
