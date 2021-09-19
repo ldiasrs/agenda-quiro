@@ -21,9 +21,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import static br.com.agendaquiro.config.PathMappings.getFullPath;
-
-
 public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
 
     public static String JWT_KEY_THAT_SHOULD_BE_ON_ENV =
@@ -52,7 +49,7 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
      */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !request.getServletPath().equals(getFullPath(PathMappings.AUTH_MAPPING));
+        return !request.getServletPath().equals(PathMappings.AUTH_MAPPING);
     }
 
     private String populateAuthorities(Collection<? extends GrantedAuthority> collection) {

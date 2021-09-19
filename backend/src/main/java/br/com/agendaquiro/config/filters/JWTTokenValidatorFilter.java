@@ -21,8 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static br.com.agendaquiro.config.PathMappings.getFullPath;
-
 public class JWTTokenValidatorFilter extends OncePerRequestFilter {
 
 
@@ -62,7 +60,7 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
      * Vai validar o filter para todos os paths menos /auth
      */
     @Override protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getServletPath().equals(getFullPath(PathMappings.AUTH_MAPPING));
+        return request.getServletPath().equals(PathMappings.AUTH_MAPPING);
     }
 
 

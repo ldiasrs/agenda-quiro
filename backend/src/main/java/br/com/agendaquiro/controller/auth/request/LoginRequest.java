@@ -1,4 +1,4 @@
-package br.com.agendaquiro.controller.session.request;
+package br.com.agendaquiro.controller.auth.request;
 
 import lombok.Data;
 
