@@ -1,6 +1,6 @@
-package br.com.agendaquiro.controller;
+package br.com.agendaquiro.controller.session;
 
-import br.com.agendaquiro.controller.request.LoginRequest;
+import br.com.agendaquiro.controller.session.request.LoginRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

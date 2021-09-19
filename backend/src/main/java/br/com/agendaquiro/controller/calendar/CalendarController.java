@@ -1,4 +1,4 @@
-package br.com.agendaquiro.controller;
+package br.com.agendaquiro.controller.calendar;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
