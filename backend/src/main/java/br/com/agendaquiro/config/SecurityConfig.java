@@ -112,6 +112,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //o resto do acesso dos pedidosentrega precisam de autenticacao
                 .antMatchers("/app").authenticated()
                 .antMatchers(PathMappings.AUTH_MAPPING).authenticated()
+                .antMatchers(PathMappings.CALENDAR_FREE_SLOTS).authenticated()
                 .antMatchers("/agenda").authenticated()
                 //Habilita o form login do spring
                 //.and().formLogin()
