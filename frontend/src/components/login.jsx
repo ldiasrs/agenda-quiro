@@ -13,8 +13,11 @@ export const Login = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const token = await api.post("/auth/login", { email:username, password:password });
-            login(token)
+            await api.get("/auth/login", {
+                auth: {username: username, password: password
+                }
+            }).then(response=> login(response.headers.authorization));
+
             props.history.push("/agenda");
         } catch (err) {
             console.log(err)

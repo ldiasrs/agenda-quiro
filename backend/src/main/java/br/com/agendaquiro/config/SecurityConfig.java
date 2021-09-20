@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //apos autenticacao Spring gera um token para a sessao do usuário myuser
         UserDetails user =
                 User.builder()
-                        .username("user")
+                        .username("user@user.com")
                         //senhalocal usando https://bcrypt-generator.com/ 12
                         .password("$2a$12$Bg/R1K50H5KbemU1JdunluXKt9/Bo.uyG2g0xhtwOV5yZjjNHwXUK")
                         .roles("USER")
@@ -95,9 +95,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //apos autenticacao Spring gera um token para a sessao do usuário admin
         UserDetails admin =
                 User.builder()
-                        .username("admin")
+                        .username("admin@admin.com")
                         //senhalocal usando https://bcrypt-generator.com/ 12
-                        .password("$2y$12$XiDW0q0NYMuyw2on9SuEOONIhKMTu9osQbG2YEKXPxR7QghqNNBI6")
+                        .password("$2a$12$Bg/R1K50H5KbemU1JdunluXKt9/Bo.uyG2g0xhtwOV5yZjjNHwXUK")
                         .roles("USER", "ADMIN")
                         .build();
         //Spring Security prove algumas classes de JdbcUserDetailsManager que ja tem o BD schema de usuarios e grupos
