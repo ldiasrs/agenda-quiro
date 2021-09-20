@@ -4,11 +4,9 @@ import {NavigationApp} from "./navigation-app";
 import api from "../services/api";
 
 export const Login = (props) => {
-    const state = {
-        error: undefined
-    }
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+    const [error, setError] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -21,8 +19,7 @@ export const Login = (props) => {
             props.history.push("/agenda");
         } catch (err) {
             console.log(err)
-            state.error =
-                "Houve um problema com o login, verifique suas credenciais. T.T"
+            setError("* Houve um problema com o login, verifique suas credenciais.")
         }
     }
 
@@ -32,7 +29,6 @@ export const Login = (props) => {
             <div className="container">
                 <form className="form-signin" onSubmit={handleSubmit}>
                     <h1 className="h3 mb-3 font-weight-normal">Realize o Login</h1>
-                    {<p>{state.error}</p>}
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>
                     <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required
                            autoFocus onChange={e => setUserName(e.target.value)}/>
@@ -41,6 +37,7 @@ export const Login = (props) => {
                            required  onChange={e => setPassword(e.target.value)}/>
                     <button className="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
                     <a className="btn btn-link" href="">Esqueci a senha </a>
+                    {error && <p class="alert alert-danger">{error}</p>}
                 </form>
             </div>
         </>
