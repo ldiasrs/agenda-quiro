@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -20,6 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,9 +42,11 @@ import static java.util.Collections.singletonList;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private String jwtKey;
+    private DataSource dataSource;
 
-    public SecurityConfig(@Value("${api.security.jwt.key}") String jwtKey) {
+    public SecurityConfig(@Value("${api.security.jwt.key}") String jwtKey, DataSource dataSource) {
         this.jwtKey = jwtKey;
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -78,30 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private UserDetailsService defineInMemoryUserDetailsConfig() {
-        /**
-         * Usuando usuarios é possivel configurar
-         * 1) Quais usuarios sao permitidos com suas determinadas senhas
-         * 2) Autority que define o que cada usuário pode fazer org.springframework.security.core.authority.SimpleGrantedAuthority
-         * 3) Roles é um conjunto de Autority exemplo: READ, WRITE, DELETE
-         */
-        //apos autenticacao Spring gera um token para a sessao do usuário myuser
-        UserDetails user =
-                User.builder()
-                        .username("user@user.com")
-                        //senhalocal usando https://bcrypt-generator.com/ 12
-                        .password("$2a$12$Bg/R1K50H5KbemU1JdunluXKt9/Bo.uyG2g0xhtwOV5yZjjNHwXUK")
-                        .roles("USER")
-                        .build();
-        //apos autenticacao Spring gera um token para a sessao do usuário admin
-        UserDetails admin =
-                User.builder()
-                        .username("admin@admin.com")
-                        //senhalocal usando https://bcrypt-generator.com/ 12
-                        .password("$2a$12$Bg/R1K50H5KbemU1JdunluXKt9/Bo.uyG2g0xhtwOV5yZjjNHwXUK")
-                        .roles("USER", "ADMIN")
-                        .build();
-        //Spring Security prove algumas classes de JdbcUserDetailsManager que ja tem o BD schema de usuarios e grupos
-        return new InMemoryUserDetailsManager(user, admin);
+        JdbcDaoImpl service = new JdbcDaoImpl();
+        service.setDataSource(dataSource);
+        return service;
     }
 
     private void defineAthorizationConfig(HttpSecurity http) throws Exception {
