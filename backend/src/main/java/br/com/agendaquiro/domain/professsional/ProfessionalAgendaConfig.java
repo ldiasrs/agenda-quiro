@@ -1,7 +1,6 @@
-package br.com.agendaquiro;
+package br.com.agendaquiro.domain.professsional;
 
 import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
-import br.com.agendaquiro.domain.professsional.Professional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

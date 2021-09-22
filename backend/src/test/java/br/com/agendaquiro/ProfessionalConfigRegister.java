@@ -1,8 +1,15 @@
 package br.com.agendaquiro;
 
+import br.com.agendaquiro.domain.appointment.Appointment;
+import br.com.agendaquiro.domain.appointment.ServiceType;
+import br.com.agendaquiro.domain.customer.Anamnesis;
+import br.com.agendaquiro.domain.customer.Customer;
+import br.com.agendaquiro.domain.customer.CustomerService;
 import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
 import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlockedBuilder;
+import br.com.agendaquiro.domain.professsional.CustomRangeTimeBlocked;
 import br.com.agendaquiro.domain.professsional.Professional;
+import br.com.agendaquiro.domain.professsional.ProfessionalAgendaConfig;
 import org.junit.Test;
 
 import java.math.BigDecimal;

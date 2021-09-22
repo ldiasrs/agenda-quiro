@@ -1,5 +1,6 @@
-package br.com.agendaquiro;
+package br.com.agendaquiro.domain.appointment;
 
+import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.domain.professsional.Professional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

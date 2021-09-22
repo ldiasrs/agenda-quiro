@@ -1,4 +1,4 @@
-package br.com.agendaquiro;
+package br.com.agendaquiro.domain.professsional;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

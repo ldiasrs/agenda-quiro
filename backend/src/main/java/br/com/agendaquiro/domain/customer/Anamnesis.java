@@ -1,11 +1,11 @@
-package br.com.agendaquiro;
+package br.com.agendaquiro.domain.customer;
 
+import br.com.agendaquiro.domain.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
