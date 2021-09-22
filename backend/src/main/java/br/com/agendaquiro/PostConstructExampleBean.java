@@ -22,7 +22,6 @@ public class PostConstructExampleBean {
     public void init() {
         DayOfWeekTimeBlocked saved = repository.save(DayOfWeekTimeBlocked.builder()
                 .dayOfWeek(DayOfWeek.MONDAY)
-                .tenant("leo")
                 .startTime(LocalTime.now())
                 .endTime(LocalTime.now().plusHours(1))
                 .build());

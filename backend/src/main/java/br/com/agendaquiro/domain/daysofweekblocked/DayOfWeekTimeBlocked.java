@@ -22,13 +22,16 @@ public class DayOfWeekTimeBlocked {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-    private String tenant;
     @Convert(converter = DayOfWeekToIntegerConverter.class)
     private DayOfWeek dayOfWeek;
     @Convert(converter = LocalTimeToTimeConverter.class)
     private LocalTime startTime;
     @Convert(converter = LocalTimeToTimeConverter.class)
     private LocalTime endTime;
+
+    @ManyToOne
+    @JoinColumn(name = "days_of_week_blocked_id", insertable = false, updatable = false)
+    private DaysOfWeekBlocked daysOfWeekBlocked;
 
     public boolean isOnPeriodOfTime(DayOfWeek otherDay, LocalTime otherStart, LocalTime otherEnd) {
         boolean isABlockedDay = dayOfWeek.equals(otherDay);

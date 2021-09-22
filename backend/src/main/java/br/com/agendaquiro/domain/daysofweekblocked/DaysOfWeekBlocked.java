@@ -1,18 +1,35 @@
 package br.com.agendaquiro.domain.daysofweekblocked;
 
-import lombok.Getter;
+import br.com.agendaquiro.domain.User;
+import br.com.agendaquiro.repository.converter.DayOfWeekToIntegerConverter;
+import br.com.agendaquiro.repository.converter.ListDayOfWeekToIntegerConverter;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+@Builder
 @Getter
+@ToString
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "day_of_week_time_blocked")
 public class DaysOfWeekBlocked {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Long id;
+
+    @Convert(converter = ListDayOfWeekToIntegerConverter.class)
     private List<DayOfWeek> wholeDaysOfWeekBlocked;
+
+    @OneToMany
+    @JoinColumn(name = "days_of_week_blocked_id")
     private List<DayOfWeekTimeBlocked> periodOfTimeDayWeekBlocked;
 
     public DaysOfWeekBlocked() {

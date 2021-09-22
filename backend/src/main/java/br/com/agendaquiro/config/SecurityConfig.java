@@ -96,7 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app").authenticated()
                 .antMatchers(PathMappings.AUTH_MAPPING).authenticated()
                 .antMatchers(PathMappings.CALENDAR_FREE_SLOTS).authenticated()
-                .antMatchers("/agenda").authenticated()
+                .antMatchers("/agenda").hasAnyAuthority("ROLE_MANAGER")
                 //Habilita o form login do spring
                 //.and().formLogin()
                 .and().httpBasic();

@@ -19,6 +19,7 @@ public class AgendaBuilderTest {
         DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
                 .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
                 .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
+                .blockAllDays(LocalTime.of(12,0), LocalTime.of(13,00))
                 .blockSunday()
                 .build();
 
