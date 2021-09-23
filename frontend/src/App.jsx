@@ -20,6 +20,7 @@ import "./App.css";
 import {NavigationApp} from "./components/navigation-app";
 import {isAuthenticated} from "./services/auth";
 import {Calendar} from "./components/calendar";
+import {RegisterCustomer} from "./components/registerCustomer";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -48,6 +49,7 @@ const App = () => {
         <Router>
             <Switch>
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/cliente" component={RegisterCustomer} />
                 <PrivateRoute path="/agenda" component={Calendar}/>
                 <Route path="/home">
                     <div>

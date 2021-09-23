@@ -30,6 +30,11 @@ export const NavigationApp = (props) => {
                 Sair
               </a>
             </li>
+            <li>
+              <a href='/professional' className='page-scroll'>
+                Profissional
+              </a>
+            </li>
           </ul>
         </div>
       </div>
