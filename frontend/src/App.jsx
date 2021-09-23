@@ -17,10 +17,10 @@ import {
     Route, Redirect,
 } from "react-router-dom";
 import "./App.css";
-import {NavigationApp} from "./components/navigation-app";
 import {isAuthenticated} from "./services/auth";
 import {Calendar} from "./components/calendar";
-import {RegisterCustomer} from "./components/registerCustomer";
+import {ListCustomer} from "./components/customer/listCustomer";
+import {RegisterEditCustomer} from "./components/customer/registerEditCustomer";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -49,7 +49,9 @@ const App = () => {
         <Router>
             <Switch>
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/cliente" component={RegisterCustomer} />
+                <Route exact path="/listarcliente" component={ListCustomer} />
+                <Route exact path="/editarcliente" component={RegisterEditCustomer} />
+                <Route exact path="/registrarcliente" component={RegisterEditCustomer} />
                 <PrivateRoute path="/agenda" component={Calendar}/>
                 <Route path="/home">
                     <div>

@@ -638,3 +638,5 @@ label {
     margin: 50px 0;
   }
 }
+
+@import "./forms.css";
