@@ -30,6 +30,11 @@ export const NavigationApp = (props) => {
                 Sair
               </a>
             </li>
+            <li>
+              <a href='/listarcliente' className='page-scroll'>
+                Clientes
+              </a>
+            </li>
           </ul>
         </div>
       </div>
