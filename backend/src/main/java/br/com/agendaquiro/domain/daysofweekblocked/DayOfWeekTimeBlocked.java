@@ -29,9 +29,9 @@ public class DayOfWeekTimeBlocked {
     @Convert(converter = LocalTimeToTimeConverter.class)
     private LocalTime endTime;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "days_of_week_blocked_id", insertable = false, updatable = false)
-    private DaysOfWeekBlocked daysOfWeekBlocked;
+    private DaysOfWeekBlocked daysOfWeekBlocked;*/
 
     public boolean isOnPeriodOfTime(DayOfWeek otherDay, LocalTime otherStart, LocalTime otherEnd) {
         boolean isABlockedDay = dayOfWeek.equals(otherDay);

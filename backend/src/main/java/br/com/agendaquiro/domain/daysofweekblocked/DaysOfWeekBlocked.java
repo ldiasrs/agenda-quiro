@@ -1,6 +1,7 @@
 package br.com.agendaquiro.domain.daysofweekblocked;
 
 import br.com.agendaquiro.domain.User;
+import br.com.agendaquiro.domain.professsional.ProfessionalAgendaConfig;
 import br.com.agendaquiro.repository.converter.DayOfWeekToIntegerConverter;
 import br.com.agendaquiro.repository.converter.ListDayOfWeekToIntegerConverter;
 import lombok.*;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "day_of_week_time_blocked")
+@Table(name = "days_of_week_blocked")
 public class DaysOfWeekBlocked {
 
     @Id
@@ -29,8 +30,12 @@ public class DaysOfWeekBlocked {
     private List<DayOfWeek> wholeDaysOfWeekBlocked;
 
     @OneToMany
-    @JoinColumn(name = "days_of_week_blocked_id")
+    @JoinColumn(name = "day_of_week_time_blocked_id")
     private List<DayOfWeekTimeBlocked> periodOfTimeDayWeekBlocked;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "professional_agenda_config_id")
+    private ProfessionalAgendaConfig professionalAgendaConfig;
 
     public DaysOfWeekBlocked() {
         wholeDaysOfWeekBlocked = new ArrayList<>();

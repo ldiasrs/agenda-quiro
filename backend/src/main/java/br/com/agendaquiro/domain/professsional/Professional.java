@@ -1,14 +1,20 @@
 package br.com.agendaquiro.domain.professsional;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "professional")
 public class Professional {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Long id;
+
     private String name;
 }
