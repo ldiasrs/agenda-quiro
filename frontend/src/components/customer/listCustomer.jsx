@@ -1,17 +1,18 @@
 import {NavigationApp} from "../navigation-app";
+import {Pagination} from "../Pagination";
 
 
 export const ListCustomer = (props) => {
 
     const fetchCustomers = () => {
         let customers = []
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 10; i++) {
             customers.push(
                 {"id":1,"name":"leo"+i,"email":i+"leo@gmail.com","phone":"9039409343","cpf":"0092323","birthDate":{"year":2021,"month":"SEPTEMBER","chronology":{"calendarType":"iso8601","id":"ISO"},"era":"CE","monthValue":9,"dayOfMonth":23,"dayOfYear":266,"dayOfWeek":"THURSDAY","leapYear":false},"height":"92","weight":"178","gender":"masculino"}
             )
         }
         return {
-            "totalItems": 8,
+            "totalItems": 10,
             "customers": customers,
             "totalPages": 3,
             "currentPage": 1
@@ -80,14 +81,7 @@ export const ListCustomer = (props) => {
 
                         </tbody>
                     </table>
-                    <div className="clearfix">
-                        <div className="hint-text">Showing <b>5</b> out of <b>{customerData.totalItems}</b> entries</div>
-                        <ul className="pagination">
-                            <li className="page-item disabled"><a href="#">Previous</a></li>
-                            <li className="page-item"><a href="#" className="page-link">1</a></li>
-                            <li className="page-item"><a href="#" className="page-link">Next</a></li>
-                        </ul>
-                    </div>
+                    <Pagination/>
                 </div>
             </div>
             <div id="editCustomerModal" className="modal fade">
