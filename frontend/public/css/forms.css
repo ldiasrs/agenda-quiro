@@ -217,3 +217,7 @@
 .customForm .modal form label {
     font-weight: normal;
 }
+
+.customForm .registerPanel {
+    margin-top: 120px;
+}
