@@ -29,7 +29,7 @@ export const Pagination = (props) => {
     const getPagesClick = () => {
         const pages = []
         for (let i = 0; i < paginationData.totalPages; i++) {
-            pages.push(<li className="page-item"><a href="#" className="page-link">{i+1}</a></li>)
+            pages.push(<li className="page-item"><button href="#" className="page-link">{i+1}</button></li>)
         }
         return pages
     }
@@ -38,11 +38,11 @@ export const Pagination = (props) => {
         <div className="clearfix">
             <div className="hint-text">Showing <b>{getTotalItems()}</b> out of <b>{paginationData.totalItems}</b> entries</div>
             <ul className="pagination">
-                <li className="page-item disabled"><a href="#">Previous</a></li>
+                <li className="page-item disabled"><button href="#">Previous</button></li>
                 {
                     getPagesClick()
                 }
-                <li className="page-item"><a href="#" className="page-link">Next</a></li>
+                <li className="page-item"><button href="#" className="page-link">Next</button></li>
             </ul>
         </div>
     );

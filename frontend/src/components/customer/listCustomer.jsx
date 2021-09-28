@@ -24,7 +24,7 @@ export const ListCustomer = (props) => {
     return (
         <>
             <NavigationApp/>
-            <div className="container" className='customForm'>
+            <div className='customForm'>
                 <div className="table-wrapper">
                     <div className="table-title">
                         <div className="row">

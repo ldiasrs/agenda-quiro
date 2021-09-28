@@ -1,11 +1,38 @@
 import {NavigationApp} from "../navigation-app";
+import {useState} from "react";
+import Select from 'react-select';
 
 export const RegisterEditCustomer = (props) => {
+
+
+    const [name, setName] = useState("aaa");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [birthDate, setBirthDate] = useState("");
+    const [height, setHeight] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [gender, setGender] = useState("male");
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const customerData = {
+            name,
+            email,
+            phone,
+            cpf,
+            birthDate,
+            height,
+            weight,
+            gender
+        }
+        console.log(customerData)
+    }
 
     return (
         <>
             <NavigationApp/>
-            <div className="container" className='customForm'>
+            <div  className='customForm'>
                 <div id="addCustomerModal" className='registerPanel'>
                     <div className="table-title">
                         <div className="row">
@@ -14,51 +41,61 @@ export const RegisterEditCustomer = (props) => {
                             </div>
                         </div>
                     </div>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="modal-body">
                             <div className="form-group">
                                 <label>Name</label>
-                                <input type="text" className="form-control" required/>
+                                <input type="text"
+                                       value={name}
+                                       onChange={e => setName(e.target.value)}
+                                       className="form-control" required/>
                             </div>
                             <div className="form-group">
                                 <label>Email</label>
-                                <input type="email" className="form-control" required/>
+                                <input type="email"
+                                       value={email}
+                                       onChange={e => setEmail(e.target.value)}
+                                       className="form-control" required/>
                             </div>
                             <div className="form-group">
                                 <label>Phone</label>
-                                <input type="text" className="form-control" required/>
+                                <input type="text"
+                                       value={phone}
+                                       onChange={e => setPhone(e.target.value)}
+                                       className="form-control" required/>
                             </div>
                             <div className="form-group">
                                 <label>CPF</label>
-                                <input type="text" className="form-control" required/>
-                            </div>
-                            <div className="form-group">
-                                <label>Address</label>
-                                <textarea className="form-control" required></textarea>
+                                <input type="text"
+                                       value={cpf}
+                                       onChange={e => setCpf(e.target.value)}
+                                       className="form-control" required/>
                             </div>
                             <div className="form-group">
                                 <label>Genero</label>
-                                <select
-                                    value="Genero"
-                                    className="form-control">
-                                    <option key="male" value="male">
-                                        Masculino
-                                    </option>
-                                    <option key="female" value="female">
-                                        Femino
-                                    </option>
-                                    <option key="other" value="other">
-                                        Outro
-                                    </option>
-                                </select>
+                                <Select
+                                    value={{ value: gender, label: 'Masculino' }}
+                                    onChange={e => setGender(e.value)}
+                                    options={[
+                                        { value: 'male', label: 'Masculino' },
+                                        { value: 'female', label: 'Feminino' },
+                                        { value: 'other', label: 'Outro' },
+                                    ]}
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Altura</label>
-                                <input type="number" required className="form-control"/>
+                                <input type="number"
+                                       value={height}
+                                       onChange={e => setHeight(e.target.value)}
+                                       required className="form-control"/>
                             </div>
                             <div className="form-group">
                                 <label>Peso</label>
-                                <input type="number" required className="form-control"/>
+                                <input type="number"
+                                       value={weight}
+                                       onChange={e => setWeight(e.target.value)}
+                                       required className="form-control"/>
                             </div>
                         </div>
                         <div className="modal-footer">

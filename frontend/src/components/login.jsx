@@ -36,7 +36,7 @@ export const Login = (props) => {
                     <input type="password" id="inputPassword" className="form-control" placeholder="Password"
                            required  onChange={e => setPassword(e.target.value)}/>
                     <button className="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-                    <a className="btn btn-link" href="">Esqueci a senha </a>
+                    <button className="btn btn-link" href="">Esqueci a senha </button>
                     {error && <p class="alert alert-danger">{error}</p>}
                 </form>
             </div>
