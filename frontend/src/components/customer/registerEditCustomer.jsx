@@ -9,7 +9,7 @@ export const RegisterEditCustomer = (props) => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [cpf, setCpf] = useState("");
-    const [birthDate, setBirthDate] = useState("");
+    const [birthDate, setBirthDate] = useState(new Date());
     const [height, setHeight] = useState(0);
     const [weight, setWeight] = useState(0);
     const [gender, setGender] = useState("male");
@@ -28,6 +28,10 @@ export const RegisterEditCustomer = (props) => {
         }
         console.log(customerData)
     }
+
+    const handleSelectGenderChange = (selectedOption) => {
+        setGender(selectedOption.value)
+    };
 
     return (
         <>
@@ -74,8 +78,7 @@ export const RegisterEditCustomer = (props) => {
                             <div className="form-group">
                                 <label>Genero</label>
                                 <Select
-                                    value={{ value: gender, label: 'Masculino' }}
-                                    onChange={e => setGender(e.value)}
+                                    onChange={handleSelectGenderChange}
                                     options={[
                                         { value: 'male', label: 'Masculino' },
                                         { value: 'female', label: 'Feminino' },
