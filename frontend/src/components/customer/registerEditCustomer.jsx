@@ -78,7 +78,7 @@ export const RegisterEditCustomer = (props) => {
                                        className="form-control" required/>
                             </div>
                             <div >
-                                <label>Genero</label>
+                                <label>Gênero</label>
                                 <br></br>
                             </div>
                             <div className="form-group">
