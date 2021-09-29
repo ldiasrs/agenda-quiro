@@ -221,3 +221,10 @@
 .customForm .registerPanel {
     margin-top: 120px;
 }
+
+
+#newLine::after{
+    content: "\a";
+    white-space: pre;
+}
+

@@ -77,7 +77,12 @@ export const RegisterEditCustomer = (props) => {
                                        onChange={e => setCpf(e.target.value)}
                                        className="form-control" required/>
                             </div>
+                            <div >
+                                <label>Genero</label>
+                                <br></br>
+                            </div>
                             <div className="form-group">
+                                <br></br>
                                 <Select
                                     onChange={handleSelectGenderChange}
                                     options={[
