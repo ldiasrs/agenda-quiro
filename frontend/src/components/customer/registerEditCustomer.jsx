@@ -1,6 +1,8 @@
 import {NavigationApp} from "../navigation-app";
 import {useState} from "react";
 import Select from 'react-select';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const RegisterEditCustomer = (props) => {
 
@@ -76,7 +78,6 @@ export const RegisterEditCustomer = (props) => {
                                        className="form-control" required/>
                             </div>
                             <div className="form-group">
-                                <label>Genero</label>
                                 <Select
                                     onChange={handleSelectGenderChange}
                                     options={[
@@ -85,6 +86,10 @@ export const RegisterEditCustomer = (props) => {
                                         { value: 'other', label: 'Outro' },
                                     ]}
                                 />
+                            </div>
+                            <div className="form-group">
+                                <label>Data de nascimento</label>
+                                <DatePicker selected={birthDate} onChange={(date) => setBirthDate(date)} />
                             </div>
                             <div className="form-group">
                                 <label>Altura</label>
