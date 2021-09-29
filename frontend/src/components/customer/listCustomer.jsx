@@ -86,12 +86,11 @@ export const ListCustomer = (props) => {
                                 <label>Data final</label>
                                 <DatePicker selected={finalDate} onChange={(date) => setFinalDate(date)} />
                             </div>
-                            <button type="submit" className="btn btn-default">Trocar datas</button>
-                        </form>
-                        <p>Digite algo para procurar na tabela abaixo:</p>
-                        <form className="form-inline">
-                            <input className="form-control" id="myInput" type="text" placeholder="Search.." onChange={e => setGlobalFilter(e.target.value)}/>
-                            <button className="btn-secondary" type="submit">Procurar em todas paginas</button>
+                            <div className="form-group">
+                                <p>Digite algo para procurar na tabela abaixo:</p>
+                                <input className="form-control" id="myInput" type="text" placeholder="Search.." onChange={e => setGlobalFilter(e.target.value)}/>
+                                <button className="btn btn-primary" type="submit">Procurar em todas paginas</button>
+                            </div>
                         </form>
                     </div>
                     <table className="table table-striped table-hover">
