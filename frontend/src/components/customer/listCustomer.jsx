@@ -1,8 +1,15 @@
 import {NavigationApp} from "../navigation-app";
 import {Pagination} from "../Pagination";
+import DatePicker from "react-datepicker";
+import {useState} from "react";
+
 
 
 export const ListCustomer = (props) => {
+
+    const [initialDate, setInitialDate] = useState(new Date());
+    const [finalDate, setFinalDate] = useState(new Date());
+    const [globalFilter, setGlobalFilter] = useState(undefined);
 
     const fetchCustomers = () => {
         let customers = []
@@ -21,6 +28,38 @@ export const ListCustomer = (props) => {
 
     const customerData  = fetchCustomers();
 
+    const filterCustomer = (customer) => {
+        if (!globalFilter) return true;
+        console.log(globalFilter)
+        return  ((customer.name+customer.email+customer.phone+customer.cpf+customer.gender).includes(globalFilter))
+    }
+
+    const filterTableElements = () => {
+        return customerData.customers
+            .filter(filterCustomer)
+            .map( customer =>
+                <tr>
+                    <td>
+                        <span className="custom-checkbox">
+                            <input type="checkbox" id="checkbox1" name="options[]" value="1"/>
+                            <label htmlFor="checkbox1"></label>
+                        </span>
+                    </td>
+                    <td>{ customer.name}</td>
+                    <td>{ customer.phone}</td>
+                    <td>{ customer.email}</td>
+                    <td>{ customer.cpf}</td>
+                    <td>{ customer.gender}</td>
+                    <td>
+                        <a href="/cliente/editar" className="edit" data-toggle="modal"><i
+                            className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteCustomerModal" className="delete" data-toggle="modal"><i
+                            className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
+                </tr>
+            )
+    }
+
     return (
         <>
             <NavigationApp/>
@@ -38,6 +77,22 @@ export const ListCustomer = (props) => {
                                     <i className="material-icons">&#xE15C;</i> <span>Deletar</span></a>
                             </div>
                         </div>
+                        <form className="form-inline">
+                            <div className="form-group">
+                                <label>Data inicial</label>
+                                <DatePicker selected={initialDate} onChange={(date) => setInitialDate(date)} />
+                            </div>
+                            <div className="form-group">
+                                <label>Data final</label>
+                                <DatePicker selected={finalDate} onChange={(date) => setFinalDate(date)} />
+                            </div>
+                            <button type="submit" className="btn btn-default">Trocar datas</button>
+                        </form>
+                        <p>Digite algo para procurar na tabela abaixo:</p>
+                        <form className="form-inline">
+                            <input className="form-control" id="myInput" type="text" placeholder="Search.." onChange={e => setGlobalFilter(e.target.value)}/>
+                            <button className="btn-secondary" type="submit">Procurar em todas paginas</button>
+                        </form>
                     </div>
                     <table className="table table-striped table-hover">
                         <thead>
@@ -49,36 +104,17 @@ export const ListCustomer = (props) => {
 							</span>
                             </th>
                             <th>Nome</th>
+                            <th>Telefone</th>
                             <th>Email</th>
-                            <th>Cep</th>
-                            <th>Endereço</th>
+                            <th>CPF</th>
+                            <th>Gênero</th>
                             <th>Ações</th>
                         </tr>
                         </thead>
                         <tbody>
                         {
-                            customerData.customers.map( customer =>
-                                <tr>
-                                    <td>
-                                        <span className="custom-checkbox">
-                                            <input type="checkbox" id="checkbox1" name="options[]" value="1"/>
-                                            <label htmlFor="checkbox1"></label>
-                                        </span>
-                                    </td>
-                                    <td>{ customer.name}</td>
-                                    <td>{ customer.email}</td>
-                                    <td>{ customer.cpf}</td>
-                                    <td>{ customer.phone}</td>
-                                    <td>
-                                        <a href="/cliente/editar" className="edit" data-toggle="modal"><i
-                                            className="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                        <a href="#deleteCustomerModal" className="delete" data-toggle="modal"><i
-                                            className="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                    </td>
-                                </tr>
-                            )
+                            filterTableElements()
                         }
-
                         </tbody>
                     </table>
                     <Pagination/>
