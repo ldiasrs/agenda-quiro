@@ -4,17 +4,45 @@ import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export const RegisterEditCustomer = (props) => {
+export const AddEditCustomer = ({ history, match }) => {
 
+    const fetchCustomer = (id) => {
+        return   {
+            name: "leo",
+            email : "leo@gmail.com",
+            phone: "999",
+            cpf: "222",
+            birthDate : new Date(),
+            height : 0,
+            weight : 0,
+            gender : "male"
+        }
+    }
 
-    const [name, setName] = useState("aaa");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [cpf, setCpf] = useState("");
-    const [birthDate, setBirthDate] = useState(new Date());
-    const [height, setHeight] = useState(0);
-    const [weight, setWeight] = useState(0);
-    const [gender, setGender] = useState("male");
+    const defaultvalues = {
+        name: "",
+        email : "",
+        phone: "",
+        cpf: "",
+        birthDate : new Date(),
+        height : 0,
+        weight : 0,
+        gender : "male"
+    }
+
+    const { id } = match.params;
+    const isAddMode = !id;
+
+    const customerData = isAddMode ? defaultvalues  : fetchCustomer(id);
+
+    const [name, setName] = useState(customerData.name);
+    const [email, setEmail] = useState(customerData.email);
+    const [phone, setPhone] = useState(customerData.phone);
+    const [cpf, setCpf] = useState(customerData.cpf);
+    const [birthDate, setBirthDate] = useState(customerData.birthDate);
+    const [height, setHeight] = useState(customerData.height);
+    const [weight, setWeight] = useState(customerData.weight);
+    const [gender, setGender] = useState(customerData.gender);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -112,10 +140,35 @@ export const RegisterEditCustomer = (props) => {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                            <a href="#deleteCustomerModal" className="btn btn-danger" data-toggle="modal">
+                                <i className="material-icons">&#xE15C;</i> <span>Remover</span></a>
+                            <a href='/listarcliente'>
+                                <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                            </a>
                             <input type="submit" className="btn btn-success" value="Salvar"/>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div id="deleteCustomerModal" className="modal fade">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <form>
+                            <div className="modal-header">
+                                <h4 className="modal-title">Remover</h4>
+                                <button type="button" className="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Você tem certeza que deseja remover?</p>
+                                <p className="text-warning"><small>Essa ação não poderá ser desfeita.</small></p>
+                            </div>
+                            <div className="modal-footer">
+                                <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancelar"/>
+                                <input type="submit" className="btn btn-danger" value="Remover"/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </>

@@ -20,7 +20,7 @@ import "./App.css";
 import {isAuthenticated} from "./services/auth";
 import {Calendar} from "./components/calendar";
 import {ListCustomer} from "./components/customer/listCustomer";
-import {RegisterEditCustomer} from "./components/customer/registerEditCustomer";
+import {AddEditCustomer} from "./components/customer/addEditCustomer";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -50,8 +50,8 @@ const App = () => {
             <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/listarcliente" component={ListCustomer} />
-                <Route exact path="/editarcliente" component={RegisterEditCustomer} />
-                <Route exact path="/registrarcliente" component={RegisterEditCustomer} />
+                <Route exact path="/cliente/:id" component={AddEditCustomer} />
+                <Route exact path="/registrarcliente" component={AddEditCustomer} />
                 <PrivateRoute path="/agenda" component={Calendar}/>
                 <Route path="/home">
                     <div>
