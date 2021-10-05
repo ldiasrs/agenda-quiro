@@ -1,11 +1,11 @@
 package br.com.agendaquiro.controller.customer;
 
-import br.com.agendaquiro.common.utils.DataTransferObjectUtil;
+import br.com.agendaquiro.controller.BaseController;
+import br.com.agendaquiro.controller.MessageHttpResponse;
+import br.com.agendaquiro.controller.customer.request.CustomerRequest;
 import br.com.agendaquiro.domain.customer.Customer;
-import br.com.agendaquiro.domain.to.CustomerTO;
-import br.com.agendaquiro.domain.to.HttpResponseTO;
 import br.com.agendaquiro.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -14,68 +14,48 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+import java.text.ParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static br.com.agendaquiro.config.PathMappings.*;
+import static br.com.agendaquiro.controller.customer.request.CustomerRequest.convertToEntity;
 
 @RestController
 public class CustomerController extends BaseController {
 
-    @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    private DataTransferObjectUtil dataTransferObjectUtil;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @PostMapping(CUSTOMER)
-    public ResponseEntity<HttpResponseTO> add(@Valid @RequestBody CustomerTO customerTO) {
-
-        HttpResponseTO responseTO = null;
-        try {
-            Customer customer = dataTransferObjectUtil.getFillCustomer(customerTO);
-            responseTO = this.customerService.add(customer);
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-
-        return super.response(responseTO, null != responseTO.getStatus() ? responseTO.getStatus() : HttpStatus.OK);
+    public ResponseEntity<MessageHttpResponse> add(@Valid @RequestBody CustomerRequest customerRequest) throws ParseException {
+        this.customerService.add(convertToEntity(customerRequest));
+        return super.response(MessageHttpResponse.builder().build(), HttpStatus.CREATED);
     }
 
     @PutMapping(CUSTOMER_EDIT)
-    public ResponseEntity<HttpResponseTO> edit(@Valid @RequestBody CustomerTO customerTO) {
-
-        HttpResponseTO responseTO = null;
-        try {
-            Customer customer = dataTransferObjectUtil.getFillCustomer(customerTO);
-            responseTO = this.customerService.edit(customer);
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-
-        return super.response(responseTO, null != responseTO.getStatus() ? responseTO.getStatus() : HttpStatus.OK);
+    public ResponseEntity<MessageHttpResponse> edit(@Valid @RequestBody CustomerRequest customerRequest) {
+        this.customerService.edit(convertToEntity(customerRequest));
+        return super.response(MessageHttpResponse.builder().build(), HttpStatus.OK);
     }
 
     @DeleteMapping(CUSTOMER_DELETE)
-    public ResponseEntity<HttpResponseTO> delete(@PathVariable Long id) {
-
-        HttpResponseTO responseTO = null;
-        try {
-            responseTO = this.customerService.delete(id);
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-
-        return super.response(responseTO, null != responseTO.getStatus() ? responseTO.getStatus() : HttpStatus.OK);
+    public ResponseEntity<MessageHttpResponse> delete(@PathVariable Long id) {
+        this.customerService.delete(id);
+        return super.response(MessageHttpResponse.builder().build(), HttpStatus.OK);
     }
 
     @GetMapping(CUSTOMER_FILTER)
     public ResponseEntity<?> filter(@PathVariable String name, final Pageable pageable) {
-
         final Page<Customer> customers = customerService.findByFilter(name, pageable);
-        final List<CustomerTO> customerTOs = dataTransferObjectUtil.getFillCustomerTOsWithoutList(customers.getContent());
-        final Page<CustomerTO> customersTO = new PageImpl<CustomerTO>(customerTOs, pageable, customers.getTotalElements());
-
-        return super.builder(customersTO);
+        final List<CustomerRequest> customerRequests = customers.stream()
+                .map(CustomerRequest::convertToRequestDto)
+                .collect(Collectors.toList());
+        final Page<CustomerRequest> pages =
+                new PageImpl<CustomerRequest>(customerRequests, pageable, customers.getTotalElements());
+        return super.pageResult(pages);
     }
 }

@@ -51,13 +51,13 @@ public class ProfessionalConfigRegister {
                 .endTime(LocalDateTime.of(LocalDate.of(2021, 9, 24), LocalTime.of(12, 0)))
                 .build();
 
-        //DADO uma configuracao de um profissional
-        ProfessionalAgendaConfig agendaConfig = ProfessionalAgendaConfig
-                .builder()
-                .professional(professional)
-                .daysOfWeekBlocked(standarConfig)
-                .customRangesOfTimeBlocked(List.of(twoDaysNotWorking, morningNotWorking))
-                .build();
+//        //DADO uma configuracao de um profissional
+//        ProfessionalAgendaConfig agendaConfig = ProfessionalAgendaConfig
+//                .builder()
+//                .professional(professional)
+//                .daysOfWeekBlocked(standarConfig)
+//                .customRangesOfTimeBlocked(List.of(twoDaysNotWorking, morningNotWorking))
+//                .build();
     }
 
     @Test
@@ -74,14 +74,14 @@ public class ProfessionalConfigRegister {
                 .email("lu@gmail.com")
                 .name("Luana")
                 .build();
-
-        Appointment appointment = Appointment.builder()
-                .professional(zeQuiro)
-                .customer(luana)
-                .dateTime(LocalDateTime.of(LocalDate.of(2021, 9, 24), LocalTime.of(14, 0)))
-                .serviceType(quiropraxiaService)
-                .amountPaid(BigDecimal.ZERO)
-                .build();
+//
+//        Appointment appointment = Appointment.builder()
+//                .professional(zeQuiro)
+//                .customer(luana)
+//                .dateTime(LocalDateTime.of(LocalDate.of(2021, 9, 24), LocalTime.of(14, 0)))
+//                .serviceType(quiropraxiaService)
+//                .amountPaid(BigDecimal.ZERO)
+//                .build();
     }
 
     @Test
@@ -99,13 +99,13 @@ public class ProfessionalConfigRegister {
                 .name("Luana")
                 .build();
 
-        Appointment appointment = Appointment.builder()
-                .professional(zeQuiro)
-                .customer(luana)
-                .dateTime(LocalDateTime.of(LocalDate.of(2021, 9, 24), LocalTime.of(14, 0)))
-                .serviceType(quiropraxiaService)
-                .amountPaid(BigDecimal.ZERO)
-                .build();
+//        Appointment appointment = Appointment.builder()
+//                .professional(zeQuiro)
+//                .customer(luana)
+//                .dateTime(LocalDateTime.of(LocalDate.of(2021, 9, 24), LocalTime.of(14, 0)))
+//                .serviceType(quiropraxiaService)
+//                .amountPaid(BigDecimal.ZERO)
+//                .build();
 
         Anamnesis luanaAnamnesis = Anamnesis.builder()
                 .description("")
@@ -113,11 +113,11 @@ public class ProfessionalConfigRegister {
                 .customer(luana)
                 .build();
 
-        CustomerService customerService = CustomerService.builder()
-                .appointment(appointment)
-                .painComplaint("")
-                .performedProcedures("")
-                .postServiceProcedures("")
-                .build();
+//        CustomerService customerService = CustomerService.builder()
+//                .appointment(appointment)
+//                .painComplaint("")
+//                .performedProcedures("")
+//                .postServiceProcedures("")
+//                .build();
     }
 }

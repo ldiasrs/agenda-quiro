@@ -1,9 +1,6 @@
 package br.com.agendaquiro.domain.customer;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,6 +10,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "customer")
+@Getter
+@Setter
 public class Customer {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

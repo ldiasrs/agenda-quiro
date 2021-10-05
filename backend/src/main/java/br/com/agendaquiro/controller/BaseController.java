@@ -1,4 +1,4 @@
-package br.com.agendaquiro.controller.customer;
+package br.com.agendaquiro.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -22,10 +22,6 @@ public class BaseController {
 
 	protected static final String SUCCESS = "SUCCESS";
 
-	/*public Long getTenant() {
-		return SecurityTenantFilter.getTenant();
-	}*/
-
     public static final String HEADER_META_TOTAL_COUNT = "x-meta-total-count";
 
     public static final String HEADER_META_TOTAL_PAGES = "x-meta-total-pages";
@@ -33,7 +29,7 @@ public class BaseController {
     public static final String HEADER_META_CURRENT_PAGE = "x-meta-current-page";
 
 
-    public <T> ResponseEntity<List<T>> builder(final Page<T> page){
+    public <T> ResponseEntity<List<T>> pageResult(final Page<T> page){
         final HttpHeaders headers = new HttpHeaders();
         headers.add(HEADER_META_TOTAL_COUNT, String.valueOf(page.getTotalElements()));
         headers.add(HEADER_META_TOTAL_PAGES, String.valueOf(page.getTotalPages()));
