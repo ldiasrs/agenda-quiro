@@ -49,8 +49,7 @@ public class PostConstructExampleBean {
     public void init() {
         //USER
         User admin = User.builder()
-                .userName("admin@admincom")
-                .userName("Administrator")
+                .username("admin@admin.com")
                 .password("")
                 .build();
 
