@@ -2,10 +2,7 @@ package br.com.agendaquiro.domain.professsional;
 
 import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "professional_config")
 public class ProfessionalConfig {
     @Id
@@ -25,6 +24,6 @@ public class ProfessionalConfig {
     private Professional professional;
 
     @OneToOne
-    @JoinColumn(name = "day_of_week_blocked_id")
+    @JoinColumn(name = "days_of_week_blocked_id")
     private DaysOfWeekBlocked daysOfWeekBlocked;
 }

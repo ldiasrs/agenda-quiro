@@ -1,10 +1,7 @@
 package br.com.agendaquiro.domain.appointment;
 
 import br.com.agendaquiro.domain.appointment.ServiceType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,6 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "appointment")
 public class Appointment {
     @Id

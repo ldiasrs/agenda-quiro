@@ -1,9 +1,6 @@
 package br.com.agendaquiro.domain.professsional;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +9,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "custom_range_time_blocked")
 public class CustomRangeTimeBlocked {
     @Id

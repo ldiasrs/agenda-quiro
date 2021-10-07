@@ -1,9 +1,6 @@
 package br.com.agendaquiro.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
 public class User {
 
@@ -21,6 +20,7 @@ public class User {
     private Long id;
 
     private String tenant;
-    private String userName;
+    private String username;
     private String password;
+    private Boolean enabled;
 }

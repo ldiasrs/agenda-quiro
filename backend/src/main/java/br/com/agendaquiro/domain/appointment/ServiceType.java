@@ -1,9 +1,6 @@
 package br.com.agendaquiro.domain.appointment;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +8,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "service_type")
 public class ServiceType {
     @Id

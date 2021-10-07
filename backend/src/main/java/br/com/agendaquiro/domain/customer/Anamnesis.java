@@ -3,10 +3,7 @@ package br.com.agendaquiro.domain.customer;
 import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.repository.converter.ListDayOfWeekToIntegerConverter;
 import br.com.agendaquiro.repository.converter.ListTagStringToStringConverter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "anamnesis")
 public class Anamnesis {
     @Id

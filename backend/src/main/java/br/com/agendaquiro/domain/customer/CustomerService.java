@@ -1,10 +1,6 @@
 package br.com.agendaquiro.domain.customer;
 
-import br.com.agendaquiro.domain.appointment.Appointment;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +8,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "customer_service")
 public class CustomerService {
    @Id

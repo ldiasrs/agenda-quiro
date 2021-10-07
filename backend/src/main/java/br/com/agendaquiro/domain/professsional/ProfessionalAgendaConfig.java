@@ -1,10 +1,7 @@
 package br.com.agendaquiro.domain.professsional;
 
 import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "professional_agenda_config")
 public class ProfessionalAgendaConfig {
     @Id
