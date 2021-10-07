@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain;
+package br.com.agendaquiro.domain.user;
 
 import lombok.*;
 

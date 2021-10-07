@@ -1,7 +1,5 @@
 package br.com.agendaquiro.domain.customer;
 
-import br.com.agendaquiro.domain.customer.Customer;
-import br.com.agendaquiro.repository.converter.ListDayOfWeekToIntegerConverter;
 import br.com.agendaquiro.repository.converter.ListTagStringToStringConverter;
 import lombok.*;
 

@@ -1,39 +1,37 @@
-package br.com.agendaquiro.domain.agendanotblocked;
+package br.com.agendaquiro.domain.freeappointmentsslots;
 
-import br.com.agendaquiro.domain.daysofweekblocked.DayOfWeekTimeBlocked;
-import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
-import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlockedBuilder;
+import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfig;
+import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
+import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfigBuilder;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DaysOfWeekBlockedBuilderTest {
+public class ProfessionalBlockTimeConfigBuilderTest {
 
     @Test
     public void shouldBlockDays() {
-        DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .block(DayOfWeek.SUNDAY)
                 .block(DayOfWeek.SATURDAY)
                 .build();
-        assertThat(daysOfWeekBlocked).isNotNull();
-        assertThat(daysOfWeekBlocked.getWholeDaysOfWeekBlocked()).contains(DayOfWeek.SUNDAY, DayOfWeek.SATURDAY);
+        assertThat(professionalBlockTimeConfig).isNotNull();
+        assertThat(professionalBlockTimeConfig.getWholeDaysOfWeekBlocked()).contains(DayOfWeek.SUNDAY, DayOfWeek.SATURDAY);
     }
 
     @Test
     public void shouldNotDuplicateBlockDays() {
-        DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .block(DayOfWeek.SUNDAY)
                 .block(DayOfWeek.SUNDAY)
                 .build();
-        assertThat(daysOfWeekBlocked).isNotNull();
-        assertThat(daysOfWeekBlocked.getWholeDaysOfWeekBlocked().size()).isEqualTo(1);
+        assertThat(professionalBlockTimeConfig).isNotNull();
+        assertThat(professionalBlockTimeConfig.getWholeDaysOfWeekBlocked().size()).isEqualTo(1);
     }
 
     @Test
@@ -41,13 +39,13 @@ public class DaysOfWeekBlockedBuilderTest {
         LocalTime startTime = LocalTime.parse("08:00");
         LocalTime endTime = LocalTime.parse("10:00");
         DayOfWeek monday = DayOfWeek.MONDAY;
-        DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .block(monday, startTime, endTime)
                 .build();
-        DayOfWeekTimeBlocked dayOfWeekTimeBlocked = daysOfWeekBlocked.getPeriodOfTimeDayWeekBlocked().iterator().next();
-        assertThat(dayOfWeekTimeBlocked.getDayOfWeek()).isEqualTo(monday);
-        assertThat(dayOfWeekTimeBlocked.getStartTime()).isEqualTo(startTime);
-        assertThat(dayOfWeekTimeBlocked.getEndTime()).isEqualTo(endTime);
+        TimeBlockedConfig dayOfWeekTimeBlockedConfig = professionalBlockTimeConfig.getPeriodOfTimeDayWeekBlocked().iterator().next();
+        assertThat(dayOfWeekTimeBlockedConfig.getDayOfWeek()).isEqualTo(monday);
+        assertThat(dayOfWeekTimeBlockedConfig.getStartTime()).isEqualTo(startTime);
+        assertThat(dayOfWeekTimeBlockedConfig.getEndTime()).isEqualTo(endTime);
     }
 
     @Test
@@ -59,16 +57,16 @@ public class DaysOfWeekBlockedBuilderTest {
         LocalTime secondStartBlockTime = LocalTime.of(00, 00);
         LocalTime secondEndBlockTime = LocalTime.of(10, 00);
 
-        DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .blockAllDays(firstStartBlockTime, firstEndBlockTime)
                 .blockAllDays(secondStartBlockTime, secondEndBlockTime)
                 .build();
 
         //THAN should block for all days
-        List<DayOfWeekTimeBlocked> blockedTimes = daysOfWeekBlocked.getPeriodOfTimeDayWeekBlocked();
+        List<TimeBlockedConfig> blockedTimes = professionalBlockTimeConfig.getPeriodOfTimeDayWeekBlocked();
 
         StringBuilder sb = new StringBuilder();
-        for (DayOfWeekTimeBlocked blockedTime : blockedTimes) {
+        for (TimeBlockedConfig blockedTime : blockedTimes) {
             sb.append(" #DayOfWeek: " + blockedTime.getDayOfWeek() + " start: " + blockedTime.getStartTime() + " end: " + blockedTime.getEndTime());
         }
 

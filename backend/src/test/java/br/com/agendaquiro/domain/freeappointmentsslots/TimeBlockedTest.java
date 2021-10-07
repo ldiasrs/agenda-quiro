@@ -1,6 +1,6 @@
-package br.com.agendaquiro.domain.agendanotblocked;
+package br.com.agendaquiro.domain.freeappointmentsslots;
 
-import br.com.agendaquiro.domain.daysofweekblocked.DayOfWeekTimeBlocked;
+import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfig;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
@@ -8,11 +8,11 @@ import java.time.LocalTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DayOfWeekTimeBlockedTest {
+public class TimeBlockedTest {
 
     @Test
     public void shouldVeryPeriodOfDay() {
-        DayOfWeekTimeBlocked blockedDayTime = DayOfWeekTimeBlocked.builder()
+        TimeBlockedConfig blockedDayTime = TimeBlockedConfig.builder()
                 .dayOfWeek(DayOfWeek.MONDAY)
                 .startTime(LocalTime.of(18, 0))
                 .endTime(LocalTime.of(23, 59))

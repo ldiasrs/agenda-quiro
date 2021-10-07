@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.appointment;
+package br.com.agendaquiro.domain.servicetype;
 
 import lombok.*;
 
@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Getter
-@Setter
 @Table(name = "service_type")
 public class ServiceType {
     @Id

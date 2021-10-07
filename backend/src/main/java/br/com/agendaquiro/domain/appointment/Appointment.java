@@ -1,6 +1,7 @@
 package br.com.agendaquiro.domain.appointment;
 
-import br.com.agendaquiro.domain.appointment.ServiceType;
+import br.com.agendaquiro.domain.customer.Customer;
+import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,23 +11,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
 @Getter
-@Setter
+@Entity
 @Table(name = "appointment")
 public class Appointment {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
-    private Long professionalId;
-    private Long customerId;
-    private LocalDateTime dateTime;
+    @OneToOne
+    @JoinColumn(name = "professional_id")
+    private ProfessionalService professionalService;
 
     @OneToOne
-    @JoinColumn(name = "SERVICE TYPE_ID")
-    private ServiceType serviceType;
+    private Customer customer;
+
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     private BigDecimal amountPaid;
     private String observation;

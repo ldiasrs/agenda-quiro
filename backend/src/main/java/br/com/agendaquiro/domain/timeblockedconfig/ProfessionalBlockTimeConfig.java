@@ -1,8 +1,6 @@
-package br.com.agendaquiro.domain.daysofweekblocked;
+package br.com.agendaquiro.domain.timeblockedconfig;
 
-import br.com.agendaquiro.domain.User;
-import br.com.agendaquiro.domain.professsional.ProfessionalAgendaConfig;
-import br.com.agendaquiro.repository.converter.DayOfWeekToIntegerConverter;
+import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
 import br.com.agendaquiro.repository.converter.ListDayOfWeekToIntegerConverter;
 import lombok.*;
 
@@ -20,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "days_of_week_blocked")
-public class DaysOfWeekBlocked {
+public class ProfessionalBlockTimeConfig {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -32,13 +30,18 @@ public class DaysOfWeekBlocked {
 
     @OneToMany
     @JoinColumn(name = "day_of_week_time_blocked_id")
-    private List<DayOfWeekTimeBlocked> periodOfTimeDayWeekBlocked;
+    private List<TimeBlockedConfig> periodOfTimeDayWeekBlocked;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "professional_agenda_config_id")
-    private ProfessionalAgendaConfig professionalAgendaConfig;
+    @OneToOne
+    @JoinColumn(name = "PROFESSIONAL_ID")
+    private ProfessionalService professionalService;
 
-    public DaysOfWeekBlocked() {
+    public ProfessionalBlockTimeConfig(ProfessionalService professionalService) {
+        this();
+        this.professionalService = professionalService;
+    }
+
+    public ProfessionalBlockTimeConfig() {
         wholeDaysOfWeekBlocked = new ArrayList<>();
         periodOfTimeDayWeekBlocked = new ArrayList<>();
     }
@@ -50,12 +53,16 @@ public class DaysOfWeekBlocked {
        return false;
     }
 
+    public boolean block(TimeBlockedConfig dayOfWeekTimeBlockedConfig) {
+        return periodOfTimeDayWeekBlocked.add(dayOfWeekTimeBlockedConfig);
+    }
+
     public boolean block(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
         if (startTime.isAfter(endTime)) {
             throw new InvalidBlockTimeException("Invalid range - Start time should not be after end time");
         }
         return periodOfTimeDayWeekBlocked.add(
-                DayOfWeekTimeBlocked.builder()
+                TimeBlockedConfig.builder()
                 .dayOfWeek(dayOfWeek)
                 .startTime(startTime)
                 .endTime(endTime)

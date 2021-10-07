@@ -1,7 +1,8 @@
-package br.com.agendaquiro.domain.agendanotblocked;
+package br.com.agendaquiro.domain.freeappointmentsslots;
 
-import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
-import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlockedBuilder;
+import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
+import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfigBuilder;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class AgendaBuilderTest {
     @Test
     public void shouldBuildAgenda() {
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
-        DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
                 .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
                 .blockAllDays(LocalTime.of(12,0), LocalTime.of(13,00))
@@ -30,9 +31,9 @@ public class AgendaBuilderTest {
         int durationInMinutes = 60;
 
         //WHEN ASKED TO CREATE AGENDA
-        AgendaOfPeriodNotBlocked agendaOfPeriod = new AgendaOfPeriodNotBlockedBuilder()
+        FreeAppointmentsSlots agendaOfPeriod = new FreeAppointmentsSlotsBuilder()
                 .period(durationInMinutes, sunday, tuesday)
-                .daysOfWeekBlocked(daysOfWeekBlocked)
+                .daysOfWeekBlocked(professionalBlockTimeConfig)
                 .build();
 
         //THEN the agenda should be fine
@@ -57,7 +58,7 @@ public class AgendaBuilderTest {
     @Test
     public void shouldBuildAgendaWithLunchBlocked() {
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
-        DaysOfWeekBlocked daysOfWeekBlocked = new DaysOfWeekBlockedBuilder()
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
                 .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
                 .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
@@ -71,9 +72,9 @@ public class AgendaBuilderTest {
         int durationInMinutes = 60;
 
         //WHEN ASKED TO CREATE AGENDA
-        AgendaOfPeriodNotBlocked agendaOfPeriod = new AgendaOfPeriodNotBlockedBuilder()
+        FreeAppointmentsSlots agendaOfPeriod = new FreeAppointmentsSlotsBuilder()
                 .period(durationInMinutes, mondayStart, tuesdayStart)
-                .daysOfWeekBlocked(daysOfWeekBlocked)
+                .daysOfWeekBlocked(professionalBlockTimeConfig)
                 .build();
 
         //THEN the agenda should be fine

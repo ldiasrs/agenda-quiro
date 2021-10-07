@@ -4,8 +4,7 @@ import br.com.agendaquiro.controller.BaseController;
 import br.com.agendaquiro.controller.MessageHttpResponse;
 import br.com.agendaquiro.controller.customer.request.CustomerRequest;
 import br.com.agendaquiro.domain.customer.Customer;
-import br.com.agendaquiro.service.CustomerService;
-import org.modelmapper.ModelMapper;
+import br.com.agendaquiro.domain.customer.CustomerCrudService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -24,16 +23,20 @@ import static br.com.agendaquiro.controller.customer.request.CustomerRequest.con
 @RestController
 public class CustomerController extends BaseController {
 
-    private CustomerService customerService;
+    private CustomerCrudService customerService;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerCrudService customerService) {
         this.customerService = customerService;
     }
 
     @PostMapping(CUSTOMER)
     public ResponseEntity<MessageHttpResponse> add(@Valid @RequestBody CustomerRequest customerRequest) throws ParseException {
-        this.customerService.add(convertToEntity(customerRequest));
-        return super.response(MessageHttpResponse.builder().build(), HttpStatus.CREATED);
+        Customer customer = this.customerService.add(convertToEntity(customerRequest));
+        return super.response(
+                MessageHttpResponse
+                        .builder()
+                        .message("Customer created ID: " + customer.getId()).build(),
+                HttpStatus.CREATED);
     }
 
     @PutMapping(CUSTOMER_EDIT)
@@ -49,13 +52,13 @@ public class CustomerController extends BaseController {
     }
 
     @GetMapping(CUSTOMER_FILTER)
-    public ResponseEntity<?> filter(@PathVariable String name, final Pageable pageable) {
-        final Page<Customer> customers = customerService.findByFilter(name, pageable);
-        final List<CustomerRequest> customerRequests = customers.stream()
+    public ResponseEntity<?> filter(@PathVariable String name, Pageable pageable) {
+        Page<Customer> customers = customerService.findByFilter(name, pageable);
+        List<CustomerRequest> customerRequests = customers.stream()
                 .map(CustomerRequest::convertToRequestDto)
                 .collect(Collectors.toList());
-        final Page<CustomerRequest> pages =
-                new PageImpl<CustomerRequest>(customerRequests, pageable, customers.getTotalElements());
+        Page<CustomerRequest> pages =
+                new PageImpl<>(customerRequests, pageable, customers.getTotalElements());
         return super.pageResult(pages);
     }
 }

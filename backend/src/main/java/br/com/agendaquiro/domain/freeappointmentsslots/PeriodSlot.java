@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.agendanotblocked;
+package br.com.agendaquiro.domain.freeappointmentsslots;
 
 import lombok.Builder;
 import lombok.Getter;

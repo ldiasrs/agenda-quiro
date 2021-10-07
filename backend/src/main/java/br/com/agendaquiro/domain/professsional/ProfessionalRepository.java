@@ -1,4 +1,4 @@
-package br.com.agendaquiro.repository;
+package br.com.agendaquiro.domain.professsional;
 
 
 
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
+public interface ProfessionalRepository extends CrudRepository<Professional, Long> {
 
-    Page<Customer> findByName(String name, Pageable pageable);
 }

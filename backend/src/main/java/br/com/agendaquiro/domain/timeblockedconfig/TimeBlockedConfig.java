@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.daysofweekblocked;
+package br.com.agendaquiro.domain.timeblockedconfig;
 
 import br.com.agendaquiro.repository.converter.DayOfWeekToIntegerConverter;
 import br.com.agendaquiro.repository.converter.LocalTimeToTimeConverter;
@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "day_of_week_time_blocked")
-public class DayOfWeekTimeBlocked {
+public class TimeBlockedConfig {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class DayOfWeekTimeBlocked {
 
     /*@ManyToOne
     @JoinColumn(name = "days_of_week_blocked_id", insertable = false, updatable = false)
-    private DaysOfWeekBlocked daysOfWeekBlocked;*/
+    private ProfessionalBlockTimeConfig professionalBlockTimeConfig;*/
 
     public boolean isOnPeriodOfTime(DayOfWeek otherDay, LocalTime otherStart, LocalTime otherEnd) {
         boolean isABlockedDay = dayOfWeek.equals(otherDay);

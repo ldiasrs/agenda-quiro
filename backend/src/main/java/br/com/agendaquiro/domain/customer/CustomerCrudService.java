@@ -1,18 +1,16 @@
-package br.com.agendaquiro.service;
+package br.com.agendaquiro.domain.customer;
 
-import br.com.agendaquiro.domain.customer.Customer;
-import br.com.agendaquiro.repository.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class CustomerService {
+public class CustomerCrudService {
 
 	private CustomerRepository customerRepository;
 
-	public CustomerService(CustomerRepository customerRepository) {
+	public CustomerCrudService(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
 

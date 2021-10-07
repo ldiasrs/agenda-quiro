@@ -1,36 +1,35 @@
-package br.com.agendaquiro.domain.agendanotblocked;
+package br.com.agendaquiro.domain.freeappointmentsslots;
 
-import br.com.agendaquiro.domain.daysofweekblocked.DayOfWeekTimeBlocked;
-import br.com.agendaquiro.domain.daysofweekblocked.DaysOfWeekBlocked;
+import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfig;
+import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
 
-public class AgendaOfPeriodNotBlockedBuilder {
+public class FreeAppointmentsSlotsBuilder {
 
-    private AgendaOfPeriodNotBlocked agendaOfPeriod = new AgendaOfPeriodNotBlocked();
+    private FreeAppointmentsSlots agendaOfPeriod = new FreeAppointmentsSlots();
     private int durationInMinutes;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private DaysOfWeekBlocked daysOfWeekBlocked;
+    private ProfessionalBlockTimeConfig professionalBlockTimeConfig;
 
-    public AgendaOfPeriodNotBlockedBuilder period(int durationInMinutes, LocalDateTime monday, LocalDateTime saturday) {
+    public FreeAppointmentsSlotsBuilder period(int durationInMinutes, LocalDateTime monday, LocalDateTime saturday) {
         this.durationInMinutes = durationInMinutes;
         this.startDateTime = monday;
         this.endDateTime = saturday;
         return this;
     }
 
-    public AgendaOfPeriodNotBlockedBuilder daysOfWeekBlocked(DaysOfWeekBlocked daysOfWeekBlocked) {
-        this.daysOfWeekBlocked = daysOfWeekBlocked;
+    public FreeAppointmentsSlotsBuilder daysOfWeekBlocked(ProfessionalBlockTimeConfig professionalBlockTimeConfig) {
+        this.professionalBlockTimeConfig = professionalBlockTimeConfig;
         return this;
     }
 
-    public AgendaOfPeriodNotBlocked build() {
+    public FreeAppointmentsSlots build() {
         LocalDateTime currentTime = startDateTime;
 
         while (!currentTime.equals(endDateTime)) {
@@ -57,14 +56,14 @@ public class AgendaOfPeriodNotBlockedBuilder {
     }
 
     private boolean isNotWholeDayBlocked(DayOfWeek dayOfWeek) {
-        List<DayOfWeek> wholeDaysBlocked = daysOfWeekBlocked.getWholeDaysOfWeekBlocked();
+        List<DayOfWeek> wholeDaysBlocked = professionalBlockTimeConfig.getWholeDaysOfWeekBlocked();
         return !wholeDaysBlocked.contains(dayOfWeek);
     }
 
     private boolean isNotOnPeriodOfTimeBlocked(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        List<DayOfWeekTimeBlocked> periodOfTimeBlocked = daysOfWeekBlocked.getPeriodOfTimeDayWeekBlocked();
-        for (DayOfWeekTimeBlocked dayOfWeekTimeBlocked : periodOfTimeBlocked) {
-            if (dayOfWeekTimeBlocked.isOnPeriodOfTime(dayOfWeek, startTime, endTime)) {
+        List<TimeBlockedConfig> periodOfTimeBlockedConfig = professionalBlockTimeConfig.getPeriodOfTimeDayWeekBlocked();
+        for (TimeBlockedConfig dayOfWeekTimeBlockedConfig : periodOfTimeBlockedConfig) {
+            if (dayOfWeekTimeBlockedConfig.isOnPeriodOfTime(dayOfWeek, startTime, endTime)) {
                 return false;
             }
         }

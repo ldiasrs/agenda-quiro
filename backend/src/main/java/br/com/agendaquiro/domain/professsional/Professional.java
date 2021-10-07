@@ -17,4 +17,5 @@ public class Professional {
     private Long id;
 
     private String name;
+
 }
