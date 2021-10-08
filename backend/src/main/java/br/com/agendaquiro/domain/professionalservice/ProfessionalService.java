@@ -25,8 +25,10 @@ public class ProfessionalService {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "PROFESSIONAL_ID")
     private Professional professional;
 
     @OneToOne
+    @JoinColumn(name = "SERVICE_TYPE_ID")
     private ServiceType serviceType;
 }

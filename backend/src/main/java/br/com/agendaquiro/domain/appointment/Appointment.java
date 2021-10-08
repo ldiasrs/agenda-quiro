@@ -22,10 +22,11 @@ public class Appointment {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "professional_id")
+    @JoinColumn(name = "professional_service_type_id")
     private ProfessionalService professionalService;
 
     @OneToOne
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
     private LocalDateTime startTime;

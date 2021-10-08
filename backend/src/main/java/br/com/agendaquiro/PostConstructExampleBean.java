@@ -83,9 +83,9 @@ public class PostConstructExampleBean {
                 .email("lu@gmail.com")
                 .birthDate(LocalDate.now())
                 .cpf("00876726252")
-                .gender("female")
-                .weight("165 centimetros")
-                .height("72 kg")
+                .gender("F")
+                .weight("165")
+                .height("72")
                 .name("Luana")
                 .phone("51-887652725")
                 .build();
@@ -107,7 +107,7 @@ public class PostConstructExampleBean {
 
         //ANAMNESIS
         Anamnesis luanaAnamnesis = Anamnesis.builder()
-                .description("")
+                .description("Anamnesis da cliente")
                 .tags(List.of("dor na coluna", "dor no joelho"))
                 .customer(luana)
                 .build();

@@ -40,7 +40,7 @@ public class CalendarService {
     }
 
     public FreeAppointmentsSlots getFreeAppointmentsSlots(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
-        ProfessionalBlockTimeConfig timeBlockedConfig = professionalBlockTimeConfigRepository.findByProfessionalId();
+        ProfessionalBlockTimeConfig timeBlockedConfig = professionalBlockTimeConfigRepository.findByProfessionalServiceId(1L);
         FreeAppointmentsSlots freeAppointments = new FreeAppointmentsSlotsBuilder()
                 .daysOfWeekBlocked(timeBlockedConfig)
                 .period(
@@ -51,6 +51,6 @@ public class CalendarService {
     }
 
     public List<Appointment> getAppointments(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
-        return professionalAgendaConfigRepository.findByProfessionalTypeAndRange(professionalService, startDate, endDate);
+        return professionalAgendaConfigRepository.findByProfessionalServiceAndStartTimeAndEndTime(professionalService, startDate, endDate);
     }
 }

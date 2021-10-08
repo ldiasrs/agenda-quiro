@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfessionalBlockTimeConfigRepository extends JpaRepository<ProfessionalBlockTimeConfig, Long> {
 
-    ProfessionalBlockTimeConfig findByProfessionalId();
+    ProfessionalBlockTimeConfig findByProfessionalServiceId(Long id);
 }

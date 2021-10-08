@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    List<Appointment> findByProfessionalTypeAndRange(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate);
+    List<Appointment> findByProfessionalServiceAndStartTimeAndEndTime(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate);
 }

@@ -28,12 +28,12 @@ public class ProfessionalBlockTimeConfig {
     @Convert(converter = ListDayOfWeekToIntegerConverter.class)
     private List<DayOfWeek> wholeDaysOfWeekBlocked;
 
-    @OneToMany
-    @JoinColumn(name = "day_of_week_time_blocked_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dayOfWeek", orphanRemoval=true)
+    //@JoinColumn(name = "day_of_week_time_blocked_id")
     private List<TimeBlockedConfig> periodOfTimeDayWeekBlocked;
 
     @OneToOne
-    @JoinColumn(name = "PROFESSIONAL_ID")
+    @JoinColumn(name = "PROFESSIONAL_SERVICE_TYPE_ID")
     private ProfessionalService professionalService;
 
     public ProfessionalBlockTimeConfig(ProfessionalService professionalService) {
