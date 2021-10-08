@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "days_of_week_blocked")
+@Table(name = "PROFESSIONAL_BLOCK_TIME_CONFIG")
 public class ProfessionalBlockTimeConfig {
 
     @Id
@@ -28,12 +28,15 @@ public class ProfessionalBlockTimeConfig {
     @Convert(converter = ListDayOfWeekToIntegerConverter.class)
     private List<DayOfWeek> wholeDaysOfWeekBlocked;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dayOfWeek", orphanRemoval=true)
-    //@JoinColumn(name = "day_of_week_time_blocked_id")
+    @OneToMany(
+            mappedBy = "professionalBlockTimeConfig",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<TimeBlockedConfig> periodOfTimeDayWeekBlocked;
 
-    @OneToOne
-    @JoinColumn(name = "PROFESSIONAL_SERVICE_TYPE_ID")
+    @ManyToOne
+    @JoinColumn(name = "PROFESSIONAL_SERVICE_ID")
     private ProfessionalService professionalService;
 
     public ProfessionalBlockTimeConfig(ProfessionalService professionalService) {

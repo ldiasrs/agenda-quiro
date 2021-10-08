@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "professional_service_type")
+@Table(name = "PROFESSIONAL_SERVICE")
 public class ProfessionalService {
 
     public ProfessionalService(Professional professional, ServiceType serviceType) {
@@ -24,11 +24,11 @@ public class ProfessionalService {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "PROFESSIONAL_ID")
     private Professional professional;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "SERVICE_TYPE_ID")
     private ServiceType serviceType;
 }

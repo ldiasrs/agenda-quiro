@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "customer_service")
+@Table(name = "PERFORMED_APPOINTMENT")
 public class PerformedAppointment {
    @Id
    @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class PerformedAppointment {
 
    @OneToOne
    private Appointment appointment;
-   private String painComplaint;
+   private String observations;
    private String performedProcedures;
    private String postServiceProcedures;
 }

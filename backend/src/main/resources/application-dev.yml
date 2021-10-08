@@ -4,4 +4,4 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/agenda_quiro
     username: postgres
-    password: postgres
+    password: 123456

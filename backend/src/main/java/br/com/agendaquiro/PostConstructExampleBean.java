@@ -3,6 +3,7 @@ package br.com.agendaquiro;
 import br.com.agendaquiro.domain.appointment.Appointment;
 import br.com.agendaquiro.domain.appointment.AppointmentRepository;
 import br.com.agendaquiro.domain.appointment.PerformedAppointment;
+import br.com.agendaquiro.domain.appointment.PerformedAppointmentRepository;
 import br.com.agendaquiro.domain.customer.Anamnesis;
 import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.domain.customer.CustomerRepository;
@@ -42,6 +43,8 @@ public class PostConstructExampleBean {
     private CustomerRepository customerRepository;
     @Autowired
     private AppointmentRepository appointmentRepository;
+    @Autowired
+    private PerformedAppointmentRepository performedAppointmentRepository;
 
     private final Logger LOG =
             Logger.getLogger(PostConstructExampleBean.class.getName());
@@ -113,9 +116,11 @@ public class PostConstructExampleBean {
                 .build();
 
         //PERFORMED REGISTER
-        PerformedAppointment.builder()
+        PerformedAppointment perfomendAppointment = PerformedAppointment.builder()
                 .appointment(appointmentLuana)
-                .painComplaint("")
+                .observations("")
+                .postServiceProcedures("")
                 .build();
+        performedAppointmentRepository.save(perfomendAppointment);
     }
 }

@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "day_of_week_time_blocked")
+@Table(name = "TIME_BLOCKED_CONFIG")
 public class TimeBlockedConfig {
 
     @Id
@@ -29,9 +29,9 @@ public class TimeBlockedConfig {
     @Convert(converter = LocalTimeToTimeConverter.class)
     private LocalTime endTime;
 
-    /*@ManyToOne
-    @JoinColumn(name = "days_of_week_blocked_id", insertable = false, updatable = false)
-    private ProfessionalBlockTimeConfig professionalBlockTimeConfig;*/
+    @ManyToOne
+    @JoinColumn(name = "PROFESSIONAL_BLOCK_TIME_CONFIG_ID")
+    private ProfessionalBlockTimeConfig professionalBlockTimeConfig;
 
     public boolean isOnPeriodOfTime(DayOfWeek otherDay, LocalTime otherStart, LocalTime otherEnd) {
         boolean isABlockedDay = dayOfWeek.equals(otherDay);

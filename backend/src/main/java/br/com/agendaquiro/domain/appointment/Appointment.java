@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Entity
-@Table(name = "appointment")
+@Table(name = "APPOINTMENT")
 public class Appointment {
 
     @Id
@@ -21,11 +21,11 @@ public class Appointment {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "professional_service_type_id")
+    @ManyToOne
+    @JoinColumn(name = "PROFESSIONAL_SERVICE_ID")
     private ProfessionalService professionalService;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
