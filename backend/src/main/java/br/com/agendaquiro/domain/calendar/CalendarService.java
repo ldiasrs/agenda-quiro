@@ -34,7 +34,7 @@ public class CalendarService {
     public AppointmentCalendar getAppointmentCalendar(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
         List<Appointment> appointments = getAppointments(professionalService, startDate, endDate);
         FreeAppointmentsSlots freeSlots = getFreeAppointmentsSlots(professionalService, startDate, endDate);
-        List<PeriodSlot> slots = periodSlotMergeService.merge(PeriodSlot.from(appointments), freeSlots.getPeriodSlots());
+        List<PeriodSlot> slots = periodSlotMergeService.mergeAppointmentsOnFreeSlots(PeriodSlot.from(appointments), freeSlots.getPeriodSlots());
         AppointmentCalendar calendar = new AppointmentCalendar(professionalService, startDate, endDate);
         calendar.addAll(slots);
         return calendar;
