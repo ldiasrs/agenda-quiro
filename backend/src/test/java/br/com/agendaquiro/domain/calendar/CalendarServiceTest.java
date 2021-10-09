@@ -26,17 +26,29 @@ public class CalendarServiceTest {
     private ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository;
     private CalendarService calendarService;
     private FreeAppointmentSlotsService freeAppointmentSlotsService;
+    private PeriodSlotMergeService periodSlotMergeService;
 
     @Before
     public void mockDependecies() {
         professionalAgendaConfigRepository = mock(AppointmentRepository.class);
         professionalBlockTimeConfigRepository =  mock(ProfessionalBlockTimeConfigRepository.class);
         freeAppointmentSlotsService =  mock(FreeAppointmentSlotsService.class);
+        periodSlotMergeService =  mock(PeriodSlotMergeService.class);
         calendarService = new CalendarService(
                 professionalAgendaConfigRepository,
                 professionalBlockTimeConfigRepository,
-                freeAppointmentSlotsService
-        );
+                freeAppointmentSlotsService,
+                periodSlotMergeService);
+    }
+
+    @Test
+    public void shouldReturnCalendarAppointmentsSlots() {
+        TestDataBuilder testDataBuilder = new TestDataBuilder();
+        ProfessionalService professionalService = testDataBuilder
+                .professionalQuiro().getProfessionalService();
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime endDate = startDate.minusMinutes(120);
+        calendarService.getAppointmentCalendar(professionalService, startDate, endDate);
     }
 
     @Test

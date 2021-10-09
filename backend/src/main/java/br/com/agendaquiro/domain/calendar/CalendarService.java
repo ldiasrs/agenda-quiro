@@ -19,25 +19,24 @@ public class CalendarService {
     private AppointmentRepository professionalAgendaConfigRepository;
     private ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository;
     private FreeAppointmentSlotsService freeAppointmentSlotsService;
+    private PeriodSlotMergeService periodSlotMergeService;
 
-    public CalendarService(AppointmentRepository professionalAgendaConfigRepository, ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository, FreeAppointmentSlotsService freeAppointmentSlotsService) {
+    public CalendarService(AppointmentRepository professionalAgendaConfigRepository,
+                           ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository,
+                           FreeAppointmentSlotsService freeAppointmentSlotsService,
+                           PeriodSlotMergeService periodSlotMergeService) {
         this.professionalAgendaConfigRepository = professionalAgendaConfigRepository;
         this.professionalBlockTimeConfigRepository = professionalBlockTimeConfigRepository;
         this.freeAppointmentSlotsService = freeAppointmentSlotsService;
+        this.periodSlotMergeService = periodSlotMergeService;
     }
 
     public AppointmentCalendar getAppointmentCalendar(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
-        AppointmentCalendar calendar = new AppointmentCalendar(professionalService, startDate, endDate);
         List<Appointment> appointments = getAppointments(professionalService, startDate, endDate);
-        for (Appointment appointment : appointments) {
-            calendar.add(PeriodSlot.builder()
-                    .startTime(appointment.getStartTime().toLocalTime())
-                    .endTime(appointment.getEndTime().toLocalTime())
-                    .date(appointment.getStartTime().toLocalDate())
-                    .build());
-        }
         FreeAppointmentsSlots freeSlots = getFreeAppointmentsSlots(professionalService, startDate, endDate);
-        calendar.addAll(freeSlots.getPeriodSlots());
+        List<PeriodSlot> slots = periodSlotMergeService.merge(PeriodSlot.from(appointments), freeSlots.getPeriodSlots());
+        AppointmentCalendar calendar = new AppointmentCalendar(professionalService, startDate, endDate);
+        calendar.addAll(slots);
         return calendar;
     }
 

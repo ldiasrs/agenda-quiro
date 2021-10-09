@@ -15,6 +15,7 @@ public class AppointmentCalendar {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+
     public AppointmentCalendar(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
         this.professionalService = professionalService;
         this.startDate = startDate;
