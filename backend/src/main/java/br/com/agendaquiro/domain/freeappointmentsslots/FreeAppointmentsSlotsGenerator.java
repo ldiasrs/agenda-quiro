@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-public class FreeAppointmentsSlotsBuilder {
+public class FreeAppointmentsSlotsGenerator {
 
     private FreeAppointmentsSlots agendaOfPeriod = new FreeAppointmentsSlots();
     private int durationInMinutes;
@@ -17,19 +17,14 @@ public class FreeAppointmentsSlotsBuilder {
     private LocalDateTime endDateTime;
     private ProfessionalBlockTimeConfig professionalBlockTimeConfig;
 
-    public FreeAppointmentsSlotsBuilder period(int durationInMinutes, LocalDateTime monday, LocalDateTime saturday) {
+    public  FreeAppointmentsSlotsGenerator(int durationInMinutes, LocalDateTime startTime, LocalDateTime endTime, ProfessionalBlockTimeConfig professionalBlockTimeConfig) {
         this.durationInMinutes = durationInMinutes;
-        this.startDateTime = monday;
-        this.endDateTime = saturday;
-        return this;
-    }
-
-    public FreeAppointmentsSlotsBuilder daysOfWeekBlocked(ProfessionalBlockTimeConfig professionalBlockTimeConfig) {
+        this.startDateTime = startTime;
+        this.endDateTime = endTime;
         this.professionalBlockTimeConfig = professionalBlockTimeConfig;
-        return this;
     }
 
-    public FreeAppointmentsSlots build() {
+    public FreeAppointmentsSlots generate() {
         LocalDateTime currentTime = startDateTime;
 
         while (!currentTime.equals(endDateTime)) {

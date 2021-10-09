@@ -1,12 +1,12 @@
 package br.com.agendaquiro.domain.calendar;
 
-import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentsSlotsBuilder;
+import br.com.agendaquiro.domain.appointment.Appointment;
+import br.com.agendaquiro.domain.appointment.AppointmentRepository;
+import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentSlotsService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentsSlots;
 import br.com.agendaquiro.domain.freeappointmentsslots.PeriodSlot;
-import br.com.agendaquiro.domain.appointment.Appointment;
-import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
-import br.com.agendaquiro.domain.appointment.AppointmentRepository;
+import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfigRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,12 @@ public class CalendarService {
 
     private AppointmentRepository professionalAgendaConfigRepository;
     private ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository;
+    private FreeAppointmentSlotsService freeAppointmentSlotsService;
 
-    public CalendarService(AppointmentRepository professionalAgendaConfigRepository, ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository) {
+    public CalendarService(AppointmentRepository professionalAgendaConfigRepository, ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository, FreeAppointmentSlotsService freeAppointmentSlotsService) {
         this.professionalAgendaConfigRepository = professionalAgendaConfigRepository;
         this.professionalBlockTimeConfigRepository = professionalBlockTimeConfigRepository;
+        this.freeAppointmentSlotsService = freeAppointmentSlotsService;
     }
 
     public AppointmentCalendar getAppointmentCalendar(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
@@ -40,13 +42,12 @@ public class CalendarService {
     }
 
     public FreeAppointmentsSlots getFreeAppointmentsSlots(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
-        ProfessionalBlockTimeConfig timeBlockedConfig = professionalBlockTimeConfigRepository.findByProfessionalServiceId(1L);
-        FreeAppointmentsSlots freeAppointments = new FreeAppointmentsSlotsBuilder()
-                .daysOfWeekBlocked(timeBlockedConfig)
-                .period(
-                        professionalService.getServiceType().getDurationInMinutes(),
-                        startDate, endDate
-                ).build();
+        ProfessionalBlockTimeConfig timeBlockedConfig =
+                professionalBlockTimeConfigRepository.findByProfessionalServiceId(professionalService.getId());
+        FreeAppointmentsSlots freeAppointments = freeAppointmentSlotsService
+                .generateFreeAppointmentSlots
+                        (professionalService.getServiceType().getDurationInMinutes(),
+                                startDate, endDate, timeBlockedConfig);
         return freeAppointments;
     }
 

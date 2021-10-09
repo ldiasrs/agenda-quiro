@@ -31,10 +31,12 @@ public class AgendaBuilderTest {
         int durationInMinutes = 60;
 
         //WHEN ASKED TO CREATE AGENDA
-        FreeAppointmentsSlots agendaOfPeriod = new FreeAppointmentsSlotsBuilder()
-                .period(durationInMinutes, sunday, tuesday)
-                .daysOfWeekBlocked(professionalBlockTimeConfig)
-                .build();
+        FreeAppointmentsSlots agendaOfPeriod =
+                new FreeAppointmentsSlotsGenerator(
+                        durationInMinutes,
+                        sunday, tuesday,
+                        professionalBlockTimeConfig
+                ).generate();
 
         //THEN the agenda should be fine
         List<PeriodSlot> periodSlots = agendaOfPeriod.getPeriodSlots();
@@ -72,10 +74,11 @@ public class AgendaBuilderTest {
         int durationInMinutes = 60;
 
         //WHEN ASKED TO CREATE AGENDA
-        FreeAppointmentsSlots agendaOfPeriod = new FreeAppointmentsSlotsBuilder()
-                .period(durationInMinutes, mondayStart, tuesdayStart)
-                .daysOfWeekBlocked(professionalBlockTimeConfig)
-                .build();
+        FreeAppointmentsSlots agendaOfPeriod =
+                new FreeAppointmentsSlotsGenerator(
+                        durationInMinutes, mondayStart,
+                        tuesdayStart, professionalBlockTimeConfig
+                ).generate();
 
         //THEN the agenda should be fine
         List<PeriodSlot> periodSlots = agendaOfPeriod.getPeriodSlots();
