@@ -1,4 +1,4 @@
-package br.com.agendaquiro.repository;
+package br.com.agendaquiro.domain.customer;
 
 
 

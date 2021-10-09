@@ -5,6 +5,7 @@ import br.com.agendaquiro.domain.appointment.AppointmentRepository;
 import br.com.agendaquiro.domain.appointment.PerformedAppointment;
 import br.com.agendaquiro.domain.appointment.PerformedAppointmentRepository;
 import br.com.agendaquiro.domain.customer.Anamnesis;
+import br.com.agendaquiro.domain.customer.AnamnesisRepository;
 import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.domain.customer.CustomerRepository;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
@@ -45,6 +46,8 @@ public class PostConstructExampleBean {
     private AppointmentRepository appointmentRepository;
     @Autowired
     private PerformedAppointmentRepository performedAppointmentRepository;
+    @Autowired
+    private AnamnesisRepository anamnesisRepository;
 
     private final Logger LOG =
             Logger.getLogger(PostConstructExampleBean.class.getName());
@@ -114,6 +117,7 @@ public class PostConstructExampleBean {
                 .tags(List.of("dor na coluna", "dor no joelho"))
                 .customer(luana)
                 .build();
+        anamnesisRepository.save(luanaAnamnesis);
 
         //PERFORMED REGISTER
         PerformedAppointment perfomendAppointment = PerformedAppointment.builder()
