@@ -26,7 +26,7 @@ public class CalendarService {
         this.mergeAppointmentsOnFreeSlotsService = mergeAppointmentsOnFreeSlotsService;
     }
 
-    public Calendar getAppointmentCalendar(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
+    public Calendar getProfessionalCalendarByRange(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
         List<Appointment> appointments = appointmentService.getAppointments(professionalService, startDate, endDate);
         FreeAppointmentsSlots freeSlots = freeAppointmentSlotsService.getFreeAppointmentsSlots(professionalService, startDate, endDate);
         List<PeriodSlot> slots = mergeAppointmentsOnFreeSlotsService.merge(PeriodSlot.from(appointments), freeSlots.getPeriodSlots());

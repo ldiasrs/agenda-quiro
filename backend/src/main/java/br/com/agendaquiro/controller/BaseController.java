@@ -41,6 +41,10 @@ public class BaseController {
         return new ResponseEntity<>(body, status);
     }
 
+    public ResponseEntity responseMessage(final String msg, final HttpStatus status) {
+        return new ResponseEntity<>(MessageHttpResponse.builder().message(msg).build(), status);
+    }
+
     public <T> ResponseEntity<T> response(final T body, final HttpStatus status, final AuthenticationPrincipal loggedUser) throws UnsupportedEncodingException {
         final HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(body, headers, status);

@@ -4,10 +4,12 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
 public class GetCalendarRequest {
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private Long professionalServiceId;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 }

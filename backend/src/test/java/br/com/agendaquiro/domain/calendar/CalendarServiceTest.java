@@ -73,7 +73,7 @@ public class CalendarServiceTest {
                 (ArgumentMatchers.anyList(), ArgumentMatchers.anyList()))
                 .thenReturn(mergedSlots);
         //WHEN ASKED for calendar
-        Calendar calendar = calendarService.getAppointmentCalendar(professionalService, startDate, endDate);
+        Calendar calendar = calendarService.getProfessionalCalendarByRange(professionalService, startDate, endDate);
         //THEN
         assertThat(calendar.getPeriodSlots()).containsAll(mergedSlots);
     }
