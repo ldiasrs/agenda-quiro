@@ -33,7 +33,7 @@ public class ProfessionalBlockTimeConfig {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<TimeBlockedConfig> periodOfTimeDayWeekBlocked;
+    private List<PeriodTimeBlockedConfig> periodsOfTimesBlocked;
 
     @ManyToOne
     @JoinColumn(name = "PROFESSIONAL_SERVICE_ID")
@@ -46,7 +46,7 @@ public class ProfessionalBlockTimeConfig {
 
     public ProfessionalBlockTimeConfig() {
         wholeDaysOfWeekBlocked = new ArrayList<>();
-        periodOfTimeDayWeekBlocked = new ArrayList<>();
+        periodsOfTimesBlocked = new ArrayList<>();
     }
 
     public boolean block(DayOfWeek dayOfWeek){
@@ -56,16 +56,16 @@ public class ProfessionalBlockTimeConfig {
        return false;
     }
 
-    public boolean block(TimeBlockedConfig dayOfWeekTimeBlockedConfig) {
-        return periodOfTimeDayWeekBlocked.add(dayOfWeekTimeBlockedConfig);
+    public boolean block(PeriodTimeBlockedConfig dayOfWeekPeriodTimeBlockedConfig) {
+        return periodsOfTimesBlocked.add(dayOfWeekPeriodTimeBlockedConfig);
     }
 
     public boolean block(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
         if (startTime.isAfter(endTime)) {
             throw new InvalidBlockTimeException("Invalid range - Start time should not be after end time");
         }
-        return periodOfTimeDayWeekBlocked.add(
-                TimeBlockedConfig.builder()
+        return periodsOfTimesBlocked.add(
+                PeriodTimeBlockedConfig.builder()
                 .dayOfWeek(dayOfWeek)
                 .startTime(startTime)
                 .endTime(endTime)

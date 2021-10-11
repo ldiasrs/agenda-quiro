@@ -1,6 +1,6 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
-import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfig;
+import br.com.agendaquiro.domain.timeblockedconfig.PeriodTimeBlockedConfig;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
@@ -12,7 +12,7 @@ public class TimeBlockedTest {
 
     @Test
     public void shouldVeryPeriodOfDay() {
-        TimeBlockedConfig blockedDayTime = TimeBlockedConfig.builder()
+        PeriodTimeBlockedConfig blockedDayTime = PeriodTimeBlockedConfig.builder()
                 .dayOfWeek(DayOfWeek.MONDAY)
                 .startTime(LocalTime.of(18, 0))
                 .endTime(LocalTime.of(23, 59))

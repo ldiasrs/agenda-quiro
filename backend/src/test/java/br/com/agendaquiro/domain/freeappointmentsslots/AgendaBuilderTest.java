@@ -41,14 +41,18 @@ public class AgendaBuilderTest {
         //THEN the agenda should be fine
         List<PeriodSlot> periodSlots = agendaOfPeriod.getPeriodSlots();
 
-        //THEN SHOULD HAVE CREATE 8 slots
-        assertThat(periodSlots.size()).isEqualTo(8);
+        //THEN SHOULD HAVE CREATE  slots
+        assertThat(periodSlots.size()).isEqualTo(7);
         LocalDateTime currentDateTimeVerification =  LocalDateTime.of(2021, 9, 20, 10, 00);;
         for (PeriodSlot periodSlot : periodSlots) {
             LocalDate date = periodSlot.getDate();
             LocalTime startTime = periodSlot.getStartTime();
             LocalTime endTime = periodSlot.getEndTime();
-
+            //SPIKING 12h-13 lunch time
+            if (!startTime.equals(LocalTime.of(12,0))) {
+                currentDateTimeVerification = currentDateTimeVerification.plusMinutes(durationInMinutes);
+                continue;
+            }
             assertThat(date).isEqualTo(currentDateTimeVerification.toLocalDate());
             assertThat(startTime).isEqualTo(currentDateTimeVerification.toLocalTime());
 

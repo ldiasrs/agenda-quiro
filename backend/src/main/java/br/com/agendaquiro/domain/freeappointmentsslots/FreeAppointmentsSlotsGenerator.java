@@ -1,6 +1,6 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
-import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfig;
+import br.com.agendaquiro.domain.timeblockedconfig.PeriodTimeBlockedConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 
 import java.time.DayOfWeek;
@@ -56,9 +56,9 @@ public class FreeAppointmentsSlotsGenerator {
     }
 
     private boolean isNotOnPeriodOfTimeBlocked(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        List<TimeBlockedConfig> periodOfTimeBlockedConfig = professionalBlockTimeConfig.getPeriodOfTimeDayWeekBlocked();
-        for (TimeBlockedConfig dayOfWeekTimeBlockedConfig : periodOfTimeBlockedConfig) {
-            if (dayOfWeekTimeBlockedConfig.isOnPeriodOfTime(dayOfWeek, startTime, endTime)) {
+        List<PeriodTimeBlockedConfig> periodOfPeriodTimeBlockedConfig = professionalBlockTimeConfig.getPeriodsOfTimesBlocked();
+        for (PeriodTimeBlockedConfig dayOfWeekPeriodTimeBlockedConfig : periodOfPeriodTimeBlockedConfig) {
+            if (dayOfWeekPeriodTimeBlockedConfig.isOnPeriodOfTime(dayOfWeek, startTime, endTime)) {
                 return false;
             }
         }

@@ -15,8 +15,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "TIME_BLOCKED_CONFIG")
-public class TimeBlockedConfig {
+@Table(name = "PERIOD_TIME_BLOCKED_CONFIG")
+public class PeriodTimeBlockedConfig {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

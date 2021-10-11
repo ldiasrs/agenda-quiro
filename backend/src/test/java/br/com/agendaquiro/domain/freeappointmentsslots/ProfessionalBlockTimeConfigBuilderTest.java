@@ -1,7 +1,7 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
-import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfig;
+import br.com.agendaquiro.domain.timeblockedconfig.PeriodTimeBlockedConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfigBuilder;
 import org.junit.Test;
@@ -42,10 +42,10 @@ public class ProfessionalBlockTimeConfigBuilderTest {
         ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .block(monday, startTime, endTime)
                 .build();
-        TimeBlockedConfig dayOfWeekTimeBlockedConfig = professionalBlockTimeConfig.getPeriodOfTimeDayWeekBlocked().iterator().next();
-        assertThat(dayOfWeekTimeBlockedConfig.getDayOfWeek()).isEqualTo(monday);
-        assertThat(dayOfWeekTimeBlockedConfig.getStartTime()).isEqualTo(startTime);
-        assertThat(dayOfWeekTimeBlockedConfig.getEndTime()).isEqualTo(endTime);
+        PeriodTimeBlockedConfig dayOfWeekPeriodTimeBlockedConfig = professionalBlockTimeConfig.getPeriodsOfTimesBlocked().iterator().next();
+        assertThat(dayOfWeekPeriodTimeBlockedConfig.getDayOfWeek()).isEqualTo(monday);
+        assertThat(dayOfWeekPeriodTimeBlockedConfig.getStartTime()).isEqualTo(startTime);
+        assertThat(dayOfWeekPeriodTimeBlockedConfig.getEndTime()).isEqualTo(endTime);
     }
 
     @Test
@@ -63,10 +63,10 @@ public class ProfessionalBlockTimeConfigBuilderTest {
                 .build();
 
         //THAN should block for all days
-        List<TimeBlockedConfig> blockedTimes = professionalBlockTimeConfig.getPeriodOfTimeDayWeekBlocked();
+        List<PeriodTimeBlockedConfig> blockedTimes = professionalBlockTimeConfig.getPeriodsOfTimesBlocked();
 
         StringBuilder sb = new StringBuilder();
-        for (TimeBlockedConfig blockedTime : blockedTimes) {
+        for (PeriodTimeBlockedConfig blockedTime : blockedTimes) {
             sb.append(" #DayOfWeek: " + blockedTime.getDayOfWeek() + " start: " + blockedTime.getStartTime() + " end: " + blockedTime.getEndTime());
         }
 
