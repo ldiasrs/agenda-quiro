@@ -1,0 +1,48 @@
+package br.com.agendaquiro.domain.appointment;
+
+import br.com.agendaquiro.TestDataBuilder;
+import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+public class AppointmentServiceTest {
+    private AppointmentService appointmentService;
+    private AppointmentRepository appointmentRepository;
+
+    @Before
+    public void mockDeps() {
+        appointmentRepository = mock(AppointmentRepository.class);
+        appointmentService = new AppointmentService(appointmentRepository);
+    }
+
+    @Test
+    public void shouldReturnAppointmentCalendar() {
+        //GIVEN an Professional Service
+        TestDataBuilder testDataBuilder = new TestDataBuilder();
+        ProfessionalService professionalService = testDataBuilder
+                .professionalQuiro().getProfessionalService();
+        //AND star and end period
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime endDate = startDate.minusMinutes(120);
+        //AND Appointment for the professional on DB
+        Appointment appointment = testDataBuilder
+                .buildAppointment(
+                        professionalService, testDataBuilder.buildCustomer().getCustome()).getAppointment();
+        when(appointmentRepository
+                .findByProfessionalServiceAndStartTimeAndEndTime(
+                        professionalService, startDate, endDate) ).thenReturn(Arrays.asList(appointment));
+        //WHEN asked for appointment
+        List<Appointment> appointments = appointmentService.getAppointments(professionalService, startDate, endDate);
+        //THEN should return right appointment
+        assertThat(appointments).contains(appointment);
+    }
+
+}

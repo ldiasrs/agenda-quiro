@@ -12,10 +12,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AgendaBuilderTest {
+public class FreeAppointmentsSlotsGeneratorTest {
 
     @Test
     public void shouldBuildAgenda() {
+        FreeAppointmentsSlotsGenerator freeAppointmentsSlotsGenerator = new FreeAppointmentsSlotsGenerator();
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
         ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
@@ -32,11 +33,11 @@ public class AgendaBuilderTest {
 
         //WHEN ASKED TO CREATE AGENDA
         FreeAppointmentsSlots agendaOfPeriod =
-                new FreeAppointmentsSlotsGenerator(
+                freeAppointmentsSlotsGenerator.generate(
                         durationInMinutes,
                         sunday, tuesday,
                         professionalBlockTimeConfig
-                ).generate();
+                );
 
         //THEN the agenda should be fine
         List<PeriodSlot> periodSlots = agendaOfPeriod.getPeriodSlots();
@@ -63,6 +64,7 @@ public class AgendaBuilderTest {
 
     @Test
     public void shouldBuildAgendaWithLunchBlocked() {
+        FreeAppointmentsSlotsGenerator freeAppointmentsSlotsGenerator = new FreeAppointmentsSlotsGenerator();
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
         ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
                 .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
@@ -79,10 +81,10 @@ public class AgendaBuilderTest {
 
         //WHEN ASKED TO CREATE AGENDA
         FreeAppointmentsSlots agendaOfPeriod =
-                new FreeAppointmentsSlotsGenerator(
+                freeAppointmentsSlotsGenerator.generate (
                         durationInMinutes, mondayStart,
                         tuesdayStart, professionalBlockTimeConfig
-                ).generate();
+                );
 
         //THEN the agenda should be fine
         List<PeriodSlot> periodSlots = agendaOfPeriod.getPeriodSlots();

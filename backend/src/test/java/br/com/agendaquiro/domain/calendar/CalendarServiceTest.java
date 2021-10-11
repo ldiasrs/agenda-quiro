@@ -3,6 +3,7 @@ package br.com.agendaquiro.domain.calendar;
 import br.com.agendaquiro.TestDataBuilder;
 import br.com.agendaquiro.domain.appointment.Appointment;
 import br.com.agendaquiro.domain.appointment.AppointmentRepository;
+import br.com.agendaquiro.domain.appointment.AppointmentService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentSlotsService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentsSlots;
 import br.com.agendaquiro.domain.freeappointmentsslots.PeriodSlot;
@@ -22,21 +23,20 @@ import static org.mockito.Mockito.when;
 
 public class CalendarServiceTest {
 
-    private AppointmentRepository professionalAgendaConfigRepository;
     private ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository;
     private CalendarService calendarService;
     private FreeAppointmentSlotsService freeAppointmentSlotsService;
     private PeriodSlotMergeService periodSlotMergeService;
+    private AppointmentService appointmentService;
 
     @Before
     public void mockDependecies() {
-        professionalAgendaConfigRepository = mock(AppointmentRepository.class);
         professionalBlockTimeConfigRepository =  mock(ProfessionalBlockTimeConfigRepository.class);
+        appointmentService =  mock(AppointmentService.class);
         freeAppointmentSlotsService =  mock(FreeAppointmentSlotsService.class);
         periodSlotMergeService =  mock(PeriodSlotMergeService.class);
         calendarService = new CalendarService(
-                professionalAgendaConfigRepository,
-                professionalBlockTimeConfigRepository,
+                appointmentService,
                 freeAppointmentSlotsService,
                 periodSlotMergeService);
     }
@@ -51,53 +51,6 @@ public class CalendarServiceTest {
         calendarService.getAppointmentCalendar(professionalService, startDate, endDate);
     }
 
-    @Test
-    public void shouldReturnFreeAppointmentsSlots() {
-        //GIVEN
-        TestDataBuilder testDataBuilder = new TestDataBuilder();
-        ProfessionalService professionalService = testDataBuilder
-                .professionalQuiro().getProfessionalService();
-        LocalDateTime startDate = LocalDateTime.now();
-        LocalDateTime endDate = startDate.minusMinutes(120);
-        FreeAppointmentsSlots freeSlots = new FreeAppointmentsSlots();
-        freeSlots.addPeriodSlot(PeriodSlot.builder()
-                .startTime(startDate.toLocalTime())
-                .endTime(endDate.toLocalTime())
-                .build());
-        ProfessionalBlockTimeConfig timeConfig = new ProfessionalBlockTimeConfig();
-        timeConfig.setProfessionalService(professionalService);
-        when(professionalBlockTimeConfigRepository
-                .findByProfessionalServiceId(professionalService.getId()))
-                .thenReturn(timeConfig);
-        when(freeAppointmentSlotsService.generateFreeAppointmentSlots(
-                professionalService.getServiceType().getDurationInMinutes(),
-                startDate, endDate,
-                timeConfig
-        )).thenReturn(freeSlots);
-        //WHEN
-        FreeAppointmentsSlots freeCalendar = calendarService.getFreeAppointmentsSlots(
-                professionalService, startDate, endDate);
-        //THEN
-        assertThat(freeCalendar.getPeriodSlots()).containsAll(freeSlots.getPeriodSlots());
-    }
 
-    @Test
-    public void shouldReturnAppointmentCalendar() {
-        //GIVEN
-        TestDataBuilder testDataBuilder = new TestDataBuilder();
-        ProfessionalService professionalService = testDataBuilder
-                .professionalQuiro().getProfessionalService();
-        LocalDateTime startDate = LocalDateTime.now();
-        LocalDateTime endDate = startDate.minusMinutes(120);
-        Appointment apointment = testDataBuilder
-                .buildAppointment(
-                        professionalService, testDataBuilder.buildCustomer().getCustome()).getAppointment();
-        when(professionalAgendaConfigRepository
-                .findByProfessionalServiceAndStartTimeAndEndTime(
-                        professionalService, startDate, endDate) ).thenReturn(Arrays.asList(apointment));
-        //WHEN
-        List<Appointment> apointments = calendarService.getAppointments(professionalService, startDate, endDate);
-        //THEN
-        assertThat(apointments).contains(apointment);
-    }
+
 }
