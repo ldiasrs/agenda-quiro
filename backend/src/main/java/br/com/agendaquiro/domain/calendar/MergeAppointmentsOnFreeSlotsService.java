@@ -45,10 +45,13 @@ public class MergeAppointmentsOnFreeSlotsService {
         boolean aEndIsNotBRange = notIn(aEd, bSt, bEd);
         boolean bStartIsNotARange = notIn(bSt, aSt, aEd);
         boolean bEndIsNotARange = notIn(bEd, aSt, aEd);
+        boolean aStartNotEqualBStart = aSt != bSt;
         return aStartIsNotBRange
                 && aEndIsNotBRange
                 && bStartIsNotARange
-                && bEndIsNotARange;
+                && bEndIsNotARange
+                && aStartNotEqualBStart;
+
     }
 
     private boolean notIn(int aSt, int bSt, int bEd) {
