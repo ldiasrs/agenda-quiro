@@ -2,22 +2,24 @@ package br.com.agendaquiro.domain.calendar;
 
 import br.com.agendaquiro.TestDataBuilder;
 import br.com.agendaquiro.domain.appointment.Appointment;
-import br.com.agendaquiro.domain.appointment.AppointmentRepository;
 import br.com.agendaquiro.domain.appointment.AppointmentService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentSlotsService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentsSlots;
 import br.com.agendaquiro.domain.freeappointmentsslots.PeriodSlot;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
-import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfigRepository;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -43,14 +45,38 @@ public class CalendarServiceTest {
 
     @Test
     public void shouldReturnCalendarAppointmentsSlots() {
+        //GIVEN a professional Service
         TestDataBuilder testDataBuilder = new TestDataBuilder();
         ProfessionalService professionalService = testDataBuilder
                 .professionalQuiro().getProfessionalService();
+        //AND a period
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = startDate.minusMinutes(120);
-        calendarService.getAppointmentCalendar(professionalService, startDate, endDate);
+        //AND a freeSlots
+        FreeAppointmentsSlots freeAppointmentsSlots = new FreeAppointmentsSlots();
+        freeAppointmentsSlots.addPeriodSlot(PeriodSlot.builder().build());
+        when(freeAppointmentSlotsService.getFreeAppointmentsSlots(professionalService, startDate, endDate))
+                .thenReturn(freeAppointmentsSlots);
+        //AND appointment
+        Appointment appointment = testDataBuilder
+                .buildAppointment(
+                        professionalService, testDataBuilder.buildCustomer().getCustome())
+                .getAppointment();
+        List<Appointment> appointments = Arrays.asList(appointment);
+        when(appointmentService
+                .getAppointments(professionalService, startDate, endDate))
+                .thenReturn(appointments);
+        //AND a merged slots
+        List<PeriodSlot> mergedSlots = new ArrayList<>();
+        List<PeriodSlot> from = PeriodSlot.from(appointments);
+        mergedSlots.addAll(from);
+        mergedSlots.addAll(freeAppointmentsSlots.getPeriodSlots());
+        when(periodSlotMergeService.mergeAppointmentsOnFreeSlots
+                (ArgumentMatchers.anyList(), ArgumentMatchers.anyList()))
+                .thenReturn(mergedSlots);
+        //WHEN ASKED for calendar
+        Calendar calendar = calendarService.getAppointmentCalendar(professionalService, startDate, endDate);
+        //THEN
+        assertThat(calendar.getPeriodSlots()).containsAll(mergedSlots);
     }
-
-
-
 }

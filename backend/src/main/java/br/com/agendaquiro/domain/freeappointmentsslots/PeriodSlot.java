@@ -20,12 +20,14 @@ public class PeriodSlot {
 
     public static List<PeriodSlot> from(List<Appointment> appointments) {
         List<PeriodSlot> slots = new ArrayList<>();
-        for (Appointment appointment : appointments) {
-            slots.add(PeriodSlot.builder()
-                    .startTime(appointment.getStartTime().toLocalTime())
-                    .endTime(appointment.getEndTime().toLocalTime())
-                    .date(appointment.getStartTime().toLocalDate())
-                    .build());
+        if (appointments != null && !appointments.isEmpty()) {
+            for (Appointment appointment : appointments) {
+                slots.add(PeriodSlot.builder()
+                        .startTime(appointment.getStartTime().toLocalTime())
+                        .endTime(appointment.getEndTime().toLocalTime())
+                        .date(appointment.getStartTime().toLocalDate())
+                        .build());
+            }
         }
         return slots;
     }

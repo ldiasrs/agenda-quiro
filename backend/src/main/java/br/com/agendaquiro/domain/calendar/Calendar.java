@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 public class Calendar {
-    private List<PeriodSlot> periodSlotList;
+    private List<PeriodSlot> periodSlots;
     private ProfessionalService professionalService;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -20,14 +20,14 @@ public class Calendar {
         this.professionalService = professionalService;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.periodSlotList = new ArrayList<>();
+        this.periodSlots = new ArrayList<>();
     }
 
     public void add(PeriodSlot slot) {
-        periodSlotList.add(slot);
+        periodSlots.add(slot);
     }
 
     public void addAll(List<PeriodSlot> slots) {
-        periodSlotList.addAll(slots);
+        periodSlots.addAll(slots);
     }
 }

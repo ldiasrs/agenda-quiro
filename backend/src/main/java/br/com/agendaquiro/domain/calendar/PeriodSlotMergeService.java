@@ -8,7 +8,20 @@ import java.util.List;
 
 @Service
 public class PeriodSlotMergeService {
+
     public List<PeriodSlot> mergeAppointmentsOnFreeSlots(List<PeriodSlot> freeSlots, List<PeriodSlot> appointments) {
+        List<PeriodSlot> mergedSlots = new ArrayList<>();
+        if (appointments != null && !appointments.isEmpty()) {
+            List<PeriodSlot> nonConflictedFreeSlots = addNonConflictedFreeSlots(freeSlots, appointments);
+            mergedSlots.addAll(appointments);
+            mergedSlots.addAll(nonConflictedFreeSlots);
+        } else {
+            mergedSlots.addAll(freeSlots);
+        }
+        return mergedSlots;
+    }
+
+    private List<PeriodSlot> addNonConflictedFreeSlots(List<PeriodSlot> freeSlots, List<PeriodSlot> appointments) {
         List<PeriodSlot> merged = new ArrayList<>();
         for (PeriodSlot freeSlot : freeSlots) {
             for (PeriodSlot appointment : appointments) {
@@ -24,7 +37,6 @@ public class PeriodSlotMergeService {
                 }
             }
         }
-        merged.addAll(appointments);
         return merged;
     }
 }
