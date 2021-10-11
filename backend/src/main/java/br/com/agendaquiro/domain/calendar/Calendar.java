@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class AppointmentCalendar {
+public class Calendar {
     private List<PeriodSlot> periodSlotList;
     private ProfessionalService professionalService;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
 
-    public AppointmentCalendar(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
+    public Calendar(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
         this.professionalService = professionalService;
         this.startDate = startDate;
         this.endDate = endDate;
