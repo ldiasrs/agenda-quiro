@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PeriodSlotMergeService {
+public class MergeAppointmentsOnFreeSlotsService {
 
-    public List<PeriodSlot> mergeAppointmentsOnFreeSlots(List<PeriodSlot> freeSlots, List<PeriodSlot> appointments) {
+    public List<PeriodSlot> merge(List<PeriodSlot> freeSlots, List<PeriodSlot> appointments) {
         List<PeriodSlot> mergedSlots = new ArrayList<>();
         if (appointments != null && !appointments.isEmpty()) {
             List<PeriodSlot> nonConflictedFreeSlots = addNonConflictedFreeSlots(freeSlots, appointments);

@@ -8,7 +8,6 @@ import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentsSlots;
 import br.com.agendaquiro.domain.freeappointmentsslots.PeriodSlot;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfigRepository;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -19,7 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,7 +26,7 @@ public class CalendarServiceTest {
     private ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository;
     private CalendarService calendarService;
     private FreeAppointmentSlotsService freeAppointmentSlotsService;
-    private PeriodSlotMergeService periodSlotMergeService;
+    private MergeAppointmentsOnFreeSlotsService mergeAppointmentsOnFreeSlotsService;
     private AppointmentService appointmentService;
 
     @Before
@@ -36,11 +34,11 @@ public class CalendarServiceTest {
         professionalBlockTimeConfigRepository =  mock(ProfessionalBlockTimeConfigRepository.class);
         appointmentService =  mock(AppointmentService.class);
         freeAppointmentSlotsService =  mock(FreeAppointmentSlotsService.class);
-        periodSlotMergeService =  mock(PeriodSlotMergeService.class);
+        mergeAppointmentsOnFreeSlotsService =  mock(MergeAppointmentsOnFreeSlotsService.class);
         calendarService = new CalendarService(
                 appointmentService,
                 freeAppointmentSlotsService,
-                periodSlotMergeService);
+                mergeAppointmentsOnFreeSlotsService);
     }
 
     @Test
@@ -71,7 +69,7 @@ public class CalendarServiceTest {
         List<PeriodSlot> from = PeriodSlot.from(appointments);
         mergedSlots.addAll(from);
         mergedSlots.addAll(freeAppointmentsSlots.getPeriodSlots());
-        when(periodSlotMergeService.mergeAppointmentsOnFreeSlots
+        when(mergeAppointmentsOnFreeSlotsService.merge
                 (ArgumentMatchers.anyList(), ArgumentMatchers.anyList()))
                 .thenReturn(mergedSlots);
         //WHEN ASKED for calendar
