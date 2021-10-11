@@ -55,7 +55,6 @@ public class MergeAppointmentsOnFreeSlotsServiceTest {
         assertThat(mergedSlots).contains(nonConflictedSlotA);
         assertThat(mergedSlots).contains(nonConflictedSlotB);
         assertThat(mergedSlots).doesNotContain(conflictFreeSlot);
-
     }
 
 }
