@@ -18,6 +18,13 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(responseBody, returnStatus);
     }
 
+    @ExceptionHandler(AppResourceNotFoundException.class)
+    public ResponseEntity<MessageHttpResponse> handleNoFound(AppResourceNotFoundException exception) {
+        HttpStatus returnStatus = HttpStatus.NOT_FOUND;
+        MessageHttpResponse responseBody = buildErrorResponse(exception.getMessage());
+        return new ResponseEntity<>(responseBody, returnStatus);
+    }
+
     public MessageHttpResponse buildErrorResponse(String message) {
         return MessageHttpResponse.builder()
                 .message(message)
