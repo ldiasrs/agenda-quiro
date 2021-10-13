@@ -77,3 +77,5 @@ heroku logs --tail
 - [entity to DTO](https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application)
 - [model mapper](http://modelmapper.org/getting-started/)
 - [reach hooks-state](https://reactjs.org/docs/hooks-state.html)
+- [separate-gradle-tasks-for-unit-and-integration-tests](https://inspeerity.com/blog/separate-gradle-tasks-for-unit-and-integration-tests/)
+- [rest-template](https://www.baeldung.com/rest-template)
