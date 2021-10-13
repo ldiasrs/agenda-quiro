@@ -4,3 +4,5 @@ include(
         "frontend",
         "backend"
 )
+include 'integrationTest'
+

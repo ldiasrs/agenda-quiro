@@ -28,6 +28,19 @@ configurations {
     runtimeClasspath {
         extendsFrom developmentOnly
     }
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+sourceSets {
+    integrationTest {
+        java {
+            srcDir "$projectDir/src/integrationTest/java"
+            resources.srcDir "$projectDir/src/integrationTest/resources"
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+        }
+    }
 }
 
 dependencies {
@@ -82,4 +95,9 @@ flyway {
     url = 'jdbc:postgresql://localhost:5432/agenda_quiro'
     user = 'postgres'
     password = '123456'
+}
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
 }
