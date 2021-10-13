@@ -8,6 +8,7 @@ public final class PathMappings {
     public static final String CALENDAR="/calendar";
     public static final String CUSTOMER="/customer";
     public static final String CUSTOMER_EDIT="/customer/{id}";
+    public static final String CUSTOMER_GET="/customer/{id}";
     public static final String CUSTOMER_DELETE="/customer/{id}";
     public static final String CUSTOMER_FILTER="/customer/{name}";
 

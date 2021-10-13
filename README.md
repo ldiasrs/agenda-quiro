@@ -79,3 +79,4 @@ heroku logs --tail
 - [reach hooks-state](https://reactjs.org/docs/hooks-state.html)
 - [separate-gradle-tasks-for-unit-and-integration-tests](https://inspeerity.com/blog/separate-gradle-tasks-for-unit-and-integration-tests/)
 - [rest-template](https://www.baeldung.com/rest-template)
+- [rest-full](https://spring.io/guides/tutorials/rest/)
