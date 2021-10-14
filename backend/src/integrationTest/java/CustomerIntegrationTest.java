@@ -1,13 +1,14 @@
 import br.com.agendaquiro.controller.MessageHttpResponse;
 import br.com.agendaquiro.domain.customer.Customer;
 import org.junit.Test;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +31,6 @@ public class CustomerIntegrationTest {
     @Test
     public void crudTest() {
         long id = create();
-        //listAll();
         listPagination();
         customer = get(id);
         customer = edit(customer);
@@ -40,19 +40,11 @@ public class CustomerIntegrationTest {
     private void listPagination() {
         String endpoint = URL+"/customers";
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("searchTerm", "test")
+                .queryParam("searchTerm", "")
                 .queryParam("page", 0)
                 .queryParam("size", 10);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, null, String.class);
-        System.out.println(response.getBody());
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    private void listAll() {
-        String endpoint = URL+"/customers";
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(endpoint, HttpMethod.GET, null, String.class);
         System.out.println(response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
