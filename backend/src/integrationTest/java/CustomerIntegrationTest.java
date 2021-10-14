@@ -73,7 +73,7 @@ public class CustomerIntegrationTest {
     }
 
     public Long create() {
-        String endpoint = URL+"/customer";
+        String endpoint = URL+"/customers";
         RestTemplate restTemplate = new RestTemplate();
 
 
