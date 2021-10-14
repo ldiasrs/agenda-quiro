@@ -49,9 +49,9 @@ const App = () => {
         <Router>
             <Switch>
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/listarcliente" component={ListCustomer} />
-                <Route exact path="/cliente/:id" component={AddEditCustomer} />
-                <Route exact path="/registrarcliente" component={AddEditCustomer} />
+                <PrivateRoute exact path="/listarcliente" component={ListCustomer} key="listarcliente"/>
+                <PrivateRoute exact path="/cliente/:id" component={AddEditCustomer} />
+                <PrivateRoute exact path="/registrarcliente" component={AddEditCustomer} />
                 <PrivateRoute path="/agenda" component={Calendar}/>
                 <Route path="/home">
                     <div>

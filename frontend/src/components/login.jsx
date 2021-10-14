@@ -16,7 +16,7 @@ export const Login = (props) => {
                 }
             }).then(response=> login(response.headers.authorization));
 
-            props.history.push("/agenda");
+            props.history.push("/listarcliente");
         } catch (err) {
             console.log(err)
             setError("* Houve um problema com o login, verifique suas credenciais.")

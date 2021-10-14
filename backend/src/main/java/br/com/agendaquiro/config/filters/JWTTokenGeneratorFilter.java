@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -40,7 +42,7 @@ public class JWTTokenGeneratorFilter extends OncePerRequestFilter {
                     .claim("username", authentication.getName())
                     .claim("authorities", populateAuthorities(authentication.getAuthorities()))
                     .setIssuedAt(new Date())
-                    .setExpiration(new Date((new Date()).getTime() + 300000))
+                    .setExpiration(java.sql.Timestamp.valueOf(LocalDateTime.now().plusMinutes(60)))
                     .signWith(key).compact();
             response.setHeader(JWT_HEADER, jwt);
         }
