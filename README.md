@@ -80,3 +80,4 @@ heroku logs --tail
 - [separate-gradle-tasks-for-unit-and-integration-tests](https://inspeerity.com/blog/separate-gradle-tasks-for-unit-and-integration-tests/)
 - [rest-template](https://www.baeldung.com/rest-template)
 - [rest-full](https://spring.io/guides/tutorials/rest/)
+- [pagination-jpa-demo](https://github.com/fabianogoes/demo-pageable)

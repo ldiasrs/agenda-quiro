@@ -84,7 +84,6 @@ public class CustomerIntegrationTest {
         String endpoint = URL+"/customers";
         RestTemplate restTemplate = new RestTemplate();
 
-
         HttpEntity<Customer> request = new HttpEntity<>(customer);
         ResponseEntity<MessageHttpResponse> response
                 = restTemplate.postForEntity(endpoint, request, MessageHttpResponse.class);

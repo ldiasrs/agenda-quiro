@@ -3,6 +3,7 @@ import {Pagination} from "../Pagination";
 import DatePicker from "react-datepicker";
 import {useState} from "react";
 import { Link } from 'react-router-dom';
+import api from "../../services/api";
 
 
 export const ListCustomer = (props) => {
@@ -12,18 +13,12 @@ export const ListCustomer = (props) => {
     const [globalFilter, setGlobalFilter] = useState(undefined);
 
     const fetchCustomers = () => {
-        let customers = []
-        for (let i = 0; i < 10; i++) {
-            customers.push(
-                {"id":i,"name":"leo"+i,"email":i+"leo@gmail.com","phone":"9039409343","cpf":"0092323","birthDate":{"year":2021,"month":"SEPTEMBER","chronology":{"calendarType":"iso8601","id":"ISO"},"era":"CE","monthValue":9,"dayOfMonth":23,"dayOfYear":266,"dayOfWeek":"THURSDAY","leapYear":false},"height":"92","weight":"178","gender":"masculino"}
-            )
-        }
-        return {
-            "totalItems": 10,
-            "customers": customers,
-            "totalPages": 3,
-            "currentPage": 1
+        const params = {
+            searchTerm : "",
+            page: 0,
+            size: 10
         };
+       return  api.get('/customers', {params})
     }
 
     const customerData  = fetchCustomers();

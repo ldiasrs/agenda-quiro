@@ -19,6 +19,10 @@ api:
 logging:
   level:
     org:
+      springframework:
+        dao=DEBUG:
+          support=DEBUG:
+        security=DEBUG:
       hibernate:
         type:
           descriptor:

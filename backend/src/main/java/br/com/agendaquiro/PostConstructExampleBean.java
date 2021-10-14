@@ -16,7 +16,10 @@ import br.com.agendaquiro.domain.servicetype.ServiceTypeRepository;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfigRepository;
 import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfigBuilder;
+import br.com.agendaquiro.domain.user.Authority;
+import br.com.agendaquiro.domain.user.AuthorityRepository;
 import br.com.agendaquiro.domain.user.User;
+import br.com.agendaquiro.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,17 +51,58 @@ public class PostConstructExampleBean {
     private PerformedAppointmentRepository performedAppointmentRepository;
     @Autowired
     private AnamnesisRepository anamnesisRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
     private final Logger LOG =
             Logger.getLogger(PostConstructExampleBean.class.getName());
     @PostConstruct
     public void init() {
+        if(userRepository.findAll().iterator().hasNext()) {
+            return;
+        }
         //USER
         User admin = User.builder()
-                .username("admin@admin.com")
-                .password("")
+                .username("admin@quiroapp.com")
+                .tenant("quiroappp")
+                .enabled(true)
+                .password("$2a$12$.nmAVl6I8HeX1i.1pbUdDOQ5Nfc93IWJXR92hHwSgMOZ2bHKNqJqG")
                 .build();
+        userRepository.save(admin);
 
+        authorityRepository.save(
+                Authority.builder()
+                        .username(admin.getUsername())
+                        .authority("ROLE_ADMIN")
+                        .build());
+
+        User user = User.builder()
+                .username("user@quiroapp.com")
+                .tenant("quiroappp")
+                .enabled(true)
+                .password("$2a$12$.nmAVl6I8HeX1i.1pbUdDOQ5Nfc93IWJXR92hHwSgMOZ2bHKNqJqG")
+                .build();
+        userRepository.save(user);
+        authorityRepository.save(
+                Authority.builder()
+                        .username(user.getUsername())
+                        .authority("ROLE_USER")
+                        .build());
+
+        User manager = User.builder()
+                .username("manager@quiroapp.com")
+                .tenant("quiroappp")
+                .enabled(true)
+                .password("$2a$12$.nmAVl6I8HeX1i.1pbUdDOQ5Nfc93IWJXR92hHwSgMOZ2bHKNqJqG")
+                .build();
+        userRepository.save(manager);
+        authorityRepository.save(
+                Authority.builder()
+                        .username(manager.getUsername())
+                        .authority("ROLE_MANAGER")
+                        .build());
         //SERVICE
         ServiceType quiropraxiaService =
                 ServiceType.builder()
