@@ -6,13 +6,16 @@ import br.com.agendaquiro.controller.MessageHttpResponse;
 import br.com.agendaquiro.controller.customer.request.CustomerRequest;
 import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.domain.customer.CustomerCrudService;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static br.com.agendaquiro.config.PathMappings.*;
 import static br.com.agendaquiro.controller.customer.request.CustomerRequest.convertToEntity;
@@ -64,19 +67,26 @@ public class CustomerController extends BaseController {
         return response;
     }
 
-    @GetMapping(CUSTOMERS)
-    public ResponseEntity<Iterable<Customer>> all()  {
-        return super.response(this.customerService.findAll(), HttpStatus.OK);
-    }
-
-//    @GetMapping(CUSTOMER_FILTER)
-//    public ResponseEntity<?> filter(@PathVariable String name, Pageable pageable) {
-//        Page<Customer> customers = customerService.findByFilter(name, pageable);
-//        List<CustomerRequest> customerRequests = customers.stream()
-//                .map(CustomerRequest::convertToRequestDto)
-//                .collect(Collectors.toList());
-//        Page<CustomerRequest> pages =
-//                new PageImpl<>(customerRequests, pageable, customers.getTotalElements());
-//        return super.pageResult(pages);
+//    @GetMapping(CUSTOMERS)
+//    public ResponseEntity<Iterable<Customer>> all()  {
+//        return super.response(this.customerService.findAll(), HttpStatus.OK);
 //    }
+
+    @GetMapping(name=CUSTOMER_FILTER, params = { "page", "size" })
+    public Page<CustomerRequest> filter(@RequestParam("searchTerm") String searchTerm,
+                                        @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                        @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                size,
+                Sort.Direction.ASC,
+                "name");
+        Page<Customer> customers = customerService.findByFilter(searchTerm, pageRequest);
+        List<CustomerRequest> customerRequests = customers.stream()
+                .map(CustomerRequest::convertToRequestDto)
+                .collect(Collectors.toList());
+        Page<CustomerRequest> pages =
+                new PageImpl<>(customerRequests, pageRequest, customers.getTotalElements());
+        return pages;
+    }
 }

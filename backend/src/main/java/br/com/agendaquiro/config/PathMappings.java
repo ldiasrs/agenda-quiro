@@ -10,7 +10,7 @@ public final class PathMappings {
     public static final String CUSTOMER_EDIT="/customer/{id}";
     public static final String CUSTOMER_GET="/customer/{id}";
     public static final String CUSTOMER_DELETE="/customer/{id}";
-    public static final String CUSTOMER_FILTER="/customer/{name}";
+    public static final String CUSTOMER_FILTER="/customers";
 
     public static final String HOME="/home";
 

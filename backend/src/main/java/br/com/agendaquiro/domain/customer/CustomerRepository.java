@@ -1,10 +1,9 @@
 package br.com.agendaquiro.domain.customer;
 
 
-
-import br.com.agendaquiro.domain.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-    Page<Customer> findByName(String name, Pageable pageable);
+    @Query("FROM Customer c " +
+            "WHERE LOWER(c.name) like %:searchTerm% " +
+            "OR LOWER(c.email) like %:searchTerm%")
+    Page<Customer> search(String searchTerm, Pageable pageable);
 }
