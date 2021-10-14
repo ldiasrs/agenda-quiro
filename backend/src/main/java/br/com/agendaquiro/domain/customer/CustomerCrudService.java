@@ -37,4 +37,8 @@ public class CustomerCrudService {
 	public Page<Customer> findByFilter(final String name, final Pageable pageable) {
 		return this.customerRepository.findByName(name, pageable);
 	}
+
+	public Iterable<Customer> findAll() {
+		return this.customerRepository.findAll();
+	}
 }

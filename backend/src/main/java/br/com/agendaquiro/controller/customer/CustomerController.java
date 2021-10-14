@@ -26,7 +26,7 @@ public class CustomerController extends BaseController {
         this.customerService = customerService;
     }
 
-    @PostMapping(CUSTOMER)
+    @PostMapping(CUSTOMERS)
     public ResponseEntity<MessageHttpResponse> add(@Valid @RequestBody CustomerRequest customerRequest) throws ParseException {
         Customer customer = this.customerService.add(convertToEntity(customerRequest));
         return super.response(
@@ -64,6 +64,10 @@ public class CustomerController extends BaseController {
         return response;
     }
 
+    @GetMapping(CUSTOMERS)
+    public ResponseEntity<Iterable<Customer>> all()  {
+        return super.response(this.customerService.findAll(), HttpStatus.OK);
+    }
 
 //    @GetMapping(CUSTOMER_FILTER)
 //    public ResponseEntity<?> filter(@PathVariable String name, Pageable pageable) {

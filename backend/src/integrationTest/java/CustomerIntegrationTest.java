@@ -27,9 +27,18 @@ public class CustomerIntegrationTest {
     @Test
     public void crudTest() {
         long id = create();
+        listAll();
         customer = get(id);
         customer = edit(customer);
         delete(customer);
+    }
+
+    private void listAll() {
+        String endpoint = URL+"/customers";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.exchange(endpoint, HttpMethod.GET, null, String.class);
+        System.out.println(response.getBody());
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     private void delete(Customer customer) {
