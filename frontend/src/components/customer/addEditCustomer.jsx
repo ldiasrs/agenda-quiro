@@ -17,7 +17,6 @@ export const AddEditCustomer = ({ history, match }) => {
                 if (isEditMode) {
                     const response = await api.get(`/customer/${id}`)
                     const customer = response.data;
-                    console.log(customer.birthDate)
                     setName(customer.name)
                     setEmail(customer.email)
                     setPhone(customer.phone)
@@ -29,7 +28,7 @@ export const AddEditCustomer = ({ history, match }) => {
                     setId(customer.id)
                 }
             } catch (error) {
-                alert("Ocorreu um erro ao buscar os items"+error);
+                alert("Ocorreu um erro ao buscar o item: "+error);
             }
         }
         getItem();
@@ -58,17 +57,29 @@ export const AddEditCustomer = ({ history, match }) => {
     const [gender, setGender] = useState(defaultvalues.gender);
     const [id, setId] = useState(defaultvalues.id);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        console.log(birthDate)
         const customerData = {
             name,
             email,
             phone,
             cpf,
-            birthDate,
+            birthDate: "2000-10-10",
             height,
             weight,
             gender
+        }
+        try {
+            const {id} = match.params;
+            const isEditMode = id;
+            if (isEditMode) {
+                await api.put(`/customer/${id}`, customerData)
+            } else {
+                await api.post(`/customers`, customerData)
+            }
+        } catch (error) {
+            alert("Ocorreu um erro ao buscar o item: " + error);
         }
         console.log(customerData)
     }
@@ -159,7 +170,9 @@ export const AddEditCustomer = ({ history, match }) => {
                             <a href='/listarcliente'>
                                 <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                             </a>
-                            <input type="submit" className="btn btn-success" value="Salvar"/>
+                            <a href='/listarcliente'>
+                                <input type="submit" className="btn btn-success" value="Salvar"/>
+                            </a>
                         </div>
                     </form>
                 </div>
