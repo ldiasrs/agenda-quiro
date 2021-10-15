@@ -133,13 +133,26 @@ public class PostConstructExampleBean {
                 .email("lu@gmail.com")
                 .birthDate(LocalDate.now())
                 .cpf("00876726252")
-                .gender("F")
+                .gender("female")
                 .weight("165")
                 .height("72")
                 .name("Luana")
                 .phone("51-887652725")
                 .build();
         customerRepository.save(luana);
+
+        //CLIENTE
+        Customer gabriel = Customer.builder()
+                .email("gaby@gmail.com")
+                .birthDate(LocalDate.now())
+                .cpf("009826257836")
+                .gender("male")
+                .weight("172")
+                .height("76")
+                .name("Gabriel")
+                .phone("54-99762525")
+                .build();
+        customerRepository.save(gabriel);
 
         //APPOINTMENT
         LocalDateTime start = LocalDateTime.now();

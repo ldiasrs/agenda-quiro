@@ -1,25 +1,43 @@
 import {NavigationApp} from "../navigation-app";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import api from "../../services/api";
 
 export const AddEditCustomer = ({ history, match }) => {
 
-    const fetchCustomer = (id) => {
-        return   {
-            name: "leo",
-            email : "leo@gmail.com",
-            phone: "999",
-            cpf: "222",
-            birthDate : new Date(),
-            height : 0,
-            weight : 0,
-            gender : "male"
+    // com Async Await
+    useEffect(() => {
+        async function getItem() {
+            try {
+                const { id } = match.params;
+                console.log("id: " + id)
+                const isEditMode = id;
+                if (isEditMode) {
+                    const response = await api.get(`/customer/${id}`)
+                    const customer = response.data;
+                    console.log(customer.birthDate)
+                    setName(customer.name)
+                    setEmail(customer.email)
+                    setPhone(customer.phone)
+                    setCpf(customer.cpf)
+                    setBirthDate(Date.parse(customer.birthDate))
+                    setHeight(customer.height)
+                    setWeight(customer.weight)
+                    setGender(customer.gender)
+                    setId(customer.id)
+                }
+            } catch (error) {
+                alert("Ocorreu um erro ao buscar os items"+error);
+            }
         }
-    }
+        getItem();
+    }, []);
+
 
     const defaultvalues = {
+        id : undefined,
         name: "",
         email : "",
         phone: "",
@@ -30,19 +48,15 @@ export const AddEditCustomer = ({ history, match }) => {
         gender : "male"
     }
 
-    const { id } = match.params;
-    const isAddMode = !id;
-
-    const customerData = isAddMode ? defaultvalues  : fetchCustomer(id);
-
-    const [name, setName] = useState(customerData.name);
-    const [email, setEmail] = useState(customerData.email);
-    const [phone, setPhone] = useState(customerData.phone);
-    const [cpf, setCpf] = useState(customerData.cpf);
-    const [birthDate, setBirthDate] = useState(customerData.birthDate);
-    const [height, setHeight] = useState(customerData.height);
-    const [weight, setWeight] = useState(customerData.weight);
-    const [gender, setGender] = useState(customerData.gender);
+    const [name, setName] = useState(defaultvalues.name);
+    const [email, setEmail] = useState(defaultvalues.email);
+    const [phone, setPhone] = useState(defaultvalues.phone);
+    const [cpf, setCpf] = useState(defaultvalues.cpf);
+    const [birthDate, setBirthDate] = useState(defaultvalues.birthDate);
+    const [height, setHeight] = useState(defaultvalues.height);
+    const [weight, setWeight] = useState(defaultvalues.weight);
+    const [gender, setGender] = useState(defaultvalues.gender);
+    const [id, setId] = useState(defaultvalues.id);
 
     const handleSubmit = (e) => {
         e.preventDefault()
