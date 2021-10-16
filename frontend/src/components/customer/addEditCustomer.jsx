@@ -21,7 +21,7 @@ export const AddEditCustomer = ({ history, match }) => {
                     setEmail(customer.email)
                     setPhone(customer.phone)
                     setCpf(customer.cpf)
-                    setBirthDate(Date.parse(customer.birthDate))
+                    setBirthDate(new Date(customer.birthDate))
                     setHeight(customer.height)
                     setWeight(customer.weight)
                     setGender(customer.gender)
@@ -59,13 +59,13 @@ export const AddEditCustomer = ({ history, match }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(birthDate)
+        const formattedDate = birthDate.toISOString().split('T')[0]
         const customerData = {
             name,
             email,
             phone,
             cpf,
-            birthDate: "2000-10-10",
+            birthDate: formattedDate,
             height,
             weight,
             gender
@@ -79,7 +79,7 @@ export const AddEditCustomer = ({ history, match }) => {
                 await api.post(`/customers`, customerData)
             }
         } catch (error) {
-            alert("Ocorreu um erro ao buscar o item: " + error);
+            alert("Ocorreu um erro: " + error);
         }
         console.log(customerData)
     }
