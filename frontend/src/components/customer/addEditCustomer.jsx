@@ -84,6 +84,12 @@ export const AddEditCustomer = ({ history, match }) => {
         console.log(customerData)
     }
 
+    const genderOptions = [
+        { value: 'male', label: 'Masculino' },
+        { value: 'female', label: 'Feminino' },
+        { value: 'other', label: 'Outro' },
+    ]
+
     const handleSelectGenderChange = (selectedOption) => {
         setGender(selectedOption.value)
     };
@@ -138,11 +144,11 @@ export const AddEditCustomer = ({ history, match }) => {
                                 <br></br>
                                 <Select
                                     onChange={handleSelectGenderChange}
-                                    options={[
-                                        { value: 'male', label: 'Masculino' },
-                                        { value: 'female', label: 'Feminino' },
-                                        { value: 'other', label: 'Outro' },
-                                    ]}
+                                    options={genderOptions}
+                                    value = {
+                                        genderOptions.filter(option =>
+                                            option.value === gender)
+                                    }
                                 />
                             </div>
                             <div className="form-group">
