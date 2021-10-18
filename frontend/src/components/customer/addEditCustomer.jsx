@@ -147,7 +147,7 @@ export const AddEditCustomer = ({ history, match }) => {
                             </div>
                             <div className="form-group">
                                 <label>Data de nascimento</label>
-                                <DatePicker selected={birthDate} onChange={(date) => setBirthDate(date)} />
+                                <DatePicker dateFormat="dd/MM/yyyy" selected={birthDate} onChange={(date) => setBirthDate(date)} />
                             </div>
                             <div className="form-group">
                                 <label>Altura</label>

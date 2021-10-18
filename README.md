@@ -81,3 +81,4 @@ heroku logs --tail
 - [rest-template](https://www.baeldung.com/rest-template)
 - [rest-full](https://spring.io/guides/tutorials/rest/)
 - [pagination-jpa-demo](https://github.com/fabianogoes/demo-pageable)
+- [spring-date-parameters](https://www.baeldung.com/spring-date-parameters)
