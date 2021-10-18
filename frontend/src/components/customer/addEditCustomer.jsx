@@ -78,10 +78,25 @@ export const AddEditCustomer = ({ history, match }) => {
             } else {
                 await api.post(`/customers`, customerData)
             }
+            history.push('/listarcliente')
         } catch (error) {
             alert("Ocorreu um erro: " + error);
         }
         console.log(customerData)
+    }
+
+    const handleDelete = async (e) => {
+        e.preventDefault()
+        try {
+            const {id} = match.params;
+            const isEditMode = id;
+            if (isEditMode) {
+                await api.delete(`/customer/${id}`)
+            }
+            history.push('/listarcliente')
+        } catch (error) {
+            alert("Ocorreu um erro: " + error);
+        }
     }
 
     const genderOptions = [
@@ -176,9 +191,7 @@ export const AddEditCustomer = ({ history, match }) => {
                             <a href='/listarcliente'>
                                 <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancelar"/>
                             </a>
-                            <a href='/listarcliente'>
-                                <input type="submit" className="btn btn-success" value="Salvar"/>
-                            </a>
+                            <input type="submit" className="btn btn-success" value="Salvar"/>
                         </div>
                     </form>
                 </div>
@@ -186,7 +199,7 @@ export const AddEditCustomer = ({ history, match }) => {
             <div id="deleteCustomerModal" className="modal fade">
                 <div className="modal-dialog">
                     <div className="modal-content">
-                        <form>
+                        <form onSubmit={handleDelete}>
                             <div className="modal-header">
                                 <h4 className="modal-title">Remover</h4>
                                 <button type="button" className="close" data-dismiss="modal"
