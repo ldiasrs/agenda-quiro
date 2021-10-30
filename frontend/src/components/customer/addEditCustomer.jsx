@@ -93,6 +93,9 @@ export const AddEditCustomer = ({ history, match }) => {
             if (isEditMode) {
                 await api.delete(`/customer/${id}`)
             }
+            document.getElementById("deleteCustomerModal").classList.remove("show", "d-block");
+            document.querySelectorAll(".modal-backdrop")
+                .forEach(el => el.classList.remove("modal-backdrop"));
             history.push('/listarcliente')
         } catch (error) {
             alert("Ocorreu um erro: " + error);
