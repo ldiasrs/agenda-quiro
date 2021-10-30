@@ -12,19 +12,23 @@ export const ListCustomer = (props) => {
     const [finalDate, setFinalDate] = useState(new Date());
     const [globalFilter, setGlobalFilter] = useState(undefined);
     const [customerData, setCustomerData] = useState(undefined);
+    const [paginationData, setPaginationData] = useState(undefined);
 
     // com Async Await
     useEffect(() => {
         async function getItems() {
             try {
                 const  response  = await fetchCustomers()
+                console.log(response)
+                console.log(response.data)
+                setPaginationData(response.data)
                 setCustomerData(response.data.content);
             } catch (error) {
                 alert("Ocorreu um erro ao buscar os items"+error);
             }
         }
         getItems();
-    }, []);
+    }, [100]);
 
     const fetchCustomers =  () => {
         const params = {
@@ -122,7 +126,7 @@ export const ListCustomer = (props) => {
                         }
                         </tbody>
                     </table>
-                    <Pagination/>
+                    <Pagination props={paginationData} />
                 </div>
             </div>
         </>

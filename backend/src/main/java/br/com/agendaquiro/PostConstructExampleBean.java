@@ -141,18 +141,20 @@ public class PostConstructExampleBean {
                 .build();
         customerRepository.save(luana);
 
-        //CLIENTE
-        Customer gabriel = Customer.builder()
-                .email("gaby@gmail.com")
-                .birthDate(LocalDate.now())
-                .cpf("009826257836")
-                .gender("male")
-                .weight("172")
-                .height("76")
-                .name("Gabriel")
-                .phone("54-99762525")
-                .build();
-        customerRepository.save(gabriel);
+        for (int i = 0; i < 20; i++) {
+            //CLIENTE
+            Customer gabriel = Customer.builder()
+                    .email("gaby"+i+"@gmail.com")
+                    .birthDate(LocalDate.now())
+                    .cpf("009826257836")
+                    .gender("male")
+                    .weight("172")
+                    .height("76")
+                    .name("Gabriel " + i)
+                    .phone("54-99762" + i)
+                    .build();
+            customerRepository.save(gabriel);
+        }
 
         //APPOINTMENT
         LocalDateTime start = LocalDateTime.now();
