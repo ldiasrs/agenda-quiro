@@ -1,54 +1,56 @@
 import {NavigationApp} from "../navigation-app";
-import {Pagination} from "../Pagination";
 import DatePicker from "react-datepicker";
 import {useEffect, useState} from "react";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import api from "../../services/api";
+import {Pagination} from "../Pagination";
 
 
 export const ListCustomer = (props) => {
 
+    const paginationSize = 10
     const [initialDate, setInitialDate] = useState(new Date());
     const [finalDate, setFinalDate] = useState(new Date());
     const [globalFilter, setGlobalFilter] = useState(undefined);
     const [customerData, setCustomerData] = useState(undefined);
-    const [paginationData, setPaginationData] = useState(undefined);
+    const [currentPage, setCurrentPage] = useState(0);
 
-    // com Async Await
-    useEffect(() => {
-        async function getItems() {
-            try {
-                const  response  = await fetchCustomers()
-                console.log(response)
-                console.log(response.data)
-                setPaginationData(response.data)
-                setCustomerData(response.data.content);
-            } catch (error) {
-                alert("Ocorreu um erro ao buscar os items"+error);
-            }
-        }
-        getItems();
-    }, [100]);
-
-    const fetchCustomers =  () => {
-        const params = {
-            searchTerm: "",
-            page: 0,
-            size: 10
-        };
-        return api.get('/customers', {params})
+    const handleNavigation = async (page) => {
+        setCurrentPage(page);
+        await fetchItems()
     }
+
+    const fetchItems = async () => {
+        try {
+            const params = {
+                searchTerm: "",
+                page: currentPage,
+                size: paginationSize
+            };
+            console.log(params)
+            const response = await api.get('/customers', {params})
+            setCustomerData(response.data.content);
+        } catch (error) {
+            console.error("Ocorreu um erro ao buscar os items" + error);
+        }
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+            await fetchItems()
+        }
+
+        fetchData();
+    }, [100]);
 
 
     const filterCustomer = (customer) => {
         if (!globalFilter) return true;
-        console.log(globalFilter)
         return ((customer.name + customer.email + customer.phone + customer.cpf + customer.gender).includes(globalFilter))
     }
 
-    const filterTableElements =  () => {
-        if(!customerData) return;
-        console.log(customerData)
+    const filterTableElements = () => {
+        if (!customerData) return;
         return customerData
             .filter(filterCustomer)
             .map(customer =>
@@ -126,7 +128,13 @@ export const ListCustomer = (props) => {
                         }
                         </tbody>
                     </table>
-                    <Pagination props={paginationData, pathList} />
+                    <Pagination
+                        currentPage={currentPage}
+                        handleNavigation={handleNavigation}
+                        totalElements={100}
+                        totalPages={5}
+                        maxItemsPerPage={paginationSize}
+                    />
                 </div>
             </div>
         </>
