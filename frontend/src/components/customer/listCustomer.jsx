@@ -14,10 +14,21 @@ export const ListCustomer = (props) => {
     const [globalFilter, setGlobalFilter] = useState(undefined);
     const [customerData, setCustomerData] = useState(undefined);
     const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(undefined);
+    const [totalElements, setTotalElements] = useState(undefined);
 
-    const handleNavigation = async (page) => {
-        setCurrentPage(page);
-        await fetchItems()
+    const handlePrevNavigation = async () => {
+        updateCurrentPage(currentPage-1)
+    }
+
+    const updateCurrentPage =  (newPage) => {
+        if (newPage >= 0 && newPage<totalPages) {
+            setCurrentPage(newPage);
+        }
+    }
+
+    const handleNextNavigation = async () => {
+        updateCurrentPage(currentPage+1)
     }
 
     const fetchItems = async () => {
@@ -30,6 +41,8 @@ export const ListCustomer = (props) => {
             console.log(params)
             const response = await api.get('/customers', {params})
             setCustomerData(response.data.content);
+            setTotalPages(response.data.totalPages)
+            setTotalElements(response.data.totalElements)
         } catch (error) {
             console.error("Ocorreu um erro ao buscar os items" + error);
         }
@@ -41,7 +54,7 @@ export const ListCustomer = (props) => {
         }
 
         fetchData();
-    }, [100]);
+    }, [currentPage]);
 
 
     const filterCustomer = (customer) => {
@@ -130,9 +143,10 @@ export const ListCustomer = (props) => {
                     </table>
                     <Pagination
                         currentPage={currentPage}
-                        handleNavigation={handleNavigation}
-                        totalElements={100}
-                        totalPages={5}
+                        handlePrevNavigation={handlePrevNavigation}
+                        handleNextNavigation={handleNextNavigation}
+                        totalElements={totalElements}
+                        totalPages={totalPages}
                         maxItemsPerPage={paginationSize}
                     />
                 </div>

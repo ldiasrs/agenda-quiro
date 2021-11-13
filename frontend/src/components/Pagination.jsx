@@ -1,15 +1,5 @@
 import history from './history'
-export const Pagination = ({currentPage, handleNavigation, totalElements, totalPages, maxItemsPerPage}) => {
-
-    const nextPage = async () => {
-        console.log('WILL PAGE LOAD: ' + currentPage++)
-        await handleNavigation(currentPage++)
-    }
-
-    const previousPage = async () => {
-        console.log('WILL PAGE LOAD: ' + currentPage--)
-        await handleNavigation(currentPage--)
-    }
+export const Pagination = ({currentPage,handlePrevNavigation, handleNextNavigation, totalElements, totalPages, maxItemsPerPage}) => {
 
     const getTotalItems = () => {
         return maxItemsPerPage
@@ -27,11 +17,11 @@ export const Pagination = ({currentPage, handleNavigation, totalElements, totalP
         <div className="clearfix">
             <div className="hint-text">Showing <b>{getTotalItems()}</b> out of <b>{totalElements}</b> entries</div>
             <ul className="pagination">
-                <li className="page-item disabled"><button onClick={previousPage}>Previous</button></li>
+                <li className="page-item disabled"><button onClick={handlePrevNavigation}>Previous</button></li>
                 {
                     getPagesClick()
                 }
-                <li className="page-item"><button onClick={nextPage} className="page-link">Next</button></li>
+                <li className="page-item"><button onClick={handleNextNavigation} className="page-link">Next</button></li>
             </ul>
         </div>
     );
