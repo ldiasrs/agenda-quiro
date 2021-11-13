@@ -126,7 +126,7 @@ export const ListCustomer = (props) => {
                         }
                         </tbody>
                     </table>
-                    <Pagination props={paginationData} />
+                    <Pagination props={paginationData, pathList} />
                 </div>
             </div>
         </>

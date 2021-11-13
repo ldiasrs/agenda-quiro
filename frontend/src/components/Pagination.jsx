@@ -1,14 +1,16 @@
+import history from './history'
 export const Pagination = (props) => {
     const maxItemsPerPage = 10;
     //const {paginationData} = props
-   const paginationData = props.props? props.props : {totalElements:0,  totalPages:0}
+   const paginationData = props.props|| {totalElements:0,  totalPages:0}
     console.log(paginationData)
+
+    const nextPage = () => {
+        history.push(`/listarcliente?currentPage=${0}`)
+    }
     const getTotalItems = () => {
         return maxItemsPerPage
     }
-
-    // const { currentPage } = this.state;
-    // const pages = this.fetchPageNumbers();
 
     const getPagesClick = () => {
         const pages = []

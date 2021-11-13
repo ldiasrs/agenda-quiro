@@ -82,3 +82,4 @@ heroku logs --tail
 - [rest-full](https://spring.io/guides/tutorials/rest/)
 - [pagination-jpa-demo](https://github.com/fabianogoes/demo-pageable)
 - [spring-date-parameters](https://www.baeldung.com/spring-date-parameters)
+- https://www.bezkoder.com/react-spring-boot-pagination/
