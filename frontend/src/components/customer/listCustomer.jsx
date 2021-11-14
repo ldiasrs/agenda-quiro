@@ -38,7 +38,6 @@ export const ListCustomer = ({ history, match }) => {
     const fetchItems = async () => {
         try {
             console.log('searchTerm:' + searchTerm)
-            setTableFiler(searchTerm||'')
             const params = {
                 searchTerm: searchTerm,
                 page: currentPage,
@@ -73,12 +72,12 @@ export const ListCustomer = ({ history, match }) => {
             .filter(filterCustomer)
             .map(customer =>
                 <tr key={key++}>
-                    <td>
-                        <span className="custom-checkbox">
-                            <input type="checkbox" id="checkbox1" name="options[]" value="1"/>
-                            <label htmlFor="checkbox1"></label>
-                        </span>
-                    </td>
+                    {/*<td>*/}
+                    {/*    <span className="custom-checkbox">*/}
+                    {/*        <input type="checkbox" id="checkbox1" name="options[]" value="1"/>*/}
+                    {/*        <label htmlFor="checkbox1"></label>*/}
+                    {/*    </span>*/}
+                    {/*</td>*/}
                     <td>{customer.name}</td>
                     <td>{customer.phone}</td>
                     <td>{customer.email}</td>
@@ -119,19 +118,19 @@ export const ListCustomer = ({ history, match }) => {
                                 <p>Digite algo para procurar na tabela abaixo:</p>
                                 <input className="form-control" id="myInput" type="text" placeholder="Search.."
                                        onChange={e => setTableFiler(e.target.value)}/>
-                                <a href={`/listarcliente?searchTerm=${tableFilter}`} className="btn btn-primary">Procurar em todas paginas</a>
+                                <a href={`/listarcliente?searchTerm=${tableFilter || ''}`} className="btn btn-primary">Procurar em todas paginas</a>
                             </div>
                         </form>
                     </div>
                     <table className="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>
-							<span className="custom-checkbox">
-								<input type="checkbox" id="selectAll"/>
-								<label htmlFor="selectAll"></label>
-							</span>
-                            </th>
+                            {/*<th>*/}
+							{/*<span className="custom-checkbox">*/}
+							{/*	<input type="checkbox" id="selectAll"/>*/}
+							{/*	<label htmlFor="selectAll"></label>*/}
+							{/*</span>*/}
+                            {/*</th>*/}
                             <th>Nome</th>
                             <th>Telefone</th>
                             <th>Email</th>

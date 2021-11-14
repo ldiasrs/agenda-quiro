@@ -72,7 +72,7 @@ public class CustomerController extends BaseController {
 //        return super.response(this.customerService.findAll(), HttpStatus.OK);
 //    }
 
-    @GetMapping(name=CUSTOMER_FILTER, params = { "page", "size" })
+    @GetMapping(name=CUSTOMER_FILTER)
     public Page<CustomerRequest> filter(@RequestParam(value ="searchTerm", required = false, defaultValue = "") String searchTerm,
                                         @RequestParam(value = "page", defaultValue = "0") int page,
                                         @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
