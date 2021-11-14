@@ -4,7 +4,6 @@ import br.com.agendaquiro.controller.AppResourceNotFoundException;
 import br.com.agendaquiro.controller.BaseController;
 import br.com.agendaquiro.controller.MessageHttpResponse;
 import br.com.agendaquiro.controller.professional.request.ProfessionalRequest;
-import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.domain.professsional.Professional;
 import br.com.agendaquiro.domain.professsional.ProfessionalCrudService;
 import org.springframework.data.domain.Page;
