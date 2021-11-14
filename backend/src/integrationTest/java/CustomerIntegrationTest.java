@@ -28,25 +28,47 @@ public class CustomerIntegrationTest {
             .email("customer@gmail.com")
             .build();
 
+    private Customer anotherCustomer = Customer.builder()
+            .name("Another Customer")
+            .phone("001111")
+            .cpf("0092222")
+            .height("176")
+            .gender("male")
+            .weight("1762")
+            .birthDate(LocalDate.now())
+            .email("AnotherCustomer@gmail.com")
+            .build();
+
     @Test
     public void crudTest() {
-        long id = create();
-        listPagination();
+        long id = create(customer);
+        listPagination("");
         customer = get(id);
         customer = edit(customer);
+        listWihFilter();
         delete(customer);
     }
 
-    private void listPagination() {
+    @Test
+    public void listWihFilter() {
+        create(anotherCustomer);
+        ResponseEntity<String> response = listPagination("Another");
+        assertThat(response.getBody()).contains("another");
+        assertThat(response.getBody()).doesNotContain("test");
+        delete(anotherCustomer);
+    }
+
+    private ResponseEntity<String> listPagination(String searchTerm) {
         String endpoint = URL+"/customers";
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(endpoint)
-                .queryParam("searchTerm", "")
+                .queryParam("searchTerm", searchTerm)
                 .queryParam("page", 0)
                 .queryParam("size", 10);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, null, String.class);
         System.out.println(response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        return response;
     }
 
     private void delete(Customer customer) {
@@ -80,7 +102,7 @@ public class CustomerIntegrationTest {
         return responseCustomer;
     }
 
-    public Long create() {
+    public Long create(Customer anotherCustomer) {
         String endpoint = URL+"/customers";
         RestTemplate restTemplate = new RestTemplate();
 

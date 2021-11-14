@@ -1,4 +1,3 @@
-
 spring:
   mvc:
     format:
@@ -20,18 +19,4 @@ api:
   security:
     jwt:
       key: "eyJhdXRob3JpdGllcyI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiJ9"
-
-logging:
-  level:
-    org:
-      springframework:
-        dao=DEBUG:
-          support=DEBUG:
-        security=DEBUG:
-      hibernate:
-        type:
-          descriptor:
-            sql:
-              BasicBinder=TRACE:
-        SQL=DEBUG:
 

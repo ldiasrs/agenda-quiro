@@ -7,7 +7,7 @@ export const Pagination = ({handlePrevNavigation, handleNextNavigation, totalEle
     const getPagesClick = () => {
         const pages = []
         for (let i = 0; i < totalPages; i++) {
-            pages.push(<li className="page-item"><button href="#" className="page-link">{i+1}</button></li>)
+            pages.push(<li key={i} className="page-item"><button href="#" className="page-link">{i+1}</button></li>)
         }
         return pages
     }

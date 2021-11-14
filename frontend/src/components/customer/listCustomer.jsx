@@ -1,17 +1,21 @@
 import {NavigationApp} from "../navigation-app";
 import DatePicker from "react-datepicker";
 import {useEffect, useState} from "react";
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import api from "../../services/api";
 import {Pagination} from "../Pagination";
 
-export const ListCustomer = (props) => {
+export const ListCustomer = ({ history, match }) => {
+
+
+    const search = useLocation().search;
+    const searchTerm = new URLSearchParams(search).get('searchTerm');
 
     const paginationSize = 10
 
     const [initialDate, setInitialDate] = useState(new Date());
     const [finalDate, setFinalDate] = useState(new Date());
-    const [globalFilter, setGlobalFilter] = useState(undefined);
+    const [tableFilter, setTableFiler] = useState(undefined);
     const [customerData, setCustomerData] = useState(undefined);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(undefined);
@@ -33,8 +37,10 @@ export const ListCustomer = (props) => {
 
     const fetchItems = async () => {
         try {
+            console.log('searchTerm:' + searchTerm)
+            setTableFiler(searchTerm||'')
             const params = {
-                searchTerm: globalFilter,
+                searchTerm: searchTerm,
                 page: currentPage,
                 size: paginationSize
             };
@@ -56,16 +62,17 @@ export const ListCustomer = (props) => {
     }, [currentPage]);
 
     const filterCustomer = (customer) => {
-        if (!globalFilter) return true;
-        return ((customer.name + customer.email + customer.phone + customer.cpf + customer.gender).includes(globalFilter))
+        if (!tableFilter) return true;
+        return ((customer.name + customer.email + customer.phone + customer.cpf + customer.gender).includes(tableFilter))
     }
 
     const filterTableElements = () => {
+        let key = 0
         if (!customerData) return;
         return customerData
             .filter(filterCustomer)
             .map(customer =>
-                <tr>
+                <tr key={key++}>
                     <td>
                         <span className="custom-checkbox">
                             <input type="checkbox" id="checkbox1" name="options[]" value="1"/>
@@ -111,8 +118,8 @@ export const ListCustomer = (props) => {
                             <div className="form-group">
                                 <p>Digite algo para procurar na tabela abaixo:</p>
                                 <input className="form-control" id="myInput" type="text" placeholder="Search.."
-                                       onChange={e => setGlobalFilter(e.target.value)}/>
-                                <button className="btn btn-primary" type="submit">Procurar em todas paginas</button>
+                                       onChange={e => setTableFiler(e.target.value)}/>
+                                <a href={`/listarcliente?searchTerm=${tableFilter}`} className="btn btn-primary">Procurar em todas paginas</a>
                             </div>
                         </form>
                     </div>

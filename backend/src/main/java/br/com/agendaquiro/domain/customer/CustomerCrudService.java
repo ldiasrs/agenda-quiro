@@ -40,6 +40,6 @@ public class CustomerCrudService {
 	}
 
 	public Page<Customer> findByFilter(String searchTerm, PageRequest pageRequest) {
-		return this.customerRepository.search(searchTerm, pageRequest);
+		return this.customerRepository.search(searchTerm.toLowerCase(), pageRequest);
 	}
 }

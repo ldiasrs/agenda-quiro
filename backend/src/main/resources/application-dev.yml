@@ -5,3 +5,22 @@ spring:
     url: jdbc:postgresql://localhost:5432/agenda_quiro
     username: postgres
     password: 123456
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate=DEBUG:
+            StatementCreatorUtils=TRACE:
+        dao=DEBUG:
+          support=DEBUG:
+        security=DEBUG:
+      hibernate:
+        SQL=debug:
+        type:
+          descriptor:
+            sql=trace:
+            sql:
+              BasicBinder=TRACE:
+        SQL=DEBUG:

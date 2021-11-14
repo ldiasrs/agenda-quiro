@@ -25,14 +25,13 @@ export const AddEditCustomer = ({ history, match }) => {
                     setHeight(customer.height)
                     setWeight(customer.weight)
                     setGender(customer.gender)
-                    setId(customer.id)
                 }
             } catch (error) {
                 alert("Ocorreu um erro ao buscar o item: "+error);
             }
         }
         getItem();
-    }, []);
+    }, [match.params]);
 
 
     const defaultvalues = {
@@ -55,7 +54,6 @@ export const AddEditCustomer = ({ history, match }) => {
     const [height, setHeight] = useState(defaultvalues.height);
     const [weight, setWeight] = useState(defaultvalues.weight);
     const [gender, setGender] = useState(defaultvalues.gender);
-    const [id, setId] = useState(defaultvalues.id);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
