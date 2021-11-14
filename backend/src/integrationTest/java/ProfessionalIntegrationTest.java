@@ -35,7 +35,7 @@ public class ProfessionalIntegrationTest {
     }
 
     private ResponseEntity<String> listPagination(String searchTerm) {
-        String endpoint = URL+"/professional";
+        String endpoint = URL+"/professionals";
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(endpoint)
                 .queryParam("searchTerm", searchTerm)
                 .queryParam("page", 0)
@@ -65,7 +65,7 @@ public class ProfessionalIntegrationTest {
     }
 
     public Long create(ProfessionalRequest paramCustomer) {
-        String endpoint = URL+"/professional";
+        String endpoint = URL+"/professionals";
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<ProfessionalRequest> request = new HttpEntity<>(paramCustomer);

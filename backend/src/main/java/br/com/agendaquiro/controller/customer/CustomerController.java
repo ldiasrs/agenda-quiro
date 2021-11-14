@@ -29,7 +29,7 @@ public class CustomerController extends BaseController {
         this.customerService = customerService;
     }
 
-    @PostMapping(CUSTOMERS)
+    @PostMapping(value=CUSTOMERS)
     public ResponseEntity<MessageHttpResponse> add(@Valid @RequestBody CustomerRequest customerRequest) throws ParseException {
         Customer customer = this.customerService.add(convertToEntity(customerRequest));
         return super.response(
@@ -42,13 +42,13 @@ public class CustomerController extends BaseController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping(CUSTOMER_EDIT)
+    @PutMapping(value=CUSTOMER_EDIT)
     public ResponseEntity<Customer> edit(@Valid @RequestBody CustomerRequest customerRequest, @PathVariable Long id) {
         Customer customer = this.customerService.edit(convertToEntity(customerRequest), id);
         return super.response(customer, HttpStatus.OK);
     }
 
-    @DeleteMapping(CUSTOMER_DELETE)
+    @DeleteMapping(value=CUSTOMER_DELETE)
     public ResponseEntity<MessageHttpResponse> delete(@PathVariable Long id) {
         this.customerService.delete(id);
         return super.response(
@@ -58,7 +58,7 @@ public class CustomerController extends BaseController {
                         .addValue("id", String.valueOf(id)), HttpStatus.OK);
     }
 
-    @GetMapping(CUSTOMER_GET)
+    @GetMapping(value=CUSTOMER_GET)
     public ResponseEntity<Customer> get(@PathVariable Long id) throws AppResourceNotFoundException {
         Optional<Customer> customerOptional = this.customerService.findById(id);
         ResponseEntity<Customer> response = customerOptional.map(
@@ -72,7 +72,7 @@ public class CustomerController extends BaseController {
 //        return super.response(this.customerService.findAll(), HttpStatus.OK);
 //    }
 
-    @GetMapping(name=CUSTOMER_FILTER)
+    @GetMapping(value=CUSTOMER_FILTER)
     public Page<CustomerRequest> filter(@RequestParam(value ="searchTerm", required = false, defaultValue = "") String searchTerm,
                                         @RequestParam(value = "page", defaultValue = "0") int page,
                                         @RequestParam(value = "size", required = false, defaultValue = "10") int size) {

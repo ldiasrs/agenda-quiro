@@ -29,4 +29,8 @@ public class ProfessionalCrudService {
     public void delete(Long id) {
         this.professionalRepository.deleteById(id);
     }
+
+    public Optional<Professional> findById(Long id) {
+        return professionalRepository.findById(id);
+    }
 }

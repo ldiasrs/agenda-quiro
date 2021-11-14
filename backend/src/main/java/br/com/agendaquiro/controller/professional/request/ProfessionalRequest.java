@@ -1,14 +1,9 @@
 package br.com.agendaquiro.controller.professional.request;
 
-import br.com.agendaquiro.controller.customer.request.CustomerRequest;
-import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.domain.professsional.Professional;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 
 @Getter
