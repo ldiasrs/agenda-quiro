@@ -5,10 +5,10 @@ import {Link} from 'react-router-dom';
 import api from "../../services/api";
 import {Pagination} from "../Pagination";
 
-
 export const ListCustomer = (props) => {
 
     const paginationSize = 10
+
     const [initialDate, setInitialDate] = useState(new Date());
     const [finalDate, setFinalDate] = useState(new Date());
     const [globalFilter, setGlobalFilter] = useState(undefined);
@@ -23,7 +23,7 @@ export const ListCustomer = (props) => {
 
     const updateCurrentPage =  (newPage) => {
         if (newPage >= 0 && newPage<totalPages) {
-            setCurrentPage(newPage);
+            setCurrentPage(newPage)
         }
     }
 
@@ -34,15 +34,12 @@ export const ListCustomer = (props) => {
     const fetchItems = async () => {
         try {
             const params = {
-                searchTerm: "",
+                searchTerm: globalFilter,
                 page: currentPage,
                 size: paginationSize
             };
             console.log(params)
-            const response = await api.get('/customers', {params})
-            setCustomerData(response.data.content);
-            setTotalPages(response.data.totalPages)
-            setTotalElements(response.data.totalElements)
+            return await api.get('/customers', {params})
         } catch (error) {
             console.error("Ocorreu um erro ao buscar os items" + error);
         }
@@ -50,12 +47,13 @@ export const ListCustomer = (props) => {
 
     useEffect(() => {
         async function fetchData() {
-            await fetchItems()
+            const response = await fetchItems()
+            setTotalPages(response.data.totalPages)
+            setTotalElements(response.data.totalElements)
+            setCustomerData(response.data.content)
         }
-
         fetchData();
     }, [currentPage]);
-
 
     const filterCustomer = (customer) => {
         if (!globalFilter) return true;
@@ -142,7 +140,6 @@ export const ListCustomer = (props) => {
                         </tbody>
                     </table>
                     <Pagination
-                        currentPage={currentPage}
                         handlePrevNavigation={handlePrevNavigation}
                         handleNextNavigation={handleNextNavigation}
                         totalElements={totalElements}

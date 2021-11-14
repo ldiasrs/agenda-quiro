@@ -1,5 +1,4 @@
-import history from './history'
-export const Pagination = ({currentPage,handlePrevNavigation, handleNextNavigation, totalElements, totalPages, maxItemsPerPage}) => {
+export const Pagination = ({handlePrevNavigation, handleNextNavigation, totalElements, totalPages, maxItemsPerPage}) => {
 
     const getTotalItems = () => {
         return maxItemsPerPage

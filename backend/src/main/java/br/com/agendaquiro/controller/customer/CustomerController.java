@@ -73,8 +73,8 @@ public class CustomerController extends BaseController {
 //    }
 
     @GetMapping(name=CUSTOMER_FILTER, params = { "page", "size" })
-    public Page<CustomerRequest> filter(@RequestParam("searchTerm") String searchTerm,
-                                        @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+    public Page<CustomerRequest> filter(@RequestParam(value ="searchTerm", required = false, defaultValue = "") String searchTerm,
+                                        @RequestParam(value = "page", defaultValue = "0") int page,
                                         @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(
                 page,

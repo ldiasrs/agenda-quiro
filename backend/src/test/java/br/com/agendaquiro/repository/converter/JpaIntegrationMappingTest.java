@@ -17,6 +17,7 @@ import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfigRepository;
 import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfigBuilder;
 import br.com.agendaquiro.domain.user.User;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import java.util.List;
 @Profile("dev")
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@Ignore
 public class JpaIntegrationMappingTest {
 
     @Autowired
@@ -51,6 +53,7 @@ public class JpaIntegrationMappingTest {
     @Autowired
     private PerformedAppointmentRepository performedAppointmentRepository;
 
+    @Test
     public void testPersistence() {
         //USER
         User admin = User.builder()
