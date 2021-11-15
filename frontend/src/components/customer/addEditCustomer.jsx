@@ -4,8 +4,35 @@ import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "../../services/api";
+import {ConfirmationModal} from "../ConfirmationModal";
+import {ModalFooter} from "../ModalFooter";
 
 export const AddEditCustomer = ({ history, match }) => {
+
+    const urlOperation = `/customer/`;
+    const listRoutePath = '/listarcliente';
+
+    const defaultvalues = {
+        id : undefined,
+        name: "",
+        email : "",
+        phone: "",
+        cpf: "",
+        birthDate : new Date(),
+        height : 0,
+        weight : 0,
+        gender : "male"
+    }
+
+    const [name, setName] = useState(defaultvalues.name);
+    const [email, setEmail] = useState(defaultvalues.email);
+    const [phone, setPhone] = useState(defaultvalues.phone);
+    const [cpf, setCpf] = useState(defaultvalues.cpf);
+    const [birthDate, setBirthDate] = useState(defaultvalues.birthDate);
+    const [height, setHeight] = useState(defaultvalues.height);
+    const [weight, setWeight] = useState(defaultvalues.weight);
+    const [gender, setGender] = useState(defaultvalues.gender);
+    const {id} = match.params;
 
     // com Async Await
     useEffect(() => {
@@ -33,28 +60,6 @@ export const AddEditCustomer = ({ history, match }) => {
         getItem();
     }, [match.params]);
 
-
-    const defaultvalues = {
-        id : undefined,
-        name: "",
-        email : "",
-        phone: "",
-        cpf: "",
-        birthDate : new Date(),
-        height : 0,
-        weight : 0,
-        gender : "male"
-    }
-
-    const [name, setName] = useState(defaultvalues.name);
-    const [email, setEmail] = useState(defaultvalues.email);
-    const [phone, setPhone] = useState(defaultvalues.phone);
-    const [cpf, setCpf] = useState(defaultvalues.cpf);
-    const [birthDate, setBirthDate] = useState(defaultvalues.birthDate);
-    const [height, setHeight] = useState(defaultvalues.height);
-    const [weight, setWeight] = useState(defaultvalues.weight);
-    const [gender, setGender] = useState(defaultvalues.gender);
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formattedDate = birthDate.toISOString().split('T')[0]
@@ -69,33 +74,15 @@ export const AddEditCustomer = ({ history, match }) => {
             gender
         }
         try {
-            const {id} = match.params;
             const isEditMode = id;
             if (isEditMode) {
                 await api.put(`/customer/${id}`, customerData)
             } else {
-                await api.post(`/customers`, customerData)
+                 await api.post(`/customers`, customerData)
             }
             history.push('/listarcliente')
         } catch (error) {
-            alert("Ocorreu um erro: " + error);
-        }
-        console.log(customerData)
-    }
-
-    const handleDelete = async (e) => {
-        e.preventDefault()
-        try {
-            const {id} = match.params;
-            const isEditMode = id;
-            if (isEditMode) {
-                await api.delete(`/customer/${id}`)
-            }
-            document.getElementById("deleteCustomerModal").classList.remove("show", "d-block");
-            document.querySelectorAll(".modal-backdrop")
-                .forEach(el => el.classList.remove("modal-backdrop"));
-            history.push('/listarcliente')
-        } catch (error) {
+            console.error(error)
             alert("Ocorreu um erro: " + error);
         }
     }
@@ -186,38 +173,16 @@ export const AddEditCustomer = ({ history, match }) => {
                                        required className="form-control"/>
                             </div>
                         </div>
-                        <div className="modal-footer">
-                            <a href="#deleteCustomerModal" className="btn btn-danger" data-toggle="modal">
-                                <i className="material-icons">&#xE15C;</i> <span>Remover</span></a>
-                            <a href='/listarcliente'>
-                                <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                            </a>
-                            <input type="submit" className="btn btn-success" value="Salvar"/>
-                        </div>
+                        <ModalFooter listRoutePath={listRoutePath}/>
                     </form>
                 </div>
             </div>
-            <div id="deleteCustomerModal" className="modal fade">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <form onSubmit={handleDelete}>
-                            <div className="modal-header">
-                                <h4 className="modal-title">Remover</h4>
-                                <button type="button" className="close" data-dismiss="modal"
-                                        aria-hidden="true">&times;</button>
-                            </div>
-                            <div className="modal-body">
-                                <p>Você tem certeza que deseja remover?</p>
-                                <p className="text-warning"><small>Essa ação não poderá ser desfeita.</small></p>
-                            </div>
-                            <div className="modal-footer">
-                                <input type="button" className="btn btn-default" data-dismiss="modal" value="Cancelar"/>
-                                <input type="submit" className="btn btn-danger" value="Remover"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <ConfirmationModal
+                history={history}
+                deleteApiPath={urlOperation}
+                listRoutePath={listRoutePath}
+                id={id}
+            />
         </>
     )
 }
