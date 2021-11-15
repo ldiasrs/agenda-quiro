@@ -3,13 +3,13 @@ import {useEffect, useState} from "react";
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import api from "../../services/api";
 import {ConfirmationModal} from "../ConfirmationModal";
 import {ModalFooter} from "../ModalFooter";
+import {handleApiGetItem, handleApiSubmit} from "../../services/handlesService";
 
 export const AddEditCustomer = ({ history, match }) => {
 
-    const urlOperation = `/customer/`;
+    const urlOperation = `/customer`;
     const listRoutePath = '/listarcliente';
 
     const defaultvalues = {
@@ -37,31 +37,22 @@ export const AddEditCustomer = ({ history, match }) => {
     // com Async Await
     useEffect(() => {
         async function getItem() {
-            try {
-                const { id } = match.params;
-                console.log("id: " + id)
-                const isEditMode = id;
-                if (isEditMode) {
-                    const response = await api.get(`/customer/${id}`)
-                    const customer = response.data;
-                    setName(customer.name)
-                    setEmail(customer.email)
-                    setPhone(customer.phone)
-                    setCpf(customer.cpf)
-                    setBirthDate(new Date(customer.birthDate))
-                    setHeight(customer.height)
-                    setWeight(customer.weight)
-                    setGender(customer.gender)
-                }
-            } catch (error) {
-                alert("Ocorreu um erro ao buscar o item: "+error);
+            const response = await handleApiGetItem(urlOperation, id)
+            if (response) {
+                setName(response.name)
+                setEmail(response.email)
+                setPhone(response.phone)
+                setCpf(response.cpf)
+                setBirthDate(new Date(response.birthDate))
+                setHeight(response.height)
+                setWeight(response.weight)
+                setGender(response.gender)
             }
         }
         getItem();
     }, [match.params]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
         const formattedDate = birthDate.toISOString().split('T')[0]
         const customerData = {
             name,
@@ -73,18 +64,7 @@ export const AddEditCustomer = ({ history, match }) => {
             weight,
             gender
         }
-        try {
-            const isEditMode = id;
-            if (isEditMode) {
-                await api.put(`/customer/${id}`, customerData)
-            } else {
-                 await api.post(`/customers`, customerData)
-            }
-            history.push('/listarcliente')
-        } catch (error) {
-            console.error(error)
-            alert("Ocorreu um erro: " + error);
-        }
+        await handleApiSubmit(e, history, id, urlOperation, `/customers`, customerData, listRoutePath)
     }
 
     const genderOptions = [

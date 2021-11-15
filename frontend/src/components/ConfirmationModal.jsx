@@ -8,7 +8,7 @@ export const ConfirmationModal = ({history, deleteApiPath, listRoutePath, id}) =
         try {
             const isEditMode = id;
             if (isEditMode) {
-                await api.delete(`${deleteApiPath}${id}`)
+                await api.delete(`${deleteApiPath}/${id}`)
             }
             if (document.getElementById("deleteCustomerModal"))
                 document.getElementById("deleteCustomerModal").classList.remove("show", "d-block");

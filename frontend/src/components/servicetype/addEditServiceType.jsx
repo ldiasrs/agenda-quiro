@@ -1,12 +1,12 @@
 import {NavigationApp} from "../navigation-app";
 import {useEffect, useState} from "react";
-import api from "../../services/api";
 import {ConfirmationModal} from "../ConfirmationModal";
 import {ModalFooter} from "../ModalFooter";
+import {handleApiGetItem, handleApiSubmit} from "../../services/handlesService";
 
 export const AddEditServiceType = ({ history, match }) => {
 
-    const urlOperation = `/service/`;
+    const urlOperation = `/service`;
     const listRoutePath = '/listarservico';
     const { id } = match.params;
 
@@ -22,41 +22,21 @@ export const AddEditServiceType = ({ history, match }) => {
     useEffect(() => {
         console.log("useEffect")
         async function getItem() {
-            try {
-                console.log("id: " + id)
-                const isEditMode = id;
-                if (isEditMode) {
-                    const response = await api.get(`/service/${id}`)
-                    const serviceType = response.data;
-                    setDescription(serviceType.description)
-                    setDurationInMin(serviceType.durationInMinutes)
-                }
-            } catch (error) {
-                alert("Ocorreu um erro ao buscar o item: "+error);
+            const response = await handleApiGetItem(urlOperation, id)
+            if (response) {
+                setDescription(response.description)
+                setDurationInMin(response.durationInMinutes)
             }
         }
         getItem();
     }, [match.params]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
         const serviceTypeData = {
             description,
             durationInMinutes,
         }
-        try {
-            const {id} = match.params;
-            const isEditMode = id;
-            if (isEditMode) {
-                await api.put(`/service/${id}`, serviceTypeData)
-            } else {
-                await api.post(`/services`, serviceTypeData)
-            }
-            history.push(listRoutePath)
-        } catch (error) {
-            alert("Ocorreu um erro: " + error);
-        }
-        console.log(serviceTypeData)
+        await handleApiSubmit(e, history, id, urlOperation, `/services`, serviceTypeData, listRoutePath)
     }
 
     return (
