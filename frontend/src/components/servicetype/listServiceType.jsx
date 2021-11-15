@@ -12,8 +12,6 @@ export const ListServiceType = ({ history, match }) => {
 
     const paginationSize = 10
 
-    const [initialDate, setInitialDate] = useState(new Date());
-    const [finalDate, setFinalDate] = useState(new Date());
     const [tableFilter, setTableFiler] = useState(undefined);
     const [serviceTypeData, setServiceTypeData] = useState(undefined);
     const [currentPage, setCurrentPage] = useState(0);

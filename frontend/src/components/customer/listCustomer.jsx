@@ -13,8 +13,6 @@ export const ListCustomer = ({ history, match }) => {
 
     const paginationSize = 10
 
-    const [initialDate, setInitialDate] = useState(new Date());
-    const [finalDate, setFinalDate] = useState(new Date());
     const [tableFilter, setTableFiler] = useState(undefined);
     const [customerData, setCustomerData] = useState(undefined);
     const [currentPage, setCurrentPage] = useState(0);
@@ -106,14 +104,6 @@ export const ListCustomer = ({ history, match }) => {
                             </div>
                         </div>
                         <form className="form-inline">
-                            <div className="form-group">
-                                <label>Data inicial</label>
-                                <DatePicker selected={initialDate} onChange={(date) => setInitialDate(date)}/>
-                            </div>
-                            <div className="form-group">
-                                <label>Data final</label>
-                                <DatePicker selected={finalDate} onChange={(date) => setFinalDate(date)}/>
-                            </div>
                             <div className="form-group">
                                 <p>Digite algo para procurar na tabela abaixo:</p>
                                 <input className="form-control" id="myInput" type="text" placeholder="Search.."
