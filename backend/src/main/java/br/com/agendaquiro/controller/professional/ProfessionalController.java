@@ -38,7 +38,7 @@ public class ProfessionalController extends BaseController {
         return super.response(
                 MessageHttpResponse
                         .builder()
-                        .message("Customer created ID: " + professional.getId())
+                        .message("Professional created ID: " + professional.getId())
                         .build()
                         .addValue("id", String.valueOf(professional.getId()))
                 ,
@@ -49,7 +49,7 @@ public class ProfessionalController extends BaseController {
     public ResponseEntity<Professional> get(@PathVariable Long id) throws AppResourceNotFoundException {
         Optional<Professional> professionalOptional = this.professionalCrudService.findById(id);
         ResponseEntity<Professional> response = professionalOptional.map(
-                customer -> super.response(customer, HttpStatus.OK)
+                entity -> super.response(entity, HttpStatus.OK)
         ).orElseThrow(() -> new AppResourceNotFoundException("Professional not found with ID: " + id));
         return response;
     }
