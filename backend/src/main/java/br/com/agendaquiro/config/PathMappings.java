@@ -18,6 +18,13 @@ public final class PathMappings {
     public static final String PROFESSIONAL_DELETE="/professional/{id}";
     public static final String PROFESSIONAL_FILTER="/professionals";
 
+
+    public static final String SERVICES ="/services";
+    public static final String SERVICE_EDIT="/service/{id}";
+    public static final String SERVICE_GET="/service/{id}";
+    public static final String SERVICE_DELETE="/service/{id}";
+    public static final String SERVICE_FILTER="/services";
+
     public static final String HOME="/home";
 
 }

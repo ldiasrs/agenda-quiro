@@ -8,7 +8,6 @@ public class ProfessionalIntegrationTest {
     private static final IntegrationTestClient client =
             new IntegrationTestClient("professionals", "professional");
 
-
     private ProfessionalRequest professionalRequest = ProfessionalRequest.builder()
             .name("Test Professional")
             .build();
