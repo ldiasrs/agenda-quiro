@@ -35,6 +35,11 @@ export const NavigationApp = (props) => {
                 Clientes
               </a>
             </li>
+            <li>
+              <a href='/listarservico' className='page-scroll'>
+                Tipos de Serviço
+              </a>
+            </li>
           </ul>
         </div>
       </div>

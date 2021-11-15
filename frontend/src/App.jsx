@@ -21,6 +21,8 @@ import {isAuthenticated} from "./services/auth";
 import {Calendar} from "./components/calendar";
 import {ListCustomer} from "./components/customer/listCustomer";
 import {AddEditCustomer} from "./components/customer/addEditCustomer";
+import {AddEditServiceType} from "./components/servicetype/addEditServiceType";
+import {ListServiceType} from "./components/servicetype/listServiceType";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -52,6 +54,9 @@ const App = () => {
                 <PrivateRoute exact path="/listarcliente" component={ListCustomer} key="listarcliente"/>
                 <PrivateRoute exact path="/cliente/:id" component={AddEditCustomer} />
                 <PrivateRoute exact path="/registrarcliente" component={AddEditCustomer} />
+                <PrivateRoute exact path="/listarservico" component={ListServiceType} key="listarservico"/>
+                <PrivateRoute exact path="/servico/:id" component={AddEditServiceType} />
+                <PrivateRoute exact path="/registrarservico" component={AddEditServiceType} />
                 <PrivateRoute path="/agenda" component={Calendar}/>
                 <Route path="/home">
                     <div>
