@@ -76,7 +76,8 @@ hr {
   transition: all 0.8s;
 }
 #menu.navbar-default {
-  background-color: #fff;
+  /* background-color: #fff;*/
+  background-color: rgba(0, 0, 0, 87);
   border-color: rgba(231, 231, 231, 0);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
@@ -84,13 +85,15 @@ hr {
   font-family: "Raleway", sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: #333;
+  /*color: #333;*/
+  color: white;
   text-transform: uppercase;
 }
 #menu.navbar-default .navbar-nav > li > a {
   font-family: "Lato", sans-serif;
   text-transform: uppercase;
-  color: #555;
+  /*color: #555;*/
+  color: white;
   font-size: 15px;
   font-weight: 400;
   padding: 8px 2px;
@@ -140,6 +143,31 @@ hr {
 .navbar-default .navbar-toggle:hover > .icon-bar {
   background-color: #608dfd;
 }
+
+.table-title{
+  background: #039be5;
+}
+
+.list-tile{
+  color: white;
+}
+
+.btn-add {
+  background-color: white;
+}
+
+.span-add{
+  color: rgba(0, 0, 0, 87);
+}
+
+.btn-search {
+  background-color: white;
+}
+
+.span-search{
+  color: rgba(0, 0, 0, 87);
+}
+
 .section-title {
   margin-bottom: 70px;
 }

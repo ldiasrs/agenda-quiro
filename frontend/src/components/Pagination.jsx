@@ -14,13 +14,13 @@ export const Pagination = ({handlePrevNavigation, handleNextNavigation, totalEle
 
     return (
         <div className="clearfix">
-            <div className="hint-text">Showing <b>{getTotalItems()}</b> out of <b>{totalElements}</b> entries</div>
+            <div className="hint-text">Mostrando <b>{getTotalItems()}</b> de <b>{totalElements}</b> registros</div>
             <ul className="pagination">
-                <li className="page-item disabled"><button onClick={handlePrevNavigation}>Previous</button></li>
+                <li className="page-item disabled"><button onClick={handlePrevNavigation}>Anterior</button></li>
                 {
                     getPagesClick()
                 }
-                <li className="page-item"><button onClick={handleNextNavigation} className="page-link">Next</button></li>
+                <li className="page-item"><button onClick={handleNextNavigation} className="page-link">Próximo</button></li>
             </ul>
         </div>
     );
