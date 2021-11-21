@@ -23,6 +23,8 @@ import {ListCustomer} from "./components/customer/listCustomer";
 import {AddEditCustomer} from "./components/customer/addEditCustomer";
 import {AddEditServiceType} from "./components/servicetype/addEditServiceType";
 import {ListServiceType} from "./components/servicetype/listServiceType";
+import {ListProfessional} from "./components/professional/listProfessional";
+import {AddEditProfessional} from "./components/professional/addEditProfessional";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -57,6 +59,10 @@ const App = () => {
                 <PrivateRoute exact path="/listarservico" component={ListServiceType} key="listarservico"/>
                 <PrivateRoute exact path="/servico/:id" component={AddEditServiceType} />
                 <PrivateRoute exact path="/registrarservico" component={AddEditServiceType} />
+                <PrivateRoute exact path="/listarprofessional" component={ListProfessional} key="listarprofessional"/>
+                <PrivateRoute exact path="/professional/:id" component={AddEditProfessional} />
+                <PrivateRoute exact path="/registrarprofessional" component={AddEditProfessional} />
+
                 <PrivateRoute path="/agenda" component={Calendar}/>
                 <Route path="/home">
                     <div>
