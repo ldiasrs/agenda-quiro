@@ -1,5 +1,5 @@
 import {NavigationApp} from "../navigation-app";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useLocation} from 'react-router-dom';
 import api from "../../services/api";
 import {Pagination} from "../Pagination";
@@ -92,7 +92,7 @@ export const ListProfessional = ({ history, match }) => {
             <div className='customForm'>
                 <div className="table-wrapper">
                     <div className="table-title">
-                        <div className="row">
+                        <div className="row-title">
                             <div className="col-sm-4">
                                 <h2 className="list-tile"> <FaStethoscope /> Professionais</h2>
                             </div>
@@ -100,8 +100,7 @@ export const ListProfessional = ({ history, match }) => {
                             <div className="col-sm-6">
                                 <form className="form-inline">
                                     <div className="form-group">
-                                        <input className="form-control" id="myInput" type="text" placeholder="Pesquisar.."
-                                               onChange={e => setTableFiler(e.target.value)}/>
+                                        <input className="form-control" id="myInput" type="text" placeholder="Pesquisar..." onChange={e => setTableFiler(e.target.value)}/>
                                         <a href={`/listarcliente?searchTerm=${tableFilter || ''}`} className="btn btn-search"><span className="span-search">Pesquisar</span></a>
                                     </div>
                                 </form>
@@ -112,8 +111,8 @@ export const ListProfessional = ({ history, match }) => {
                                    <span className="span-add">Adicionar</span></a>
                             </div>
                         </div>
-
                     </div>
+
                     <table className="table table-striped table-hover">
                         <thead>
                         <tr>

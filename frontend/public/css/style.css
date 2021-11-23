@@ -148,6 +148,10 @@ hr {
   background: #039be5;
 }
 
+.row-title{
+  height: 70px;
+  padding-top: 15px;
+}
 .list-tile{
   color: white;
 }
@@ -161,11 +165,11 @@ hr {
 }
 
 .btn-search {
-  background-color: white;
+  background-color: gray;
 }
 
 .span-search{
-  color: rgba(0, 0, 0, 87);
+  color: white;
 }
 
 .section-title {

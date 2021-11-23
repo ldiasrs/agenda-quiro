@@ -1,9 +1,10 @@
 import {NavigationApp} from "../navigation-app";
 import DatePicker from "react-datepicker";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useLocation} from 'react-router-dom';
 import api from "../../services/api";
 import {Pagination} from "../Pagination";
+import {FaHammer, FaStethoscope} from "react-icons/fa";
 
 export const ListServiceType = ({ history, match }) => {
 
@@ -84,23 +85,25 @@ export const ListServiceType = ({ history, match }) => {
             <div className='customForm'>
                 <div className="table-wrapper">
                     <div className="table-title">
-                        <div className="row">
-                            <div className="col-sm-6">
-                                <h2>Tipos de serviço</h2>
+                        <div className="row-title">
+                            <div className="col-sm-4">
+                                <h2 className="list-tile"> <FaHammer/> Tipos de serviço</h2>
                             </div>
+
                             <div className="col-sm-6">
-                                <a href="/registrarservico" className="btn btn-success" data-toggle="modal">
-                                    <i className="material-icons">&#xE147;</i> <span>Adicionar</span></a>
+                                <form className="form-inline">
+                                    <div className="form-group">
+                                        <input className="form-control" id="myInput" type="text" placeholder="Pesquisar..." onChange={e => setTableFiler(e.target.value)}/>
+                                        <a href={`/listarservico?searchTerm=${tableFilter || ''}`} className="btn btn-search"><span className="span-search">Pesquisar...</span></a>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div className="col-sm-2">
+                                <a href="/registrarservico" className="btn btn-add" data-toggle="modal">
+                                    <span className="span-add">Adicionar</span></a>
                             </div>
                         </div>
-                        <form className="form-inline">
-                            <div className="form-group">
-                                <p>Digite algo para procurar na tabela abaixo:</p>
-                                <input className="form-control" id="myInput" type="text" placeholder="Search.."
-                                       onChange={e => setTableFiler(e.target.value)}/>
-                                <a href={`/listarservico?searchTerm=${tableFilter || ''}`} className="btn btn-primary">Procurar em todas paginas</a>
-                            </div>
-                        </form>
                     </div>
                     <table className="table table-striped table-hover">
                         <thead>
