@@ -25,10 +25,9 @@ export const Login = (props) => {
 
     return (
         <>
-            <NavigationApp/>
-            <div className="container">
+            <div id="login" className="container">
                 <form className="form-signin" onSubmit={handleSubmit}>
-                    <h1 className="h3 mb-3 font-weight-normal">Realize o Login</h1>
+                    <h1 className="h3 mb-3 font-weight-normal">Acesse o sistema Quiropraxia</h1>
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>
                     <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required
                            autoFocus onChange={e => setUserName(e.target.value)}/>

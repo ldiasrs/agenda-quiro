@@ -628,13 +628,20 @@ label {
   border-bottom: 2px solid #608dfd;
 }
 
-#login {
+/*#login {
   margin: 70px 0;
+}*/
+
+#login {
+  height: 100%;
+  width: 100%;
+  background: url('../img/dark-material-bg.jpg') no-repeat;
+  background-size: cover;
 }
 .form-signin {
   width: 100%;
   max-width: 330px;
-  padding: 15px;
+  padding-top: 15% !important;
   margin: 70px auto;
 }
 .form-signin .checkbox {
