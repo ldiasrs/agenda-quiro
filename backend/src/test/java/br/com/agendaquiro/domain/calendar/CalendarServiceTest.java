@@ -52,7 +52,7 @@ public class CalendarServiceTest {
         //AND a freeSlots
         FreeAppointmentsSlots freeAppointmentsSlots = new FreeAppointmentsSlots();
         freeAppointmentsSlots.addPeriodSlot(PeriodSlot.builder().build());
-        when(freeAppointmentSlotsService.getFreeAppointmentsSlots(professionalService, startDate, endDate))
+        when(freeAppointmentSlotsService.getFreeAppointmentsSlots(professionalService.getProfessional(), startDate, endDate))
                 .thenReturn(freeAppointmentsSlots);
         //AND appointment
         Appointment appointment = testDataBuilder

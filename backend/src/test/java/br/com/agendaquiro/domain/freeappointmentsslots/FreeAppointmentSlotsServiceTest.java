@@ -40,7 +40,7 @@ public class FreeAppointmentSlotsServiceTest {
         ProfessionalBlockTimeConfig timeConfig = new ProfessionalBlockTimeConfig();
         timeConfig.setProfessional(professionalService.getProfessional());
         when(professionalBlockTimeConfigRepository
-                .findByProfessionalServiceId(professionalService.getId()))
+                .findByProfessionalId(professionalService.getProfessional().getId()))
                 .thenReturn(timeConfig);
         //AND FreeAppointmentsSlots generation
         FreeAppointmentsSlots freeSlots = new FreeAppointmentsSlots();
@@ -55,7 +55,7 @@ public class FreeAppointmentSlotsServiceTest {
         )).thenReturn(freeSlots);
         //WHEN asked to generate FreeAppointmentsSlots
         FreeAppointmentsSlots freeCalendar = freeAppointmentSlotsService.getFreeAppointmentsSlots(
-                professionalService, startDate, endDate);
+                professionalService.getProfessional(), startDate, endDate);
         //THEN should return right FreeAppointmentsSlots
         assertThat(freeCalendar.getPeriodSlots()).containsAll(freeSlots.getPeriodSlots());
     }

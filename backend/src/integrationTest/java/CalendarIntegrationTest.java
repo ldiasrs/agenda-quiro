@@ -1,6 +1,11 @@
 import br.com.agendaquiro.domain.servicetype.ServiceType;
 import org.json.JSONException;
 import org.junit.Test;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,28 +17,12 @@ public class CalendarIntegrationTest {
 
     @Test
     public void list() throws JSONException {
-
-//        //LIST
-//        client.listPagination("");
-//        //GET
-//        //ServiceType savedServiceType = client.get(id, ServiceType.class);
-//        //EDIT
-//        savedServiceType.setDurationInMinutes(45);
-//        ServiceType editedServiceType = client.edit(savedServiceType, savedServiceType.getId());
-//        assertThat(editedServiceType.getDurationInMinutes()).isEqualTo(savedServiceType.getDurationInMinutes());
-//        //DELETE
-//        client.delete(editedServiceType.getId());
+//        RestTemplate restTemplate = new RestTemplate();
+//        HttpEntity<T> request = new HttpEntity<>(editEntity);
+//        ResponseEntity<T> response = restTemplate.exchange(endpoint, HttpMethod.PUT, request, (Class<T>) editEntity.getClass());
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(response.getBody()).isNotNull();
     }
 
-    @Test
-    public void listWihFilter() throws JSONException {
-        //CREATE
-        ServiceType anotherServiceType = ServiceType.builder()
-                .description("Another ServiceType")
-                .durationInMinutes(60)
-                .build();
-        client.create(anotherServiceType);
-        //LIST WITH FILTER
-        client.listWihFilterAndRemoveFoundEntities("description");
-    }
+
 }

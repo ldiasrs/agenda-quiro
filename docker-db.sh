@@ -6,7 +6,20 @@ readonly POSTGRES_PASSWORD=postgres
 readonly POSTGRES_IMAGE="postgres:12"
 readonly DATABASE_NAME=agenda_quiro
 
+docker stop ${CONTAINER_NAME}
 case $1 in
+  start)
+    docker run \
+      --rm \
+      --name ${CONTAINER_NAME} \
+      --publish 5432:5432 \
+      --env POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
+      --detach \
+      ${POSTGRES_IMAGE}
+      echo "sleeping.."
+      sleep 1
+      docker exec -it ${CONTAINER_NAME} psql -U ${POSTGRES_USER} -c "CREATE DATABASE ${DATABASE_NAME}"
+  ;;
   run-volatile)
     docker run \
       --rm \
@@ -15,6 +28,7 @@ case $1 in
       --env POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
       --detach \
       ${POSTGRES_IMAGE}
+      docker exec -it ${CONTAINER_NAME} psql -U ${POSTGRES_USER} -c "CREATE DATABASE ${DATABASE_NAME}"
   ;;
   run-persistent)
     mkdir -p ~/.pgsql/${CONTAINER_NAME}

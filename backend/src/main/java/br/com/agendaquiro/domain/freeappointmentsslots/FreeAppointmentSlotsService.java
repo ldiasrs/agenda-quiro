@@ -1,6 +1,7 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.professsional.Professional;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfigRepository;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,12 @@ public class FreeAppointmentSlotsService {
         this.freeAppointmentsSlotsGenerator = freeAppointmentsSlotsGenerator;
     }
 
-    public FreeAppointmentsSlots getFreeAppointmentsSlots(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
+    public FreeAppointmentsSlots getFreeAppointmentsSlots(Professional professional, LocalDateTime startDate, LocalDateTime endDate) {
         ProfessionalBlockTimeConfig timeBlockedConfig =
-                professionalBlockTimeConfigRepository.findByProfessionalServiceId(professionalService.getId());
+                professionalBlockTimeConfigRepository.findByProfessionalId(professional.getId());
         FreeAppointmentsSlots freeAppointments =
                 freeAppointmentsSlotsGenerator.generate(
-                        professionalService.getServiceType().getDurationInMinutes(),
+                        60,
                                 startDate, endDate, timeBlockedConfig);
         return freeAppointments;
     }

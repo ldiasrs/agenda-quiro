@@ -89,7 +89,7 @@ public class IntegrationTestClient {
         return Long.valueOf(id);
     }
 
-    private String buildListPath() {
+    public String buildListPath() {
         String endpoint = URL+"/"+listPath;
         return endpoint;
     }

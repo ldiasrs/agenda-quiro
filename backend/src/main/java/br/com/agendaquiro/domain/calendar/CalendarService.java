@@ -27,7 +27,7 @@ public class CalendarService {
 
     public Calendar getProfessionalCalendarByRange(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
         List<Appointment> appointments = appointmentService.getAppointments(professionalService, startDate, endDate);
-        FreeAppointmentsSlots freeSlots = freeAppointmentSlotsService.getFreeAppointmentsSlots(professionalService, startDate, endDate);
+        FreeAppointmentsSlots freeSlots = freeAppointmentSlotsService.getFreeAppointmentsSlots(professionalService.getProfessional(), startDate, endDate);
         List<PeriodSlot> slots = mergeAppointmentsOnFreeSlotsService.merge(PeriodSlot.from(appointments), freeSlots.getPeriodSlots());
         Calendar calendar = new Calendar(professionalService, startDate, endDate);
         calendar.addAll(slots);
