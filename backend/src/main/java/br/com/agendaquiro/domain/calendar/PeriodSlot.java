@@ -1,4 +1,4 @@
-package br.com.agendaquiro.domain.freeappointmentsslots;
+package br.com.agendaquiro.domain.calendar;
 
 import br.com.agendaquiro.domain.appointment.Appointment;
 import lombok.Builder;
@@ -17,6 +17,8 @@ public class PeriodSlot {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+    private String description;
+    private SlotStatus status;
 
     public static List<PeriodSlot> from(List<Appointment> appointments) {
         List<PeriodSlot> slots = new ArrayList<>();
@@ -26,6 +28,8 @@ public class PeriodSlot {
                         .startTime(appointment.getStartTime().toLocalTime())
                         .endTime(appointment.getEndTime().toLocalTime())
                         .date(appointment.getStartTime().toLocalDate())
+                        .status(SlotStatus.SCHEDULED)
+                        .description(appointment.getCustomer().getName())
                         .build());
             }
         }

@@ -4,7 +4,6 @@ import br.com.agendaquiro.domain.appointment.Appointment;
 import br.com.agendaquiro.domain.appointment.AppointmentService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentSlotsService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentsSlots;
-import br.com.agendaquiro.domain.freeappointmentsslots.PeriodSlot;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
 import org.springframework.stereotype.Service;
 

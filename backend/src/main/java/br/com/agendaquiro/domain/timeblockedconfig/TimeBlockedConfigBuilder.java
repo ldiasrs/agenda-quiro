@@ -1,6 +1,6 @@
 package br.com.agendaquiro.domain.timeblockedconfig;
 
-import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.professsional.Professional;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -12,7 +12,7 @@ public class TimeBlockedConfigBuilder {
     private ProfessionalBlockTimeConfig professionalBlockTimeConfig;
     private List<BlockedTime> blockedTimes = new ArrayList<>();
 
-    public TimeBlockedConfigBuilder(ProfessionalService professional) {
+    public TimeBlockedConfigBuilder(Professional professional) {
         this.professionalBlockTimeConfig = new ProfessionalBlockTimeConfig(professional);
     }
 

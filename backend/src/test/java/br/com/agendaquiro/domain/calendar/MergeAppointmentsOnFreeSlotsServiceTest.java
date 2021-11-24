@@ -1,6 +1,5 @@
 package br.com.agendaquiro.domain.calendar;
 
-import br.com.agendaquiro.domain.freeappointmentsslots.PeriodSlot;
 import org.junit.Test;
 
 import java.time.LocalDate;

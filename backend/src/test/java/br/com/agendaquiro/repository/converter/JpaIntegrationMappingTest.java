@@ -78,7 +78,7 @@ public class JpaIntegrationMappingTest {
         professionalServiceRepository.save(quiroAline);
 
         //TIME BLOCKED (PROFISSIONAL + SERVICE)
-        ProfessionalBlockTimeConfig timeBlockedAlineQuiro = new TimeBlockedConfigBuilder(quiroAline)
+        ProfessionalBlockTimeConfig timeBlockedAlineQuiro = new TimeBlockedConfigBuilder(aline)
                 .block(DayOfWeek.SATURDAY)
                 .block(DayOfWeek.SUNDAY)
                 .blockAllDays(LocalTime.of(00, 00), LocalTime.of(9, 00))

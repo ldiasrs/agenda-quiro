@@ -64,7 +64,7 @@ public class TestDataBuilder {
         return this;
     }
 
-    public TestDataBuilder buildProfessionalBlockTimeConfig(ProfessionalService professional) {
+    public TestDataBuilder buildProfessionalBlockTimeConfig(Professional professional) {
         //TIME BLOCKED (PROFISSIONAL + SERVICE)
         timeBlocked = new TimeBlockedConfigBuilder(professional)
                 .block(DayOfWeek.SATURDAY)

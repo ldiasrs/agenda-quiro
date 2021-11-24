@@ -1,5 +1,5 @@
 import {NavigationApp} from "../navigation-app";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useLocation} from 'react-router-dom';
 import api from "../../services/api";
 import {Pagination} from "../Pagination";
@@ -7,7 +7,6 @@ import {FaGrin} from "react-icons/fa";
 
 
 export const ListCustomer = ({ history, match }) => {
-
 
     const search = useLocation().search;
     const searchTerm = new URLSearchParams(search).get('searchTerm');

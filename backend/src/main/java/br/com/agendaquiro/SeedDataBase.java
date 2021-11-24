@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Component
-public class PostConstructExampleBean {
+public class SeedDataBase {
 
     @Autowired
     private ProfessionalBlockTimeConfigRepository professionalBlockTimeConfigRepository;
@@ -57,7 +57,7 @@ public class PostConstructExampleBean {
     private AuthorityRepository authorityRepository;
 
     private final Logger LOG =
-            Logger.getLogger(PostConstructExampleBean.class.getName());
+            Logger.getLogger(SeedDataBase.class.getName());
     @PostConstruct
     public void init() {
         if(userRepository.findAll().iterator().hasNext()) {
@@ -120,7 +120,7 @@ public class PostConstructExampleBean {
         professionalServiceRepository.save(quiroAline);
 
         //TIME BLOCKED (PROFISSIONAL + SERVICE)
-        ProfessionalBlockTimeConfig timeBlockedAlineQuiro = new TimeBlockedConfigBuilder(quiroAline)
+        ProfessionalBlockTimeConfig timeBlockedAlineQuiro = new TimeBlockedConfigBuilder(aline)
                 .block(DayOfWeek.SATURDAY)
                 .block(DayOfWeek.SUNDAY)
                 .blockAllDays(LocalTime.of(00, 00), LocalTime.of(9, 00))

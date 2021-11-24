@@ -1,6 +1,6 @@
 package br.com.agendaquiro.domain.timeblockedconfig;
 
-import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.professsional.Professional;
 import br.com.agendaquiro.repository.converter.ListDayOfWeekToIntegerConverter;
 import lombok.*;
 
@@ -36,12 +36,12 @@ public class ProfessionalBlockTimeConfig {
     private List<PeriodTimeBlockedConfig> periodsOfTimesBlocked;
 
     @ManyToOne
-    @JoinColumn(name = "PROFESSIONAL_SERVICE_ID")
-    private ProfessionalService professionalService;
+    @JoinColumn(name = "PROFESSIONAL_ID")
+    private Professional professional;
 
-    public ProfessionalBlockTimeConfig(ProfessionalService professionalService) {
+    public ProfessionalBlockTimeConfig(Professional professional) {
         this();
-        this.professionalService = professionalService;
+        this.professional = professional;
     }
 
     public ProfessionalBlockTimeConfig() {

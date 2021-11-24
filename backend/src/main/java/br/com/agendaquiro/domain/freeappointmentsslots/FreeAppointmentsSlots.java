@@ -1,5 +1,6 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
+import br.com.agendaquiro.domain.calendar.PeriodSlot;
 import lombok.Getter;
 
 import java.util.ArrayList;

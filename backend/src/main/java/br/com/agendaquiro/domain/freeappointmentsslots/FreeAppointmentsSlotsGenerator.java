@@ -1,5 +1,7 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
+import br.com.agendaquiro.domain.calendar.PeriodSlot;
+import br.com.agendaquiro.domain.calendar.SlotStatus;
 import br.com.agendaquiro.domain.timeblockedconfig.PeriodTimeBlockedConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,8 @@ public class FreeAppointmentsSlotsGenerator {
                             PeriodSlot.builder()
                                     .date(date)
                                     .startTime(startTime)
+                                    .description("--")
+                                    .status(SlotStatus.FREE)
                                     .endTime(endTime)
                                     .build()
                     );

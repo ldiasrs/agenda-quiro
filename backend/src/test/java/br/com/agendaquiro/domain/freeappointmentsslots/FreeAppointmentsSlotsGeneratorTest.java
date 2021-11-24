@@ -1,6 +1,8 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
+import br.com.agendaquiro.domain.calendar.PeriodSlot;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.professsional.Professional;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfigBuilder;
 import org.junit.Test;
@@ -18,7 +20,7 @@ public class FreeAppointmentsSlotsGeneratorTest {
     public void shouldBuildAgenda() {
         FreeAppointmentsSlotsGenerator freeAppointmentsSlotsGenerator = new FreeAppointmentsSlotsGenerator();
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
-        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new Professional())
                 .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
                 .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
                 .blockAllDays(LocalTime.of(12,0), LocalTime.of(13,00))
@@ -66,7 +68,7 @@ public class FreeAppointmentsSlotsGeneratorTest {
     public void shouldBuildAgendaWithLunchBlocked() {
         FreeAppointmentsSlotsGenerator freeAppointmentsSlotsGenerator = new FreeAppointmentsSlotsGenerator();
         //GIVEN A BLOCKED DAYS AND TIMES CONFIGURATION
-        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new Professional())
                 .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
                 .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
                 .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))

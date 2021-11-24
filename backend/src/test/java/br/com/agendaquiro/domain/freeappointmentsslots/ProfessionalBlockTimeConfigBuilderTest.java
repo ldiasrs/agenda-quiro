@@ -1,6 +1,7 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.professsional.Professional;
 import br.com.agendaquiro.domain.timeblockedconfig.PeriodTimeBlockedConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfigBuilder;
@@ -16,7 +17,7 @@ public class ProfessionalBlockTimeConfigBuilderTest {
 
     @Test
     public void shouldBlockDays() {
-        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new Professional())
                 .block(DayOfWeek.SUNDAY)
                 .block(DayOfWeek.SATURDAY)
                 .build();
@@ -26,7 +27,7 @@ public class ProfessionalBlockTimeConfigBuilderTest {
 
     @Test
     public void shouldNotDuplicateBlockDays() {
-        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new Professional())
                 .block(DayOfWeek.SUNDAY)
                 .block(DayOfWeek.SUNDAY)
                 .build();
@@ -39,7 +40,7 @@ public class ProfessionalBlockTimeConfigBuilderTest {
         LocalTime startTime = LocalTime.parse("08:00");
         LocalTime endTime = LocalTime.parse("10:00");
         DayOfWeek monday = DayOfWeek.MONDAY;
-        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new Professional())
                 .block(monday, startTime, endTime)
                 .build();
         PeriodTimeBlockedConfig dayOfWeekPeriodTimeBlockedConfig = professionalBlockTimeConfig.getPeriodsOfTimesBlocked().iterator().next();
@@ -57,7 +58,7 @@ public class ProfessionalBlockTimeConfigBuilderTest {
         LocalTime secondStartBlockTime = LocalTime.of(00, 00);
         LocalTime secondEndBlockTime = LocalTime.of(10, 00);
 
-        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new ProfessionalService())
+        ProfessionalBlockTimeConfig professionalBlockTimeConfig = new TimeBlockedConfigBuilder(new Professional())
                 .blockAllDays(firstStartBlockTime, firstEndBlockTime)
                 .blockAllDays(secondStartBlockTime, secondEndBlockTime)
                 .build();

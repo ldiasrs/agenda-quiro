@@ -2,7 +2,7 @@
 
 readonly CONTAINER_NAME=template-agendaquiro-db
 readonly POSTGRES_USER=postgres
-readonly POSTGRES_PASSWORD=123456
+readonly POSTGRES_PASSWORD=postgres
 readonly POSTGRES_IMAGE="postgres:12"
 readonly DATABASE_NAME=agenda_quiro
 

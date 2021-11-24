@@ -1,6 +1,7 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
 import br.com.agendaquiro.TestDataBuilder;
+import br.com.agendaquiro.domain.calendar.PeriodSlot;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfigRepository;
@@ -37,7 +38,7 @@ public class FreeAppointmentSlotsServiceTest {
         LocalDateTime endDate = startDate.minusMinutes(120);
         //AND a timeblock config
         ProfessionalBlockTimeConfig timeConfig = new ProfessionalBlockTimeConfig();
-        timeConfig.setProfessionalService(professionalService);
+        timeConfig.setProfessional(professionalService.getProfessional());
         when(professionalBlockTimeConfigRepository
                 .findByProfessionalServiceId(professionalService.getId()))
                 .thenReturn(timeConfig);
