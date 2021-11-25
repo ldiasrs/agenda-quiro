@@ -1,24 +1,28 @@
 package br.com.agendaquiro.domain.calendar;
 
-import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
-import lombok.Getter;
+import br.com.agendaquiro.domain.professsional.Professional;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 @Getter
+@Setter
 public class Calendar {
     private List<PeriodSlot> periodSlots;
-    private ProfessionalService professionalService;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private Professional professional;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
 
-    public Calendar(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
-        this.professionalService = professionalService;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public Calendar(Professional professional, LocalDateTime startTime, LocalDateTime endTime) {
+        this.professional = professional;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.periodSlots = new ArrayList<>();
     }
 

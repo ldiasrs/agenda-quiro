@@ -61,7 +61,7 @@ public class CalendarServiceTest {
                 .getAppointment();
         List<Appointment> appointments = Arrays.asList(appointment);
         when(appointmentService
-                .getAppointments(professionalService, startDate, endDate))
+                .getAppointments(professionalService.getProfessional(), startDate, endDate))
                 .thenReturn(appointments);
         //AND a merged slots
         List<PeriodSlot> mergedSlots = new ArrayList<>();
@@ -72,7 +72,7 @@ public class CalendarServiceTest {
                 (ArgumentMatchers.anyList(), ArgumentMatchers.anyList()))
                 .thenReturn(mergedSlots);
         //WHEN ASKED for calendar
-        Calendar calendar = calendarService.getProfessionalCalendarByRange(professionalService, startDate, endDate);
+        Calendar calendar = calendarService.getProfessionalCalendarByRange(professionalService.getProfessional(), startDate, endDate);
         //THEN
         assertThat(calendar.getPeriodSlots()).containsAll(mergedSlots);
     }

@@ -120,13 +120,15 @@ public class SeedDataBase {
         professionalServiceRepository.save(quiroAline);
 
         //TIME BLOCKED (PROFISSIONAL + SERVICE)
-        ProfessionalBlockTimeConfig timeBlockedAlineQuiro = new TimeBlockedConfigBuilder(aline)
-                .block(DayOfWeek.SATURDAY)
-                .block(DayOfWeek.SUNDAY)
-                .blockAllDays(LocalTime.of(00, 00), LocalTime.of(9, 00))
-                .blockAllDays(LocalTime.of(18, 00), LocalTime.of(23, 59))
+        ProfessionalBlockTimeConfig alineTimeBlocked = new TimeBlockedConfigBuilder(aline)
+                .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
+                .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
+                .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
+                .blockSunday()
+                .blockSaturday()
                 .build();
-        professionalBlockTimeConfigRepository.save(timeBlockedAlineQuiro);
+
+        professionalBlockTimeConfigRepository.save(alineTimeBlocked);
 
         //CLIENTE
         Customer luana = Customer.builder()

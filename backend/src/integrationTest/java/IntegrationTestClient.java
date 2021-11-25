@@ -16,7 +16,7 @@ public class IntegrationTestClient {
     private String listPath;
     private String operationPath;
 
-    private String URL = "http://localhost:8080";
+    public static String URL = "http://localhost:8080";
 
     public IntegrationTestClient(String listPath, String operationPath) {
         this.listPath = listPath;

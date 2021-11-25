@@ -37,10 +37,10 @@ public class AppointmentServiceTest {
                 .buildAppointment(
                         professionalService, testDataBuilder.buildCustomer().getCustome()).getAppointment();
         when(appointmentRepository
-                .findByProfessionalServiceAndStartTimeAndEndTime(
-                        professionalService, startDate, endDate) ).thenReturn(Arrays.asList(appointment));
+                .findByProfessionalAndStartTimeAndEndTime(
+                        professionalService.getProfessional(), startDate, endDate) ).thenReturn(Arrays.asList(appointment));
         //WHEN asked for appointment
-        List<Appointment> appointments = appointmentService.getAppointments(professionalService, startDate, endDate);
+        List<Appointment> appointments = appointmentService.getAppointments(professionalService.getProfessional(), startDate, endDate);
         //THEN should return right appointment
         assertThat(appointments).contains(appointment);
     }

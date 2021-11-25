@@ -20,7 +20,7 @@ public class FreeAppointmentsSlotsGenerator {
 
         LocalDateTime currentTime = startDateTime;
 
-        while (!currentTime.equals(endDateTime)) {
+        while (currentTime.isBefore(endDateTime)) {
             LocalDate date = currentTime.toLocalDate();
             if (isNotWholeDayBlocked(date.getDayOfWeek(), professionalBlockTimeConfig)) {
                 LocalTime startTime = currentTime.toLocalTime();

@@ -69,6 +69,7 @@ public class ProfessionalBlockTimeConfig {
                 .dayOfWeek(dayOfWeek)
                 .startTime(startTime)
                 .endTime(endTime)
+                .professionalBlockTimeConfig(this)
                 .build()
         );
     }

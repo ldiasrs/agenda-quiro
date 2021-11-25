@@ -1,6 +1,6 @@
 package br.com.agendaquiro.domain.appointment;
 
-import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.professsional.Professional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ public class AppointmentService {
         this.professionalAgendaConfigRepository = professionalAgendaConfigRepository;
     }
 
-    public List<Appointment> getAppointments(ProfessionalService professionalService, LocalDateTime startDate, LocalDateTime endDate) {
-        return professionalAgendaConfigRepository.findByProfessionalServiceAndStartTimeAndEndTime(professionalService, startDate, endDate);
+    public List<Appointment> getAppointments(Professional professional, LocalDateTime startDate, LocalDateTime endDate) {
+        return professionalAgendaConfigRepository.findByProfessionalAndStartTimeAndEndTime(professional, startDate, endDate);
     }
 }

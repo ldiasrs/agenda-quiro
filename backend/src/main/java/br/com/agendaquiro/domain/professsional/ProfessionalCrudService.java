@@ -33,4 +33,5 @@ public class ProfessionalCrudService {
     public Optional<Professional> findById(Long id) {
         return professionalRepository.findById(id);
     }
+
 }

@@ -40,7 +40,7 @@ public class FreeAppointmentSlotsServiceTest {
         ProfessionalBlockTimeConfig timeConfig = new ProfessionalBlockTimeConfig();
         timeConfig.setProfessional(professionalService.getProfessional());
         when(professionalBlockTimeConfigRepository
-                .findByProfessionalId(professionalService.getProfessional().getId()))
+                .findByProfessionalId(professionalService.getProfessional()))
                 .thenReturn(timeConfig);
         //AND FreeAppointmentsSlots generation
         FreeAppointmentsSlots freeSlots = new FreeAppointmentsSlots();

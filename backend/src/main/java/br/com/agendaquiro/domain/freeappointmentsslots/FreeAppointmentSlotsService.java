@@ -21,7 +21,7 @@ public class FreeAppointmentSlotsService {
 
     public FreeAppointmentsSlots getFreeAppointmentsSlots(Professional professional, LocalDateTime startDate, LocalDateTime endDate) {
         ProfessionalBlockTimeConfig timeBlockedConfig =
-                professionalBlockTimeConfigRepository.findByProfessionalId(professional.getId());
+                professionalBlockTimeConfigRepository.findByProfessionalId(professional);
         FreeAppointmentsSlots freeAppointments =
                 freeAppointmentsSlotsGenerator.generate(
                         60,
