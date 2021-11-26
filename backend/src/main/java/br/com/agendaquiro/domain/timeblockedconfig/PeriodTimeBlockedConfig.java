@@ -11,7 +11,6 @@ import java.time.LocalTime;
 @Builder
 @Getter
 @NoArgsConstructor
-@ToString
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -40,4 +39,13 @@ public class PeriodTimeBlockedConfig {
         return isABlockedDay && isAfterABlockedHour && isBeforeABlockedHour;
     }
 
+    @Override
+    public String toString() {
+        return "PeriodTimeBlockedConfig{" +
+                "id=" + id +
+                ", dayOfWeek=" + dayOfWeek +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
+    }
 }

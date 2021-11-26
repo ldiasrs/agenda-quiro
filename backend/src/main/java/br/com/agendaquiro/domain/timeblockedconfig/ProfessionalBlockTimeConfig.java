@@ -13,7 +13,6 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -72,5 +71,14 @@ public class ProfessionalBlockTimeConfig {
                 .professionalBlockTimeConfig(this)
                 .build()
         );
+    }
+
+    @Override
+    public String toString() {
+        return "ProfessionalBlockTimeConfig{" +
+                "id=" + id +
+                ", wholeDaysOfWeekBlocked=" + wholeDaysOfWeekBlocked +
+                ", periodsOfTimesBlocked=" + periodsOfTimesBlocked +
+                '}';
     }
 }

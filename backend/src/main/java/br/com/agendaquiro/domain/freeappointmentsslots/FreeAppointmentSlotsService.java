@@ -25,7 +25,7 @@ public class FreeAppointmentSlotsService {
         FreeAppointmentsSlots freeAppointments =
                 freeAppointmentsSlotsGenerator.generate(
                         60,
-                                startDate, endDate, timeBlockedConfig);
+                                startDate, endDate, timeBlockedConfig.getPeriodsOfTimesBlocked(), timeBlockedConfig.getWholeDaysOfWeekBlocked());
         return freeAppointments;
     }
 

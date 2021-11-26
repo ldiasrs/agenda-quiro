@@ -50,8 +50,8 @@ public class CalendarController extends BaseController {
         }
         Calendar calendar = calendarService.getProfessionalCalendarByRange(
                 optionProfessional.get(),
-                startPeriod == null ?  LocalDateTime.now().minusDays(1) : startPeriod,
-                endPeriod == null ?  LocalDateTime.now().plusDays(1) : endPeriod);
+                startPeriod == null ?  LocalDateTime.now().minusDays(1).withSecond(0).withSecond(0) : startPeriod,
+                endPeriod == null ?  LocalDateTime.now().plusDays(1).withSecond(0).withSecond(0) : endPeriod);
         return super.response(convertToRequestDto(calendar), HttpStatus.OK);
     }
 

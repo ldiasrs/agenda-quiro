@@ -28,6 +28,8 @@ public class MergeAppointmentsOnFreeSlotsService {
                     if (rangesNotConflict(freeSlot, appointment)) {
                         merged.add(freeSlot);
                     }
+                } else {
+                    merged.add(freeSlot);
                 }
             }
         }

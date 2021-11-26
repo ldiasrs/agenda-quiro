@@ -31,7 +31,9 @@ public class CalendarService {
     public Calendar getProfessionalCalendarByRange(Professional professional, LocalDateTime startDate, LocalDateTime endDate) {
         List<Appointment> appointments = appointmentService.getAppointments(professional, startDate, endDate);
         FreeAppointmentsSlots freeSlots = freeAppointmentSlotsService.getFreeAppointmentsSlots(
-                professional, LocalDateTime.now().withMinute(0), endDate.withMinute(0));
+                professional,
+                LocalDateTime.now().withMinute(0).withSecond(0).withNano(0),
+                endDate.withMinute(0).withSecond(0).withNano(0));
         List<PeriodSlot> slots = mergeAppointmentsOnFreeSlotsService.merge(
                 freeSlots.getPeriodSlots(), PeriodSlot.from(appointments));
         Collections.sort(slots, (sa, sb) -> LocalDateTime.of(sa.getDate(), sa.getStartTime())

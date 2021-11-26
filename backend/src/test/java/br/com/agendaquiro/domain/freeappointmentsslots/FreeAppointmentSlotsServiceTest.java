@@ -51,7 +51,8 @@ public class FreeAppointmentSlotsServiceTest {
         when(freeAppointmentsSlotsGenerator.generate(
                 professionalService.getServiceType().getDurationInMinutes(),
                 startDate, endDate,
-                timeConfig
+                timeConfig.getPeriodsOfTimesBlocked(),
+                timeConfig.getWholeDaysOfWeekBlocked()
         )).thenReturn(freeSlots);
         //WHEN asked to generate FreeAppointmentsSlots
         FreeAppointmentsSlots freeCalendar = freeAppointmentSlotsService.getFreeAppointmentsSlots(

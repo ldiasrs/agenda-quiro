@@ -51,8 +51,8 @@ public class CalendarServiceTest {
         LocalDateTime endDate = startDate.minusMinutes(120);
         //AND a freeSlots
         FreeAppointmentsSlots freeAppointmentsSlots = new FreeAppointmentsSlots();
-        freeAppointmentsSlots.addPeriodSlot(PeriodSlot.builder().build());
-        when(freeAppointmentSlotsService.getFreeAppointmentsSlots(professionalService.getProfessional(), startDate, endDate))
+        freeAppointmentsSlots.addPeriodSlot(new PeriodSlot());
+        when(freeAppointmentSlotsService.getFreeAppointmentsSlots(professionalService.getProfessional(), startDate.withMinute(0).withSecond(0).withNano(0), endDate.withMinute(0).withSecond(0).withNano(0)))
                 .thenReturn(freeAppointmentsSlots);
         //AND appointment
         Appointment appointment = testDataBuilder
