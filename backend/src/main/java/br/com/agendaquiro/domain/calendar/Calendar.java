@@ -19,11 +19,11 @@ public class Calendar {
     private LocalDateTime endTime;
 
 
-    public Calendar(Professional professional, LocalDateTime startTime, LocalDateTime endTime) {
+    public Calendar(Professional professional, LocalDateTime startTime, LocalDateTime endTime, List<PeriodSlot> periodSlots) {
         this.professional = professional;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.periodSlots = new ArrayList<>();
+        this.periodSlots = periodSlots;
     }
 
     public void add(PeriodSlot slot) {

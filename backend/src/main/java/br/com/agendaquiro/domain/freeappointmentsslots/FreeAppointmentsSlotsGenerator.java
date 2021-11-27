@@ -3,7 +3,6 @@ package br.com.agendaquiro.domain.freeappointmentsslots;
 import br.com.agendaquiro.domain.calendar.PeriodSlot;
 import br.com.agendaquiro.domain.calendar.SlotStatus;
 import br.com.agendaquiro.domain.timeblockedconfig.PeriodTimeBlockedConfig;
-import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -51,7 +50,7 @@ public class FreeAppointmentsSlotsGenerator {
                             + "Professional blocked times: " + periodsOfTimesBlocked);
                 }
             } else {
-                currentTime = currentTime.plusDays(1).withHour(0).withMinute(0);
+                currentTime = currentTime.plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
                 LOGGER.trace("Whole day blocked defining current time" + currentTime);
             }
         }

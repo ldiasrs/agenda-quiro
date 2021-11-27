@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -59,7 +60,7 @@ public class CalendarServiceTest {
                 .buildAppointment(
                         professionalService, testDataBuilder.buildCustomer().getCustome())
                 .getAppointment();
-        List<Appointment> appointments = Arrays.asList(appointment);
+        List<Appointment> appointments = asList(appointment);
         when(appointmentService
                 .getAppointments(professionalService.getProfessional(), startDate, endDate))
                 .thenReturn(appointments);
