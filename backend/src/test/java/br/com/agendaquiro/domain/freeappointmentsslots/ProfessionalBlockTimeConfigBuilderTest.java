@@ -1,6 +1,5 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
-import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
 import br.com.agendaquiro.domain.professsional.Professional;
 import br.com.agendaquiro.domain.timeblockedconfig.PeriodTimeBlockedConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;

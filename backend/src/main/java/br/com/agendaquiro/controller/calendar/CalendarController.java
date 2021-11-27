@@ -3,18 +3,16 @@ package br.com.agendaquiro.controller.calendar;
 import br.com.agendaquiro.controller.BaseController;
 import br.com.agendaquiro.domain.calendar.Calendar;
 import br.com.agendaquiro.domain.calendar.CalendarService;
-import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
-import br.com.agendaquiro.domain.professionalservice.ProfessionalServiceCrudService;
 import br.com.agendaquiro.domain.professsional.Professional;
 import br.com.agendaquiro.domain.professsional.ProfessionalCrudService;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static br.com.agendaquiro.config.PathMappings.CALENDAR;

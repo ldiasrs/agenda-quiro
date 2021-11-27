@@ -30,6 +30,7 @@ public class ProfessionalBlockTimeConfig {
     @OneToMany(
             mappedBy = "professionalBlockTimeConfig",
             cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
             orphanRemoval = true
     )
     private List<PeriodTimeBlockedConfig> periodsOfTimesBlocked;

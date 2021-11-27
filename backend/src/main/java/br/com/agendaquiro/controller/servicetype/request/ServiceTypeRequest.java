@@ -1,12 +1,10 @@
 package br.com.agendaquiro.controller.servicetype.request;
 
-import br.com.agendaquiro.domain.customer.Customer;
 import br.com.agendaquiro.domain.servicetype.ServiceType;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 
 @Getter

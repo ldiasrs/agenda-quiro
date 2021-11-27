@@ -4,7 +4,6 @@ import br.com.agendaquiro.domain.professsional.Professional;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,11 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 public class Calendar {
+
     private List<PeriodSlot> periodSlots;
     private Professional professional;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
 
     public Calendar(Professional professional, LocalDateTime startTime, LocalDateTime endTime, List<PeriodSlot> periodSlots) {
         this.professional = professional;

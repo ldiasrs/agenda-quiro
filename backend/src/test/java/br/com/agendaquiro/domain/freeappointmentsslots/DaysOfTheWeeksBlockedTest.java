@@ -1,7 +1,7 @@
 package br.com.agendaquiro.domain.freeappointmentsslots;
 
-import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.InvalidBlockTimeException;
+import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import org.junit.Test;
 
 import java.time.DayOfWeek;

@@ -5,10 +5,6 @@ import br.com.agendaquiro.domain.appointment.AppointmentService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentSlotsService;
 import br.com.agendaquiro.domain.freeappointmentsslots.FreeAppointmentsSlots;
 import br.com.agendaquiro.domain.professsional.Professional;
-import br.com.agendaquiro.domain.user.User;
-import br.com.agendaquiro.domain.user.UserProfessional;
-import br.com.agendaquiro.domain.user.UserProfessionalRepository;
-import br.com.agendaquiro.domain.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,7 +18,6 @@ public class CalendarService {
     private FreeAppointmentSlotsService freeAppointmentSlotsService;
     private MergeAppointmentsOnFreeSlotsService mergeAppointmentsOnFreeSlotsService;
     private AppointmentService appointmentService;
-    private UserProfessionalRepository userProfessionalRepository;
 
     public CalendarService(AppointmentService appointmentService,
                            FreeAppointmentSlotsService freeAppointmentSlotsService,
@@ -46,10 +41,5 @@ public class CalendarService {
 
     private void sortByDate(List<PeriodSlot> slots) {
         Collections.sort(slots, Comparator.comparing(sa -> LocalDateTime.of(sa.getDate(), sa.getStartTime())));
-    }
-
-    public Calendar getProfessionalCalendarOfUserByRange(User user, LocalDateTime start, LocalDateTime end) {
-        UserProfessional professionalUser = userProfessionalRepository.findByUser(user);
-        return getProfessionalCalendarByRange(professionalUser.getProfessional(), start,end);
     }
 }

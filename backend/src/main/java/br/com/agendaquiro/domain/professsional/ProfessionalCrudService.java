@@ -1,8 +1,5 @@
 package br.com.agendaquiro.domain.professsional;
 
-import br.com.agendaquiro.domain.customer.Customer;
-import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
-import br.com.agendaquiro.domain.professionalservice.ProfessionalServiceRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

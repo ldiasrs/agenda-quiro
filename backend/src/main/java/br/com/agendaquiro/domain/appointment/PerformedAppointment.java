@@ -1,7 +1,5 @@
 package br.com.agendaquiro.domain.appointment;
 
-import br.com.agendaquiro.domain.appointment.Appointment;
-import br.com.agendaquiro.domain.appointment.AppointmentRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

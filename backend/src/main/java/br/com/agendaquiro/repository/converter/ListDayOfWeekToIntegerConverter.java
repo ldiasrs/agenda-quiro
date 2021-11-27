@@ -1,12 +1,11 @@
 package br.com.agendaquiro.repository.converter;
 
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
 
 /**
  * Converts {@link DayOfWeek} to {@link Integer} and back again.

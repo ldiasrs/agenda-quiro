@@ -4,7 +4,6 @@ import br.com.agendaquiro.domain.servicetype.ServiceType;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 public class ServiceTypeRequestTest {
 

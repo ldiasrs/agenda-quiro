@@ -1,11 +1,10 @@
 package br.com.agendaquiro.repository.converter;
 
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Converts {@link LocalDateTime}* to {@link Timestamp} and back again.
