@@ -8,9 +8,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CalendarIntegrationTest {
 
     @Test
-    public void list()  {
+    public void shouldGetCalendarByUser()  {
         RestTemplate restTemplate = new RestTemplate();
-        CalendarResponse response = restTemplate.getForObject(IntegrationTestClient.URL+"/calendar/1", CalendarResponse.class);
+        CalendarResponse response = restTemplate.getForObject(IntegrationTestClient.URL+"/calendar/user/1", CalendarResponse.class);
         assertThat(response).isNotNull();
     }
 }

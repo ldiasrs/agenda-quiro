@@ -19,10 +19,7 @@ import br.com.agendaquiro.domain.servicetype.ServiceTypeRepository;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfig;
 import br.com.agendaquiro.domain.timeblockedconfig.ProfessionalBlockTimeConfigRepository;
 import br.com.agendaquiro.domain.timeblockedconfig.TimeBlockedConfigBuilder;
-import br.com.agendaquiro.domain.user.Authority;
-import br.com.agendaquiro.domain.user.AuthorityRepository;
-import br.com.agendaquiro.domain.user.User;
-import br.com.agendaquiro.domain.user.UserRepository;
+import br.com.agendaquiro.domain.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -58,6 +55,8 @@ public class SeedDataBase {
     private AuthorityRepository authorityRepository;
     @Autowired
     private CalendarService calendarService;
+    @Autowired
+    private UserProfessionalRepository userProfessionalRepository;
 
     @PostConstruct
     public void init() {
@@ -65,6 +64,20 @@ public class SeedDataBase {
             return;
         }
         //USER
+        User user = User.builder()
+                .username("leo@quiroapp.com")
+                .tenant("quiroappp")
+                .enabled(true)
+                .password("$2a$12$.nmAVl6I8HeX1i.1pbUdDOQ5Nfc93IWJXR92hHwSgMOZ2bHKNqJqG")
+                .build();
+        userRepository.save(user);
+        authorityRepository.save(
+                Authority.builder()
+                        .username(user.getUsername())
+                        .authority("ROLE_USER")
+                        .build());
+
+
         User admin = User.builder()
                 .username("admin@quiroapp.com")
                 .tenant("quiroappp")
@@ -77,19 +90,6 @@ public class SeedDataBase {
                 Authority.builder()
                         .username(admin.getUsername())
                         .authority("ROLE_ADMIN")
-                        .build());
-
-        User user = User.builder()
-                .username("leo@quiroapp.com")
-                .tenant("quiroappp")
-                .enabled(true)
-                .password("$2a$12$.nmAVl6I8HeX1i.1pbUdDOQ5Nfc93IWJXR92hHwSgMOZ2bHKNqJqG")
-                .build();
-        userRepository.save(user);
-        authorityRepository.save(
-                Authority.builder()
-                        .username(user.getUsername())
-                        .authority("ROLE_USER")
                         .build());
 
         User manager = User.builder()
@@ -125,6 +125,14 @@ public class SeedDataBase {
         Professional leo = Professional.builder().name("Leonardo User").build();
         professionalRepository.save(leo);
 
+        //USER + PROFESSIONAL
+        UserProfessional leoUserProfessional =
+                UserProfessional.builder()
+                        .user(user)
+                        .professional(leo)
+                        .build();
+        userProfessionalRepository.save(leoUserProfessional);
+
         //PROFISSIONAL
         Professional aline = Professional.builder().name("Aline Silva").build();
         professionalRepository.save(aline);
@@ -133,9 +141,20 @@ public class SeedDataBase {
         ProfessionalService quiroAline = new ProfessionalService(aline, quiropraxiaService);
         professionalServiceRepository.save(quiroAline);
 
+
+        //TIME BLOCKED (PROFISSIONAL + SERVICE)
+        ProfessionalBlockTimeConfig leoTimeBlocked = new TimeBlockedConfigBuilder(leo)
+                .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
+                .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
+                .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
+                .blockSunday()
+                .blockSaturday()
+                .build();
+        professionalBlockTimeConfigRepository.save(leoTimeBlocked);
+
         //PROFISSIONAL + SERVICE
         ProfessionalService quiroLeo = new ProfessionalService(leo, quiropraxiaService);
-        professionalServiceRepository.save(quiroAline);
+        professionalServiceRepository.save(quiroLeo);
 
         //PROFISSIONAL + SERVICE
         ProfessionalService quiroLeoGeral = new ProfessionalService(leo, quiropraxiaGeral);
@@ -149,16 +168,8 @@ public class SeedDataBase {
                 .blockSunday()
                 .blockSaturday()
                 .build();
+        professionalBlockTimeConfigRepository.save(alineTimeBlocked);
 
-        //TIME BLOCKED (PROFISSIONAL + SERVICE)
-        ProfessionalBlockTimeConfig leoTimeBlocked = new TimeBlockedConfigBuilder(leo)
-                .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
-                .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
-                .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
-                .blockSunday()
-                .blockSaturday()
-                .build();
-        professionalBlockTimeConfigRepository.save(leoTimeBlocked);
 
         //CLIENTE
         Customer nicole = Customer.builder()
@@ -205,31 +216,28 @@ public class SeedDataBase {
         LocalDateTime start = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime end = start.plusMinutes(120);
 
-        Calendar calendarLeo = calendarService.getProfessionalCalendarOfUserByRange(user, start, end);
+        Calendar calendarLeo = calendarService.getProfessionalCalendarOfUserByRange(leoUserProfessional, start, end);
         calendarLeo.getPeriodSlots().forEach(periodSlot -> {
             Appointment appointment = Appointment.builder()
-                    .professionalService(quiroLeoGeral)
+                    .professionalService(quiroLeo)
                     .customer(nicole)
                     .startTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getStartTime()))
-                    .startTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getEndTime()))
+                    .endTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getEndTime()))
                     .amountPaid(BigDecimal.ZERO)
                     .observation("Paga na hora")
                     .build();
             appointmentRepository.save(appointment);
         });
 
-        Calendar calendar = calendarService.getProfessionalCalendarByRange(aline, start, end);
-        calendar.getPeriodSlots().stream().forEach( periodSlot -> {
-            Appointment appointmentLuana = Appointment.builder()
-                    .professionalService(quiroAline)
-                    .customer(luana)
-                    .startTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getStartTime()))
-                    .startTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getEndTime()))
-                    .amountPaid(BigDecimal.ZERO)
-                    .observation("Paga na hora")
-                    .build();
-            appointmentRepository.save(appointmentLuana);
-        });
+        Appointment appointmentLuana = Appointment.builder()
+                .professionalService(quiroAline)
+                .customer(luana)
+                .startTime(start)
+                .endTime(end)
+                .amountPaid(BigDecimal.ZERO)
+                .observation("Paga na hora")
+                .build();
+        appointmentRepository.save(appointmentLuana);
 
         //ANAMNESIS
         Anamnesis luanaAnamnesis = Anamnesis.builder()
