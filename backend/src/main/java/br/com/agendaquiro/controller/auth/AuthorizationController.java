@@ -19,8 +19,9 @@ public class AuthorizationController {
     }
 
     @GetMapping(PathMappings.AUTH_MAPPING)
-    public User login() {
+    public UserResponse login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findUserByUsername(authentication.getName());
+        User user =  userRepository.findUserByUsername(authentication.getName());
+        return UserResponse.convertToRequestDto(user);
     }
 }

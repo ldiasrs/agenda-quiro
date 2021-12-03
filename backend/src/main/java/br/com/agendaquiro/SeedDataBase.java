@@ -144,7 +144,7 @@ public class SeedDataBase {
 
         //TIME BLOCKED (PROFISSIONAL + SERVICE)
         ProfessionalBlockTimeConfig leoTimeBlocked = new TimeBlockedConfigBuilder(leo)
-                .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
+                .blockAllDays(LocalTime.of(22,0), LocalTime.of(23,59))
                 .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
                 .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
                 .blockSunday()

@@ -1,3 +1,4 @@
+import br.com.agendaquiro.controller.auth.UserResponse;
 import br.com.agendaquiro.controller.calendar.CalendarResponse;
 import br.com.agendaquiro.domain.user.User;
 import org.apache.commons.codec.binary.Base64;
@@ -15,8 +16,8 @@ public class AuthIntegrationTest {
     public void shouldAuthenticateWithSuccess()  {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity request = new HttpEntity(createHeaders());
-        ResponseEntity<User> response = restTemplate.exchange(
-                IntegrationTestClient.URL+"/auth/login", HttpMethod.GET, request, User.class);
+        ResponseEntity<UserResponse> response = restTemplate.exchange(
+                IntegrationTestClient.URL+"/auth/login", HttpMethod.GET, request, UserResponse.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
     }

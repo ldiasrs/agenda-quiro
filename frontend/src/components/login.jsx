@@ -14,9 +14,9 @@ export const Login = (props) => {
             await api.get("/auth/login", {
                 auth: {username: username, password: password
                 }
-            }).then(response=> login(response.headers.authorization));
+            }).then(response=> login(response.headers.authorization, response.data.id));
 
-            props.history.push("/listarcliente");
+            props.history.push("/agenda");
         } catch (err) {
             console.log(err)
             setError("* Houve um problema com o login, verifique suas credenciais.")

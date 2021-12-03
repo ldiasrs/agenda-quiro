@@ -18,13 +18,13 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import {isAuthenticated} from "./services/auth";
-import {Calendar} from "./components/calendar";
 import {ListCustomer} from "./components/customer/listCustomer";
 import {AddEditCustomer} from "./components/customer/addEditCustomer";
 import {AddEditServiceType} from "./components/servicetype/addEditServiceType";
 import {ListServiceType} from "./components/servicetype/listServiceType";
 import {ListProfessional} from "./components/professional/listProfessional";
 import {AddEditProfessional} from "./components/professional/addEditProfessional";
+import {ListCalendar} from "./components/calendar/listCalendar";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -53,6 +53,7 @@ const App = () => {
         <Router>
             <Switch>
                 <Route exact path="/login" component={Login} />
+                <PrivateRoute exact path="/agenda" component={ListCalendar} key="agenda"/>
                 <PrivateRoute exact path="/listarcliente" component={ListCustomer} key="listarcliente"/>
                 <PrivateRoute exact path="/cliente/:id" component={AddEditCustomer} />
                 <PrivateRoute exact path="/registrarcliente" component={AddEditCustomer} />
@@ -63,7 +64,6 @@ const App = () => {
                 <PrivateRoute exact path="/professional/:id" component={AddEditProfessional} />
                 <PrivateRoute exact path="/registrarprofessional" component={AddEditProfessional} />
 
-                <PrivateRoute path="/agenda" component={Calendar}/>
                 <Route path="/home">
                     <div>
                         <Navigation />

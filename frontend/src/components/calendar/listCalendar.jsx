@@ -2,10 +2,10 @@ import {NavigationApp} from "../navigation-app";
 import React, {useEffect, useState} from "react";
 import {Link, useLocation} from 'react-router-dom';
 import api from "../../services/api";
-import {Pagination} from "../Pagination";
 import {FaHammer} from "react-icons/fa";
+import {getLoginUseId} from "../../services/auth";
 
-export const ListCalendar = ({ history, match }) => {
+export const ListCalendar = ({history, match}) => {
 
     const search = useLocation().search;
     const searchTerm = new URLSearchParams(search).get('searchTerm');
@@ -13,35 +13,19 @@ export const ListCalendar = ({ history, match }) => {
     const paginationSize = 20
 
     const [tableFilter, setTableFiler] = useState(undefined);
-    const [calendarData, setServiceTypeData] = useState(undefined);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(undefined);
-    const [totalElements, setTotalElements] = useState(undefined);
-
-    const handlePrevNavigation = async () => {
-        updateCurrentPage(currentPage-1)
-    }
-
-    const updateCurrentPage =  (newPage) => {
-        if (newPage >= 0 && newPage<totalPages) {
-            setCurrentPage(newPage)
-        }
-    }
-
-    const handleNextNavigation = async () => {
-        updateCurrentPage(currentPage+1)
-    }
+    const [calendarData, setCalendarData] = useState(undefined);
 
     const fetchItems = async () => {
         try {
             console.log('searchTerm:' + searchTerm)
+            const currentDate = new Date();
             const params = {
-                searchTerm: searchTerm,
-                page: currentPage,
-                size: paginationSize
+                startPeriod: undefined,
+                endPeriod: undefined
             };
-            console.log(params)
-            return await api.get('/calendar', {params})
+            console.log("params: " + params)
+            const userId = getLoginUseId();
+            return await api.get(`/calendar/user/${userId}`, {params})
         } catch (error) {
             console.error("Ocorreu um erro ao buscar os items" + error);
         }
@@ -50,30 +34,30 @@ export const ListCalendar = ({ history, match }) => {
     useEffect(() => {
         async function fetchData() {
             const response = await fetchItems()
-            setTotalPages(response.data.totalPages)
-            setTotalElements(response.data.totalElements)
-            setServiceTypeData(response.data.content)
+            console.log("response: " + JSON.stringify(response.data))
+            setCalendarData(response.data)
         }
-        fetchData();
-    }, [currentPage]);
 
-    const filterServiceType = (calendar) => {
+        fetchData();
+    }, [2]);
+
+    const filterCalendar = (periodSlot) => {
         if (!tableFilter) return true;
-        return ((calendar.description).includes(tableFilter))
+        return ((periodSlot.description).includes(tableFilter))
     }
 
     const filterTableElements = () => {
         let key = 0
         if (!calendarData) return;
-        return calendarData
-            .filter(filterServiceType)
-            .map(calendar =>
+        return calendarData.periodSlots
+            .filter(filterCalendar)
+            .map(slot =>
                 <tr key={key++}>
-                    <td>{calendar.description}</td>
-                    <td>{calendar.durationInMinutes}</td>
-                    <td>
-                        <Link to={`/servico/${calendar.id}`} className="btn btn-sm btn-primary mr-1">Edit</Link>
-                    </td>
+                    <td>{slot.date}</td>
+                    <td>{slot.startTime}</td>
+                    <td>{slot.endTime}</td>
+                    <td>{slot.status}</td>
+                    <td>{slot.description}</td>
                 </tr>
             )
     }
@@ -86,27 +70,17 @@ export const ListCalendar = ({ history, match }) => {
                     <div className="table-title">
                         <div className="row-title">
                             <div className="col-sm-4">
-                                <h2 className="list-tile"> <FaHammer/> Tipos de serviço</h2>
-                            </div>
-
-                            <div className="dropdown">
-                                <button className="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#">Action</a>
-                                    <a className="dropdown-item" href="#">Another action</a>
-                                    <a className="dropdown-item" href="#">Something else here</a>
-                                </div>
+                                <h2 className="list-tile"><FaHammer/> Agenda</h2>
                             </div>
 
                             <div className="col-sm-6">
                                 <form className="form-inline">
                                     <div className="form-group">
-                                        <input className="form-control" id="myInput" type="text" placeholder="Pesquisar..." onChange={e => setTableFiler(e.target.value)}/>
-                                        <a href={`/listarservico?searchTerm=${tableFilter || ''}`} className="btn btn-search"><span className="span-search">Pesquisar...</span></a>
+                                        <input className="form-control" id="myInput" type="text"
+                                               placeholder="Pesquisar..."
+                                               onChange={e => setTableFiler(e.target.value)}/>
+                                        <a href={`/listarservico?searchTerm=${tableFilter || ''}`}
+                                           className="btn btn-search"><span className="span-search">Pesquisar...</span></a>
                                     </div>
                                 </form>
                             </div>
@@ -120,8 +94,11 @@ export const ListCalendar = ({ history, match }) => {
                     <table className="table table-striped table-hover">
                         <thead>
                         <tr>
+                            <th>Data</th>
+                            <th>Inicio</th>
+                            <th>Fim</th>
+                            <th>Status</th>
                             <th>Descrição</th>
-                            <th>Duração (minutos)</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -130,13 +107,6 @@ export const ListCalendar = ({ history, match }) => {
                         }
                         </tbody>
                     </table>
-                    <Pagination
-                        handlePrevNavigation={handlePrevNavigation}
-                        handleNextNavigation={handleNextNavigation}
-                        totalElements={totalElements}
-                        totalPages={totalPages}
-                        maxItemsPerPage={paginationSize}
-                    />
                 </div>
             </div>
         </>
