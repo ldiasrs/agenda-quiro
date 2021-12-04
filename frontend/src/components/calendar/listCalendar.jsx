@@ -4,7 +4,7 @@ import {Link, useLocation} from 'react-router-dom';
 import api from "../../services/api";
 import {FaHammer} from "react-icons/fa";
 import {getLoginUseId} from "../../services/auth";
-import {statusNames} from "./statusNames";
+import {isFreeStatus, statusNames} from "./statusNames";
 import {parseAndFormatDate, parseAndFormatHour} from "../utils/utilis";
 
 
@@ -56,6 +56,10 @@ export const ListCalendar = ({history, match}) => {
         ).includes(tableFilter))
     }
 
+    const getActionByAppointmentStatus = (status, id) => {
+        return isFreeStatus(status) ? '/agendar' : '/cancelarAgendamento?agendamentoId=1'
+    }
+
     const filterTableElements = () => {
         let key = 0
         if (!calendarData) return;
@@ -64,14 +68,15 @@ export const ListCalendar = ({history, match}) => {
             .map(slot =>
                 <tr key={key++}>
                     <td>{parseAndFormatDate(slot.date)}</td>
-                    <td>{parseAndFormatHour(slot.startTime)}</td>
-                    <td>{parseAndFormatHour(slot.endTime)}</td>
+                    <td>{parseAndFormatHour(slot.startTime)} - {parseAndFormatHour(slot.endTime)}</td>
                     <td>{statusNames[slot.status]}</td>
                     <td>{slot.serviceName}</td>
-                    <td>{slot.clientName}</td>
-                    <td>{slot.clientPhone}</td>
-                    <td>{slot.amountPaid}</td>
+                    <td>{slot.clientName} ({slot.clientPhone})</td>
+                    <td>R$ {slot.amountPaid}</td>
                     <td>{slot.observation}</td>
+                    <td>
+                        <Link to={getActionByAppointmentStatus(slot.status, slot.appointmentId)} className="btn btn-sm btn-primary action-btn">{isFreeStatus(slot.status) ? "Agendar" : "Cancelar"}</Link>
+                    </td>
                 </tr>
             )
     }
@@ -109,14 +114,13 @@ export const ListCalendar = ({history, match}) => {
                         <thead>
                         <tr>
                             <th>Data</th>
-                            <th>Inicio</th>
-                            <th>Fim</th>
+                            <th>Horário</th>
                             <th>Status</th>
                             <th>Serviço</th>
                             <th>Cliente</th>
-                            <th>Telefone</th>
-                            <th>Valor</th>
+                            <th>Pago</th>
                             <th>Observação</th>
+                            <th>Ações</th>
                         </tr>
                         </thead>
                         <tbody>

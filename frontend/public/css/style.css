@@ -677,6 +677,12 @@ label {
   width: 768px;
 }
 
+.action-btn {
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50; /* Green */
+}
+
 @media (max-width: 768px) {
   #about img {
     margin: 50px 0;

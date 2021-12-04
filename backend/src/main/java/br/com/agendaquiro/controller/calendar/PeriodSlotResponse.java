@@ -13,13 +13,17 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 public class PeriodSlotResponse {
+    private Long appointmentId;
+    private SlotStatus status;
+
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+
     private String observation;
     private String clientName;
     private String clientPhone;
     private String serviceName;
-    private SlotStatus status;
     private BigDecimal amountPaid;
+
 }
