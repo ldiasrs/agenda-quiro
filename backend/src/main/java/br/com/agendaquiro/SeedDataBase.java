@@ -144,11 +144,11 @@ public class SeedDataBase {
 
         //TIME BLOCKED (PROFISSIONAL + SERVICE)
         ProfessionalBlockTimeConfig leoTimeBlocked = new TimeBlockedConfigBuilder(leo)
-                .blockAllDays(LocalTime.of(22,0), LocalTime.of(23,59))
-                .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
-                .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
+//                .blockAllDays(LocalTime.of(22,0), LocalTime.of(23,59))
+//                .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
+//                .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
                 .blockSunday()
-                .blockSaturday()
+//                .blockSaturday()
                 .build();
         professionalBlockTimeConfigRepository.save(leoTimeBlocked);
 
@@ -217,7 +217,7 @@ public class SeedDataBase {
         LocalDateTime end = start.plusMinutes(120);
 
         Calendar calendarLeo = calendarService.getProfessionalCalendarOfUserByRange(leoUserProfessional, start, end);
-        calendarLeo.getPeriodSlots().forEach(periodSlot -> {
+            calendarLeo.getPeriodSlots().forEach(periodSlot -> {
             Appointment appointment = Appointment.builder()
                     .professionalService(quiroLeo)
                     .customer(nicole)

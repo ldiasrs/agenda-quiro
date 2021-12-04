@@ -5,6 +5,8 @@ import api from "../../services/api";
 import {FaHammer} from "react-icons/fa";
 import {getLoginUseId} from "../../services/auth";
 import {statusNames} from "./statusNames";
+import {parseAndFormatDate, parseAndFormatHour} from "../utils/utilis";
+
 
 export const ListCalendar = ({history, match}) => {
 
@@ -53,9 +55,9 @@ export const ListCalendar = ({history, match}) => {
             .filter(filterCalendar)
             .map(slot =>
                 <tr key={key++}>
-                    <td>{slot.date}</td>
-                    <td>{slot.startTime}</td>
-                    <td>{slot.endTime}</td>
+                    <td>{parseAndFormatDate(slot.date)}</td>
+                    <td>{parseAndFormatHour(slot.startTime)}</td>
+                    <td>{parseAndFormatHour(slot.endTime)}</td>
                     <td>{statusNames[slot.status]}</td>
                     <td>{slot.description}</td>
                 </tr>
@@ -91,7 +93,7 @@ export const ListCalendar = ({history, match}) => {
                             </div>
                         </div>
                     </div>
-                    <table className="table table-striped table-hover">
+                    <table className="table table-striped table-hover content-table-adjust">
                         <thead>
                         <tr>
                             <th>Data</th>
