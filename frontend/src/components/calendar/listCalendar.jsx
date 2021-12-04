@@ -56,8 +56,16 @@ export const ListCalendar = ({history, match}) => {
         ).includes(tableFilter))
     }
 
+    const getActionLink = (status, appointmentId) => {
+        const isFreeSlot = isFreeStatus(status)
+        const style = isFreeSlot ? "action-btn-green" : "action-btn-red"
+        return <Link to={getActionByAppointmentStatus(status, appointmentId)}
+                     className={"btn btn-sm btn-primary " + style}>{isFreeSlot ? "Agendar" : "Cancelar"}
+        </Link>
+    }
+
     const getActionByAppointmentStatus = (status, id) => {
-        return isFreeStatus(status) ? '/agendar' : '/cancelarAgendamento?agendamentoId=1'
+        return isFreeStatus(status) ? '/agendar' : '/cancelarAgendamento?agendamentoId='+id
     }
 
     const filterTableElements = () => {
@@ -75,7 +83,7 @@ export const ListCalendar = ({history, match}) => {
                     <td>R$ {slot.amountPaid}</td>
                     <td>{slot.observation}</td>
                     <td>
-                        <Link to={getActionByAppointmentStatus(slot.status, slot.appointmentId)} className="btn btn-sm btn-primary action-btn">{isFreeStatus(slot.status) ? "Agendar" : "Cancelar"}</Link>
+                        {getActionLink(slot.status, slot.appointmentId)}
                     </td>
                 </tr>
             )

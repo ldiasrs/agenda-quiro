@@ -55,6 +55,7 @@ public class PeriodSlot {
                         .serviceName(serviceDescription)
                         .observation(appointment.getObservation())
                         .amountPaid(appointment.getAmountPaid())
+                        .appointmentId(appointment.getId())
                         .build());
             }
         }
