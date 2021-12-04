@@ -1,6 +1,8 @@
 package br.com.agendaquiro.controller.calendar;
 
 import br.com.agendaquiro.domain.calendar.Calendar;
+import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.professsional.Professional;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
@@ -13,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class CalendarResponse {
+
+    private Professional professional;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private List<PeriodSlotResponse> periodSlots;

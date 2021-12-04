@@ -4,9 +4,13 @@ package br.com.agendaquiro.config;
 public final class PathMappings {
 
     public static final String AUTH_MAPPING="/auth/login";
+
+    public static final String APPOINTMENTS ="/appointments";
+
     public static final String CALENDAR_FREE_SLOTS="/calendar/freeslots";
     public static final String CALENDAR="/calendar/{id}";
     public static final String CALENDAR_BY_USER="/calendar/user/{id}";
+
     public static final String CUSTOMERS ="/customers";
     public static final String CUSTOMER_EDIT="/customer/{id}";
     public static final String CUSTOMER_GET="/customer/{id}";

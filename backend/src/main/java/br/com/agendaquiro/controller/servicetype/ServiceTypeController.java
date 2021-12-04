@@ -1,6 +1,6 @@
 package br.com.agendaquiro.controller.servicetype;
 
-import br.com.agendaquiro.controller.AppResourceNotFoundException;
+import br.com.agendaquiro.domain.exception.NotFoundException;
 import br.com.agendaquiro.controller.BaseController;
 import br.com.agendaquiro.controller.MessageHttpResponse;
 import br.com.agendaquiro.controller.servicetype.request.ServiceTypeRequest;
@@ -62,11 +62,11 @@ public class ServiceTypeController extends BaseController {
     }
 
     @GetMapping(value=SERVICE_GET)
-    public ResponseEntity<ServiceType> get(@PathVariable Long id) throws AppResourceNotFoundException {
+    public ResponseEntity<ServiceType> get(@PathVariable Long id) throws NotFoundException {
         Optional<ServiceType> serviceTypeOptional = this.serviceTypeService.findById(id);
         ResponseEntity<ServiceType> response = serviceTypeOptional.map(
                 serviceType -> super.response(serviceType, HttpStatus.OK)
-        ).orElseThrow(() -> new AppResourceNotFoundException("ServiceType not found with ID: " + id));
+        ).orElseThrow(() -> new NotFoundException("ServiceType not found with ID: " + id));
         return response;
     }
 

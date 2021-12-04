@@ -61,7 +61,8 @@ public class CalendarController extends BaseController {
     public ResponseEntity<CalendarResponse> getProfessionalCalendarByUser(
             @PathVariable Long id,
             @RequestParam(value ="startPeriod", required = false) LocalDateTime startPeriod,
-            @RequestParam(value ="endPeriod", required = false) LocalDateTime endPeriod) {
+            @RequestParam(value ="endPeriod", required = false) LocalDateTime endPeriod,
+            @RequestParam(value ="searchTerm", required = false, defaultValue = "") String searchTerm) {
         List<UserProfessional> optionProfessional = userProfessionalRepository.findByUserId(id);
         if (optionProfessional==null || optionProfessional.isEmpty()) {
             return super.responseMessage(

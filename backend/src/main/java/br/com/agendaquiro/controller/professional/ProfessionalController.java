@@ -1,6 +1,6 @@
 package br.com.agendaquiro.controller.professional;
 
-import br.com.agendaquiro.controller.AppResourceNotFoundException;
+import br.com.agendaquiro.domain.exception.NotFoundException;
 import br.com.agendaquiro.controller.BaseController;
 import br.com.agendaquiro.controller.MessageHttpResponse;
 import br.com.agendaquiro.controller.professional.request.ProfessionalRequest;
@@ -46,11 +46,11 @@ public class ProfessionalController extends BaseController {
     }
 
     @GetMapping(value=PROFESSIONAL_GET)
-    public ResponseEntity<Professional> get(@PathVariable Long id) throws AppResourceNotFoundException {
+    public ResponseEntity<Professional> get(@PathVariable Long id) throws NotFoundException {
         Optional<Professional> professionalOptional = this.professionalCrudService.findById(id);
         ResponseEntity<Professional> response = professionalOptional.map(
                 entity -> super.response(entity, HttpStatus.OK)
-        ).orElseThrow(() -> new AppResourceNotFoundException("Professional not found with ID: " + id));
+        ).orElseThrow(() -> new NotFoundException("Professional not found with ID: " + id));
         return response;
     }
 

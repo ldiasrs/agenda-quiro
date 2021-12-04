@@ -4,13 +4,13 @@ import {Link, useLocation} from 'react-router-dom';
 import api from "../../services/api";
 import {FaHammer} from "react-icons/fa";
 import {getLoginUseId} from "../../services/auth";
+import {statusNames} from "./statusNames";
 
 export const ListCalendar = ({history, match}) => {
 
+
     const search = useLocation().search;
     const searchTerm = new URLSearchParams(search).get('searchTerm');
-
-    const paginationSize = 20
 
     const [tableFilter, setTableFiler] = useState(undefined);
     const [calendarData, setCalendarData] = useState(undefined);
@@ -56,7 +56,7 @@ export const ListCalendar = ({history, match}) => {
                     <td>{slot.date}</td>
                     <td>{slot.startTime}</td>
                     <td>{slot.endTime}</td>
-                    <td>{slot.status}</td>
+                    <td>{statusNames[slot.status]}</td>
                     <td>{slot.description}</td>
                 </tr>
             )
@@ -79,7 +79,7 @@ export const ListCalendar = ({history, match}) => {
                                         <input className="form-control" id="myInput" type="text"
                                                placeholder="Pesquisar..."
                                                onChange={e => setTableFiler(e.target.value)}/>
-                                        <a href={`/listarservico?searchTerm=${tableFilter || ''}`}
+                                        <a href={`/agenda?searchTerm=${tableFilter || ''}`}
                                            className="btn btn-search"><span className="span-search">Pesquisar...</span></a>
                                     </div>
                                 </form>

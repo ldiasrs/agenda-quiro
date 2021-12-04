@@ -1,7 +1,9 @@
 package br.com.agendaquiro.domain.appointment;
 
 import br.com.agendaquiro.TestDataBuilder;
+import br.com.agendaquiro.domain.customer.CustomerCrudService;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
+import br.com.agendaquiro.domain.professionalservice.ProfessionalServiceCrudService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +22,9 @@ public class AppointmentServiceTest {
     @Before
     public void mockDeps() {
         appointmentRepository = mock(AppointmentRepository.class);
-        appointmentService = new AppointmentService(appointmentRepository);
+        CustomerCrudService customerCrudService = mock(CustomerCrudService.class);
+        ProfessionalServiceCrudService professionalServiceCrudService = mock(ProfessionalServiceCrudService.class);
+        appointmentService = new AppointmentService(appointmentRepository, customerCrudService, professionalServiceCrudService);
     }
 
     @Test

@@ -1,6 +1,6 @@
 package br.com.agendaquiro.controller.customer;
 
-import br.com.agendaquiro.controller.AppResourceNotFoundException;
+import br.com.agendaquiro.domain.exception.NotFoundException;
 import br.com.agendaquiro.controller.BaseController;
 import br.com.agendaquiro.controller.MessageHttpResponse;
 import br.com.agendaquiro.controller.customer.request.CustomerRequest;
@@ -62,11 +62,11 @@ public class CustomerController extends BaseController {
     }
 
     @GetMapping(value=CUSTOMER_GET)
-    public ResponseEntity<Customer> get(@PathVariable Long id) throws AppResourceNotFoundException {
+    public ResponseEntity<Customer> get(@PathVariable Long id) throws NotFoundException {
         Optional<Customer> customerOptional = this.customerService.findById(id);
         ResponseEntity<Customer> response = customerOptional.map(
                 customer -> super.response(customer, HttpStatus.OK)
-        ).orElseThrow(() -> new AppResourceNotFoundException("Customer not found with ID: " + id));
+        ).orElseThrow(() -> new NotFoundException("Customer not found with ID: " + id));
         return response;
     }
 

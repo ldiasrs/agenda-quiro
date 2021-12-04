@@ -1,6 +1,8 @@
 package br.com.agendaquiro.controller;
 
 
+import br.com.agendaquiro.domain.exception.NotFoundException;
+import br.com.agendaquiro.domain.exception.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,9 +25,16 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(responseBody, returnStatus);
     }
 
-    @ExceptionHandler(AppResourceNotFoundException.class)
-    public ResponseEntity<MessageHttpResponse> handleNoFound(AppResourceNotFoundException exception) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<MessageHttpResponse> handleNoFound(NotFoundException exception) {
         HttpStatus returnStatus = HttpStatus.NOT_FOUND;
+        MessageHttpResponse responseBody = buildErrorResponse(exception.getMessage());
+        return new ResponseEntity<>(responseBody, returnStatus);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<MessageHttpResponse> handleNoFound(BadRequestException exception) {
+        HttpStatus returnStatus = HttpStatus.BAD_REQUEST;
         MessageHttpResponse responseBody = buildErrorResponse(exception.getMessage());
         return new ResponseEntity<>(responseBody, returnStatus);
     }

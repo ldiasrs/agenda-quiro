@@ -16,4 +16,8 @@ public class ProfessionalServiceCrudService {
     public Optional<ProfessionalService> getProfessionalServiceById(Long id) {
         return professionalServiceRepository.findById(id);
     }
+
+    public Optional<ProfessionalService> findById(Long professionalServiceId) {
+        return professionalServiceRepository.findById(professionalServiceId);
+    }
 }
