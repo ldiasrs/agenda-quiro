@@ -25,14 +25,14 @@ public class CalendarResponseTest {
                                 .status(SlotStatus.FREE)
                                 .startTime(LocalTime.now())
                                 .endTime(LocalTime.now().plusHours(1))
-                                .description("descripton")
+                                .observation("descripton")
                                 .build(),
                         PeriodSlot.builder()
                                 .date(LocalDate.now())
                                 .status(SlotStatus.SCHEDULED)
                                 .startTime(LocalTime.now().plusHours(1))
                                 .endTime(LocalTime.now().plusHours(2))
-                                .description("descripton")
+                                .observation("descripton")
                                 .build()
                 ))
                 .build();

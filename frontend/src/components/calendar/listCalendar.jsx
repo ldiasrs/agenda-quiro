@@ -45,7 +45,15 @@ export const ListCalendar = ({history, match}) => {
 
     const filterCalendar = (periodSlot) => {
         if (!tableFilter) return true;
-        return ((periodSlot.description).includes(tableFilter))
+        return ((periodSlot.description
+            + periodSlot.clientName
+            + periodSlot.clientPhone
+            + periodSlot.observation
+            + periodSlot.serviceName
+            + statusNames[periodSlot.status]
+            + parseAndFormatDate(periodSlot.date)
+            + parseAndFormatHour(periodSlot.startTime)
+        ).includes(tableFilter))
     }
 
     const filterTableElements = () => {
@@ -59,7 +67,11 @@ export const ListCalendar = ({history, match}) => {
                     <td>{parseAndFormatHour(slot.startTime)}</td>
                     <td>{parseAndFormatHour(slot.endTime)}</td>
                     <td>{statusNames[slot.status]}</td>
-                    <td>{slot.description}</td>
+                    <td>{slot.serviceName}</td>
+                    <td>{slot.clientName}</td>
+                    <td>{slot.clientPhone}</td>
+                    <td>{slot.amountPaid}</td>
+                    <td>{slot.observation}</td>
                 </tr>
             )
     }
@@ -100,7 +112,11 @@ export const ListCalendar = ({history, match}) => {
                             <th>Inicio</th>
                             <th>Fim</th>
                             <th>Status</th>
-                            <th>Descrição</th>
+                            <th>Serviço</th>
+                            <th>Cliente</th>
+                            <th>Telefone</th>
+                            <th>Valor</th>
+                            <th>Observação</th>
                         </tr>
                         </thead>
                         <tbody>

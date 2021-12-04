@@ -40,7 +40,7 @@ public class FreeAppointmentsSlotsGenerator {
                             PeriodSlot.builder()
                                     .date(date)
                                     .startTime(startTime)
-                                    .description("--")
+                                    .observation("--")
                                     .status(SlotStatus.FREE)
                                     .endTime(endTime)
                                     .build()

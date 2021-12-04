@@ -3,6 +3,7 @@ package br.com.agendaquiro.controller.calendar;
 import br.com.agendaquiro.domain.calendar.SlotStatus;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -15,6 +16,10 @@ public class PeriodSlotResponse {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private String description;
+    private String observation;
+    private String clientName;
+    private String clientPhone;
+    private String serviceName;
     private SlotStatus status;
+    private BigDecimal amountPaid;
 }

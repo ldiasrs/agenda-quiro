@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,14 +20,18 @@ public class PeriodSlot {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private String description;
+    private String observation;
+    private String clientName;
+    private String clientPhone;
+    private String serviceName;
     private SlotStatus status;
+    private BigDecimal amountPaid;
 
     public PeriodSlot() {
         this.date =  LocalDate.now();
         this.startTime = LocalTime.now();
         this.endTime = LocalTime.now();
-        this.description = "--";
+        this.observation = "--";
         this.status = SlotStatus.FREE;
     }
 
@@ -34,12 +39,19 @@ public class PeriodSlot {
         List<PeriodSlot> slots = new ArrayList<>();
         if (appointments != null && !appointments.isEmpty()) {
             for (Appointment appointment : appointments) {
+                String serviceDescription = appointment.getProfessionalService().getServiceType().getDescription();
+                String clientName = appointment.getCustomer().getName();
+                String clientPhone = appointment.getCustomer().getPhone();
                 slots.add(PeriodSlot.builder()
                         .startTime(appointment.getStartTime().toLocalTime())
                         .endTime(appointment.getEndTime().toLocalTime())
                         .date(appointment.getStartTime().toLocalDate())
                         .status(SlotStatus.SCHEDULED)
-                        .description(appointment.getCustomer().getName())
+                        .clientName(clientName)
+                        .clientPhone(clientPhone)
+                        .serviceName(serviceDescription)
+                        .observation(appointment.getObservation())
+                        .amountPaid(appointment.getAmountPaid())
                         .build());
             }
         }
