@@ -1,6 +1,7 @@
 package br.com.agendaquiro.domain.appointment;
 
 import br.com.agendaquiro.TestDataBuilder;
+import br.com.agendaquiro.domain.audit.AuditRepository;
 import br.com.agendaquiro.domain.customer.CustomerCrudService;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalService;
 import br.com.agendaquiro.domain.professionalservice.ProfessionalServiceCrudService;
@@ -24,7 +25,8 @@ public class AppointmentServiceTest {
         appointmentRepository = mock(AppointmentRepository.class);
         CustomerCrudService customerCrudService = mock(CustomerCrudService.class);
         ProfessionalServiceCrudService professionalServiceCrudService = mock(ProfessionalServiceCrudService.class);
-        appointmentService = new AppointmentService(appointmentRepository, customerCrudService, professionalServiceCrudService);
+        AuditRepository auditRepository = mock(AuditRepository.class);
+        appointmentService = new AppointmentService(appointmentRepository, customerCrudService, professionalServiceCrudService, auditRepository);
     }
 
     @Test

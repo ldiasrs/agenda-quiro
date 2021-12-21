@@ -6,6 +6,7 @@ public final class PathMappings {
     public static final String AUTH_MAPPING="/auth/login";
 
     public static final String APPOINTMENTS ="/appointments";
+    public static final String APPOINTMENTS_DELETE ="/appointments/{id}";
 
     public static final String CALENDAR_FREE_SLOTS="/calendar/freeslots";
     public static final String CALENDAR="/calendar/{id}";

@@ -6,6 +6,7 @@ import {FaHammer} from "react-icons/fa";
 import {getLoginUseId} from "../../services/auth";
 import {isFreeStatus, statusNames} from "./statusNames";
 import {parseAndFormatDate, parseAndFormatHour} from "../utils/utilis";
+import {ConfirmationModal} from "../ConfirmationModal";
 
 
 export const ListCalendar = ({history, match}) => {
@@ -58,14 +59,23 @@ export const ListCalendar = ({history, match}) => {
 
     const getActionLink = (status, appointmentId) => {
         const isFreeSlot = isFreeStatus(status)
+        const destination = isFreeSlot ? '/agendar' : '#deleteServiceTypeModal-'+appointmentId
         const style = isFreeSlot ? "action-btn-green" : "action-btn-red"
-        return <Link to={getActionByAppointmentStatus(status, appointmentId)}
-                     className={"btn btn-sm btn-primary " + style}>{isFreeSlot ? "Agendar" : "Cancelar"}
-        </Link>
-    }
-
-    const getActionByAppointmentStatus = (status, id) => {
-        return isFreeStatus(status) ? '/agendar' : '/cancelarAgendamento?agendamentoId='+id
+        const actionLink = <a href={destination} data-toggle="modal">
+            <button className={"btn btn-sm btn-primary " + style} >{isFreeSlot ? "Agendar" : "Cancelar"}</button>
+        </a>
+        if (isFreeSlot) {
+            return actionLink
+        }
+        return <div>
+            {actionLink}
+            <ConfirmationModal
+                history={history}
+                deleteApiPath='/appointments'
+                listRoutePath='/agenda'
+                id={appointmentId}
+            />
+        </div>
     }
 
     const filterTableElements = () => {

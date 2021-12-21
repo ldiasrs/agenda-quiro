@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "users")
+@ToString
 public class User {
 
     @Id

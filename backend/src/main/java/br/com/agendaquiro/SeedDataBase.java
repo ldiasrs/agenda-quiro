@@ -249,7 +249,7 @@ public class SeedDataBase {
 
         //PERFORMED REGISTER
         PerformedAppointment perfomendAppointment = PerformedAppointment.builder()
-                .appointment(appointmentRepository.findById(1L).get())
+                .appointment(appointmentRepository.findById(3L).get())
                 .observations("")
                 .postServiceProcedures("")
                 .build();

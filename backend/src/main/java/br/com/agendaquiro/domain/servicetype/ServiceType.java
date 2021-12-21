@@ -8,6 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@ToString
 @Setter
 @Getter
 @Table(name = "service_type")

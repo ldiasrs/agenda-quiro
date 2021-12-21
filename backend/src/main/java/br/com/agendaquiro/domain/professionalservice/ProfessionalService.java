@@ -11,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString
 @Table(name = "PROFESSIONAL_SERVICE")
 public class ProfessionalService {
 

@@ -1,9 +1,6 @@
 package br.com.agendaquiro.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +9,7 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class MessageHttpResponse {
 	private String  message;
 	private Map<String, String> values;

@@ -29,6 +29,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<MessageHttpResponse> handleNoFound(NotFoundException exception) {
         HttpStatus returnStatus = HttpStatus.NOT_FOUND;
         MessageHttpResponse responseBody = buildErrorResponse(exception.getMessage());
+        LOGGER.debug(responseBody.toString());
         return new ResponseEntity<>(responseBody, returnStatus);
     }
 
@@ -36,6 +37,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<MessageHttpResponse> handleNoFound(BadRequestException exception) {
         HttpStatus returnStatus = HttpStatus.BAD_REQUEST;
         MessageHttpResponse responseBody = buildErrorResponse(exception.getMessage());
+        LOGGER.debug(responseBody.toString());
         return new ResponseEntity<>(responseBody, returnStatus);
     }
 

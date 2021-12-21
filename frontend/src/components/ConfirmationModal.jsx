@@ -1,14 +1,16 @@
 import api from "../services/api";
+import {getLoginUseId} from "../services/auth";
 
 export const ConfirmationModal = ({history, deleteApiPath, listRoutePath, id}) => {
 
+    const modalId = "deleteServiceTypeModal-"+id
     const handleDelete = async (e) => {
         console.log(history)
         e.preventDefault()
         try {
             const isEditMode = id;
             if (isEditMode) {
-                await api.delete(`${deleteApiPath}/${id}`)
+                await api.delete(`${deleteApiPath}/${id}?userId=${getLoginUseId()}`)
             }
             if (document.getElementById("deleteCustomerModal"))
                 document.getElementById("deleteCustomerModal").classList.remove("show", "d-block");
@@ -24,7 +26,7 @@ export const ConfirmationModal = ({history, deleteApiPath, listRoutePath, id}) =
     }
 
     return (
-        <div id="deleteServiceTypeModal" className="modal fade">
+        <div id={modalId} className="modal fade">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <form onSubmit={handleDelete}>

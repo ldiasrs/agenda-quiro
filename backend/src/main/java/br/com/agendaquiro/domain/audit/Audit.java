@@ -1,23 +1,23 @@
-package br.com.agendaquiro.domain.professsional;
+package br.com.agendaquiro.domain.audit;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
 @Entity
-@ToString
-@Table(name = "professional")
+@Table(name = "AUDIT")
 @Getter
 @Setter
-public class Professional {
+public class Audit {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-
-    private String name;
+    private LocalDateTime dateTime;
+    private String auditDescription;
 
 }
