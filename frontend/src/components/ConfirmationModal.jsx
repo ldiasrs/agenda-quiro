@@ -3,7 +3,7 @@ import {getLoginUseId} from "../services/auth";
 
 export const ConfirmationModal = ({history, deleteApiPath, listRoutePath, id}) => {
 
-    const modalId = "deleteServiceTypeModal-"+id
+    const modalId = "deleteServiceTypeModal-"+id||1
     const handleDelete = async (e) => {
         console.log(history)
         e.preventDefault()
@@ -12,13 +12,8 @@ export const ConfirmationModal = ({history, deleteApiPath, listRoutePath, id}) =
             if (isEditMode) {
                 await api.delete(`${deleteApiPath}/${id}?userId=${getLoginUseId()}`)
             }
-            if (document.getElementById("deleteCustomerModal"))
-                document.getElementById("deleteCustomerModal").classList.remove("show", "d-block");
-            document.querySelectorAll(".modal-backdrop")
-                .forEach(el => {
-                    if (el.classList) el.classList.remove("modal-backdrop")
-                });
             history.push(listRoutePath)
+            history.go()
         } catch (error) {
             console.log(error)
             alert("Ocorreu um erro: " + error);

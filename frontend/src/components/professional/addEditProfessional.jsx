@@ -58,7 +58,7 @@ export const AddEditProfessional = ({ history, match }) => {
                                        className="form-control" required/>
                             </div>
                         </div>
-                        <ModalFooter listRoutePath={listRoutePath}/>
+                        <ModalFooter listRoutePath={listRoutePath} id={id}/>
                     </form>
                 </div>
             </div>

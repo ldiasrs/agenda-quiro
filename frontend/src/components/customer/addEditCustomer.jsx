@@ -153,7 +153,7 @@ export const AddEditCustomer = ({ history, match }) => {
                                        required className="form-control"/>
                             </div>
                         </div>
-                        <ModalFooter listRoutePath={listRoutePath}/>
+                        <ModalFooter listRoutePath={listRoutePath} id={id}/>
                     </form>
                 </div>
             </div>
