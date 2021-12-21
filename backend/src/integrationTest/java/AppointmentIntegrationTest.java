@@ -1,15 +1,10 @@
 import br.com.agendaquiro.controller.calendar.CalendarResponse;
 import br.com.agendaquiro.controller.calendar.PeriodSlotResponse;
 import br.com.agendaquiro.domain.appointment.AppointmentCreateRequest;
-import br.com.agendaquiro.domain.customer.Customer;
-import org.json.JSONException;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class AppointmentIntegrationTest {

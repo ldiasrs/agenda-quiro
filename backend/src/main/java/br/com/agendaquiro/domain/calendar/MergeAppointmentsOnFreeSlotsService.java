@@ -11,32 +11,32 @@ public class MergeAppointmentsOnFreeSlotsService {
     public List<PeriodSlot> merge(List<PeriodSlot> freeSlots, List<PeriodSlot> appointments) {
         List<PeriodSlot> mergedSlots = new ArrayList<>();
         if (appointments != null && !appointments.isEmpty()) {
-            List<PeriodSlot> nonConflictedFreeSlots = addNonConflictedFreeSlots(freeSlots, appointments);
+            removeConflictedFreeSlots(freeSlots, appointments);
+            mergedSlots.addAll(freeSlots);
             mergedSlots.addAll(appointments);
-            mergedSlots.addAll(nonConflictedFreeSlots);
         } else {
             mergedSlots.addAll(freeSlots);
         }
         return mergedSlots;
     }
 
-    private List<PeriodSlot> addNonConflictedFreeSlots(List<PeriodSlot> freeSlots, List<PeriodSlot> appointments) {
-        List<PeriodSlot> merged = new ArrayList<>();
-        for (PeriodSlot freeSlot : freeSlots) {
-            for (PeriodSlot appointment : appointments) {
-                if(freeSlot.getDate().equals(appointment.getDate())) {
-                    if (rangesNotConflict(freeSlot, appointment)) {
-                        merged.add(freeSlot);
+    private void removeConflictedFreeSlots(List<PeriodSlot> freeSlots, List<PeriodSlot> appointments) {
+        List<PeriodSlot> conflictedSlots = new ArrayList<>();
+        for (PeriodSlot appointment : appointments) {
+            for (PeriodSlot freeSlot : freeSlots) {
+                if (freeSlot.getDate().equals(appointment.getDate())) {
+                    if (rangesConflict(freeSlot, appointment)) {
+                        conflictedSlots.add(freeSlot);
                     }
                 } else {
-                    merged.add(freeSlot);
+                    conflictedSlots.add(freeSlot);
                 }
             }
         }
-        return merged;
+        freeSlots.removeAll(conflictedSlots);
     }
 
-    private boolean rangesNotConflict(PeriodSlot a, PeriodSlot b) {
+    private boolean rangesConflict(PeriodSlot a, PeriodSlot b) {
         int aSt = a.getStartTime().toSecondOfDay();
         int aEd = a.getEndTime().toSecondOfDay();
         int bSt = b.getStartTime().toSecondOfDay();
@@ -46,11 +46,11 @@ public class MergeAppointmentsOnFreeSlotsService {
         boolean bStartIsNotARange = notIn(bSt, aSt, aEd);
         boolean bEndIsNotARange = notIn(bEd, aSt, aEd);
         boolean aStartNotEqualBStart = aSt != bSt;
-        return aStartIsNotBRange
+        return !(aStartIsNotBRange
                 && aEndIsNotBRange
                 && bStartIsNotARange
                 && bEndIsNotARange
-                && aStartNotEqualBStart;
+                && aStartNotEqualBStart);
 
     }
 

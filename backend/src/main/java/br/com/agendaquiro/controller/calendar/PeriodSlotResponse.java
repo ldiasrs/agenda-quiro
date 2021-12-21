@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class PeriodSlotResponse {
     private Long appointmentId;
     private SlotStatus status;

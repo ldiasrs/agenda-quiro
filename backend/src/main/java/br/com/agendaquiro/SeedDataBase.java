@@ -6,6 +6,7 @@ import br.com.agendaquiro.domain.appointment.PerformedAppointment;
 import br.com.agendaquiro.domain.appointment.PerformedAppointmentRepository;
 import br.com.agendaquiro.domain.calendar.Calendar;
 import br.com.agendaquiro.domain.calendar.CalendarService;
+import br.com.agendaquiro.domain.calendar.SlotStatus;
 import br.com.agendaquiro.domain.customer.Anamnesis;
 import br.com.agendaquiro.domain.customer.AnamnesisRepository;
 import br.com.agendaquiro.domain.customer.Customer;
@@ -60,7 +61,7 @@ public class SeedDataBase {
 
     @PostConstruct
     public void init() {
-        if(userRepository.findAll().iterator().hasNext()) {
+        if (userRepository.findAll().iterator().hasNext()) {
             return;
         }
         //USER
@@ -162,9 +163,9 @@ public class SeedDataBase {
 
         //TIME BLOCKED (PROFISSIONAL + SERVICE)
         ProfessionalBlockTimeConfig alineTimeBlocked = new TimeBlockedConfigBuilder(aline)
-                .blockAllDays(LocalTime.of(18,0), LocalTime.of(23,59))
-                .blockAllDays(LocalTime.of(00,00), LocalTime.of(10,0))
-                .blockAllDays(LocalTime.of(12,00), LocalTime.of(13,0))
+                .blockAllDays(LocalTime.of(18, 0), LocalTime.of(23, 59))
+                .blockAllDays(LocalTime.of(00, 00), LocalTime.of(10, 0))
+                .blockAllDays(LocalTime.of(12, 00), LocalTime.of(13, 0))
                 .blockSunday()
                 .blockSaturday()
                 .build();
@@ -200,7 +201,7 @@ public class SeedDataBase {
         for (int i = 0; i < 20; i++) {
             //CLIENTE
             Customer gabriel = Customer.builder()
-                    .email("gaby"+i+"@gmail.com")
+                    .email("gaby" + i + "@gmail.com")
                     .birthDate(LocalDate.now())
                     .cpf("009826257836")
                     .gender("male")
@@ -214,20 +215,23 @@ public class SeedDataBase {
 
         //APPOINTMENT
         LocalDateTime start = LocalDateTime.now().withSecond(0).withNano(0);
-        LocalDateTime end = start.plusMinutes(120);
+        LocalDateTime end = start.plusMinutes(240);
 
         Calendar calendarLeo = calendarService.getProfessionalCalendarOfUserByRange(leoUserProfessional, start, end);
-            calendarLeo.getPeriodSlots().forEach(periodSlot -> {
-            Appointment appointment = Appointment.builder()
-                    .professionalService(quiroLeo)
-                    .customer(nicole)
-                    .startTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getStartTime()))
-                    .endTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getEndTime()))
-                    .amountPaid(BigDecimal.ZERO)
-                    .observation("Paga na hora")
-                    .build();
-            appointmentRepository.save(appointment);
-        });
+        calendarLeo.getPeriodSlots().stream()
+                .filter(slot -> slot.getStatus().equals(SlotStatus.FREE))
+                .forEach(periodSlot ->
+                        appointmentRepository.save(
+                                Appointment.builder()
+                                        .professionalService(quiroLeo)
+                                        .customer(nicole)
+                                        .startTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getStartTime()))
+                                        .endTime(LocalTime.now().atDate(periodSlot.getDate()).with(periodSlot.getEndTime()))
+                                        .amountPaid(BigDecimal.ZERO)
+                                        .observation("Paga na hora")
+                                        .build()
+                        )
+                );
 
         Appointment appointmentLuana = Appointment.builder()
                 .professionalService(quiroAline)
