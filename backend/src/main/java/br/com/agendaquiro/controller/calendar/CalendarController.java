@@ -7,6 +7,7 @@ import br.com.agendaquiro.domain.professsional.Professional;
 import br.com.agendaquiro.domain.professsional.ProfessionalCrudService;
 import br.com.agendaquiro.domain.user.UserProfessional;
 import br.com.agendaquiro.domain.user.UserProfessionalRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,8 +63,8 @@ public class CalendarController extends BaseController {
     @GetMapping(CALENDAR_BY_USER)
     public ResponseEntity<CalendarResponse> getProfessionalCalendarByUser(
             @PathVariable Long id,
-            @RequestParam(value ="startPeriod", required = false) LocalDateTime startPeriod,
-            @RequestParam(value ="endPeriod", required = false) LocalDateTime endPeriod,
+            @RequestParam(value ="startPeriod", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startPeriod,
+            @RequestParam(value ="endPeriod", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endPeriod,
             @RequestParam(value ="searchTerm", required = false, defaultValue = "") String searchTerm) {
         List<UserProfessional> optionProfessional = userProfessionalRepository.findByUserId(id);
         if (optionProfessional==null || optionProfessional.isEmpty()) {
@@ -71,8 +74,8 @@ public class CalendarController extends BaseController {
         }
         Calendar calendar = calendarService.getProfessionalCalendarOfUserByRange(
                 optionProfessional.get(0),
-                startPeriod == null ?  LocalDateTime.now().minusDays(1).withSecond(0).withSecond(0) : startPeriod,
-                endPeriod == null ?  LocalDateTime.now().plusDays(1).withSecond(0).withSecond(0) : endPeriod);
+                startPeriod == null ?  LocalDateTime.now().minusDays(1).withSecond(0).withSecond(0) : startPeriod.atStartOfDay(),
+                endPeriod == null ?  LocalDateTime.now().plusDays(1).withSecond(0).withSecond(0) : endPeriod.atTime(LocalTime.MAX));
         return super.response(convertToRequestDto(calendar), HttpStatus.OK);
     }
 

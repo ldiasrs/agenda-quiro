@@ -7,26 +7,28 @@ import {getLoginUseId} from "../../services/auth";
 import {isFreeStatus, statusNames} from "./statusNames";
 import {parseAndFormatDate, parseAndFormatHour} from "../utils/utilis";
 import {ConfirmationModal} from "../ConfirmationModal";
+import DatePicker from "react-datepicker";
 
 
 export const ListCalendar = ({history, match}) => {
 
-
+    const endDateDefault = new Date();
+    endDateDefault.setDate(new Date().getDate() + 7)
     const search = useLocation().search;
     const searchTerm = new URLSearchParams(search).get('searchTerm');
-
     const [tableFilter, setTableFiler] = useState(undefined);
     const [calendarData, setCalendarData] = useState(undefined);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(endDateDefault);
 
     const fetchItems = async () => {
         try {
             console.log('searchTerm:' + searchTerm)
-            const currentDate = new Date();
             const params = {
-                startPeriod: undefined,
-                endPeriod: undefined
+                startPeriod:startDate.toISOString().split('T')[0],
+                endPeriod:endDate.toISOString().split('T')[0],
             };
-            console.log("params: " + params)
+            console.log(params)
             const userId = getLoginUseId();
             return await api.get(`/calendar/user/${userId}`, {params})
         } catch (error) {
@@ -37,7 +39,7 @@ export const ListCalendar = ({history, match}) => {
     useEffect(() => {
         async function fetchData() {
             const response = await fetchItems()
-            console.log("response: " + JSON.stringify(response.data))
+            console.log("response: " + JSON.stringify(response))
             setCalendarData(response.data)
         }
 
@@ -59,10 +61,10 @@ export const ListCalendar = ({history, match}) => {
 
     const getActionLink = (status, appointmentId) => {
         const isFreeSlot = isFreeStatus(status)
-        const destination = isFreeSlot ? '/agendar' : '#deleteServiceTypeModal-'+appointmentId
+        const destination = isFreeSlot ? '/agendar' : '#deleteServiceTypeModal-' + appointmentId
         const style = isFreeSlot ? "action-btn-green" : "action-btn-red"
         const actionLink = <a href={destination} data-toggle="modal">
-            <button className={"btn btn-sm btn-primary " + style} >{isFreeSlot ? "Agendar" : "Cancelar"}</button>
+            <button className={"btn btn-sm btn-primary " + style}>{isFreeSlot ? "Agendar" : "Cancelar"}</button>
         </a>
         if (isFreeSlot) {
             return actionLink
@@ -112,6 +114,16 @@ export const ListCalendar = ({history, match}) => {
 
                             <div className="col-sm-6">
                                 <form className="form-inline">
+                                    <div className="form-group">
+                                        <label>De</label>
+                                        <DatePicker dateFormat="dd/MM/yyyy" selected={startDate}
+                                                    onChange={(date) => setStartDate(date)}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Até</label>
+                                        <DatePicker dateFormat="dd/MM/yyyy" selected={endDate}
+                                                    onChange={(date) => setEndDate(date)}/>
+                                    </div>
                                     <div className="form-group">
                                         <input className="form-control" id="myInput" type="text"
                                                placeholder="Pesquisar..."
